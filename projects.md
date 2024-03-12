@@ -1,5 +1,5 @@
 Primeiro tdd com react
 
-segundo e terceiro com typescript
+segundo e terceiro tdd com node.js
 
 E o quarto o meu projeto
