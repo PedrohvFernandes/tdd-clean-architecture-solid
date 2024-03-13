@@ -8,9 +8,9 @@ Na aula 2 configurou as dependências e padronizou os commits:
 
 https://www.conventionalcommits.org/en/v1.0.0/ --> Basicamente ele padroniza a maneira de commitar os projetos.
 
-Podemos usar o npm i git-commit-msg-linter para facilitar a padronização dos commits. Basicamente ele impede de enviar algum commit sem estar no padrão. Obs: Ao usar o github desktop ele não funciona, da um erro de wsl, somente via CLI que está funcionando. https://github.com/legend80s/git-commit-msg-linter
+Podemos usar o npm i git-commit-msg-linter (parece com um pre-commit(tipo o husky https://jamiewen00.medium.com/integrate-commitlint-to-your-repository-67d6524d0d24 nesse caso aqui você consegue usar o github desktop)) para facilitar a padronização dos commits. Basicamente ele impede de enviar algum commit sem estar no padrão. Obs: Ao usar o github desktop ele não funciona, da um erro de wsl, somente via CLI que está funcionando. https://github.com/legend80s/git-commit-msg-linter
 
-padrão dos commits, ex: feat: add login button
+padrão dos commits, ex: feat: add login button.
 
 Se não fizer isso, dará esse erro:
 
@@ -54,5 +54,5 @@ Depois so abrir uma pr ou dar push direto pra raiz principal
 sequencia de commit CLI sem o uso de alias do professor:
 
 . Git add . --> todos os arquivos
-. git commit -m "feat: add login button" --> git commit ou git commit -a --> Se você tiver no windows ele vai abrir no editor de texto padrão que você definiu na instalação do git(no meu caso vs code) o arquivo COMMIT_EDITMSG.git, ai você coloca a mensagem de commit, salva e feche o arquivo, apos colocar o que deseja e fechar o arquivo,  ele ira fazer o commit automaticamente(https://stackoverflow.com/questions/30149132/multiline-git-commit-message-in-vscode ou https://github.com/stkb/Rewrap/wiki/Settings-VSCode#wrapping-to-rulers).(No video do diego rockeseat ele usa o vim no mac)
+. git commit -m "feat: add login button" --> git commit ou git commit -a --> Se você tiver no windows ele vai abrir no editor de texto padrão que você definiu na instalação do git(no meu caso vs code) o arquivo COMMIT_EDITMSG.git, ai você coloca a mensagem de commit, salva e feche o arquivo, apos colocar o que deseja e fechar o arquivo, ele ira fazer o commit automaticamente(https://stackoverflow.com/questions/30149132/multiline-git-commit-message-in-vscode ou https://github.com/stkb/Rewrap/wiki/Settings-VSCode#wrapping-to-rulers).(No video do diego rockeseat ele usa o vim no mac)
 . git push origin main --> empurra para o github ou cria uma pr(pull request)
