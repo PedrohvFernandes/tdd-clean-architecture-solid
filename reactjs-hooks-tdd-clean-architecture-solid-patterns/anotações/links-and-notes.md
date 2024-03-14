@@ -4,6 +4,32 @@ A uma certa diferença do projeto do professor para esse, basicamente libs, no m
 
 Na aula 1 introdução foi ensinando a criar alias para o Git para subir o projeto, facilitando os commits.
 
+Caso o git que você instalou colocou o editor padrão vim ou VI e quer usar o vscode para mudar basta colocar isso em algum terminal(cmd, vscode...) --> git config --global core.editor code --wait, com isso ele vai abrir o vscode para editar o commit.
+
+git config --global --edit --> Basta inserir isso em algum terminal. Com isso, ele abre o arquivo de configuração do git .gitconfig, onde você pode adicionar alias para comandos do git. Lembrando que a flag --global é para alterar do usuário, tem somente do projeto --local e do sistema --system todos os projetos e usuários da maquina.
+
+O professor criou uma pasta git-alias somente para demonstrar os commits usando esses atalhos que ele mesmo criou
+
+[alias(apelido)] --> Atalhos do git
+
+
+# Isso aqui por padrão envia as tags que você mesmo criou para o seu projeto. git tag "1.0" criamos uma tag para esse projeto, dando git tag conseguimos ver todas as tags criados do projeto, isso é mais para fins de versionamento. No git existe duas tags, a tag normal e a tag anotada --> git tag -a "1.0.1" -m "mensagem 1.0.1". Se dermos um git tag agora iremos ter duas tags. O git so recomenda usar a tag anotada, que pera marcar a release, ou seja, versionamento do projeto e enviar essas tags para o seu servidor, você nunca deve enviar tag normal para o seu servidor, mas caso queira so para fins de estudo, para desenvolvimento, colocando marcadores, por exemplo para marcar o fim de uma etapa  no seu git sem nenhum problema pode usar a tag normal, mas queira marcar uma release de um projeto usa a tag anotada. Com essa config followTags ele so envia para o servidor as tags anotadas, o que é o recomendado, todas as tags normais(suas) ele não envia para o servidor(REMENDADO PELO GIT)
+[push]
+followTags = true
+# Atalhos que são digitados no terminal, ex: git c, em vez de ter que digitar, git add . e depois git commit
+[alias]
+# A diferença é que o all pega tudo qualquer arquivo modifocado, não importa se você esteja em outra pasta. já o "." pega somente da onde você abriu o terminal
+# c = !git add .
+c = !git add --all && git commit -m
+# -s status reduzidos, caso queira mais detalhes so digitar git status no termianal
+s = !git status -s
+# o git log é muito confuso, com a flag --oneline é de forma mais resumida, mas o outline resume muita coisa, então nos iremos personalizar o nosso proprio log usando a flag --pretty=format. h minusculo é a hash do commit pequeno, o d é a onde foi feito a branch e a tag, s o texto do commit, cn nome da pessoa que fez o commit, cr a data relativa que foi feito o commit, e a cor %C(red)
+l = !git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr'
+# Ele junta um commit novo no commit anterior
+amend = !git add --all && git commit --amend --no-edit 
+# Esse comando basicamente conta os commits seguindo o padrão conventional commits, que basicamente são tipos de commits, ex: docs: feat: test: fix: --> Com isso ele conta os commits com base do tipo dele, ex: git count test
+count = !git shortlog -s --grep
+
 Na aula 2 configurou as dependências e padronizou os commits:
 
 https://www.conventionalcommits.org/en/v1.0.0/ --> Basicamente ele padroniza a maneira de commitar os projetos.
