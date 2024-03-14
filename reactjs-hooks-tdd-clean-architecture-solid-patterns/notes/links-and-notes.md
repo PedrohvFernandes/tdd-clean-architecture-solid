@@ -102,7 +102,47 @@ git push origin main
 
 ESLint. O ESLint implementa o processo de Linting, que é responsável por aplicar regras a uma base de código e destacar padrões ou códigos problemáticos, sem a necessidade do código ser executado
 
-@typescript-eslint/eslint-plugin@"^6.4.0" from eslint-config-standard-with-typescript@43.0.1 --> Como estou usando o vite ele por padrão usa @typescript-eslint/eslint-plugin, com isso é impossível de usar o eslint-config-standard-with-typescript, somente na sua versão eslint-config-standard-with-typescript@11
+Error: @typescript-eslint/eslint-plugin@"^6.4.0" from eslint-config-standard-with-typescript@43.0.1 --> Somente na sua versão eslint-config-standard-with-typescript@11 funciona com o Eslint @typescript-eslint/parser@7.1.1 e @typescript-eslint/eslint-plugin@7.1.1:
+npm i eslint-config-standard-with-typescript -D  
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE unable to resolve dependency tree
+npm ERR!
+npm ERR! While resolving: reactjs-hooks-tdd-clean-architecture-solid-patterns2@0.0.0
+npm ERR! Found: @typescript-eslint/eslint-plugin@7.2.0
+npm ERR! node_modules/@typescript-eslint/eslint-plugin
+npm ERR! dev @typescript-eslint/eslint-plugin@"^7.1.1" from the root project
+npm ERR!
+npm ERR! Could not resolve dependency:
+npm ERR! peer @typescript-eslint/eslint-plugin@"^6.4.0" from eslint-config-standard-with-typescript@43.0.1
+npm ERR! node_modules/eslint-config-standard-with-typescript
+npm ERR! dev eslint-config-standard-with-typescript@"\*" from the root project
+npm ERR!
+npm ERR! Fix the upstream dependency conflict, or retry
+npm ERR! this command with --force or --legacy-peer-deps
+npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+npm ERR!
+npm ERR!
+npm ERR! For a full report see:
+npm ERR! C:\Users\Pedro\AppData\Local\npm-cache_logs\2024-03-14T14_34_10_878Z-eresolve-report.txt
+
+npm ERR! A complete log of this run can be found in: C:\Users\Pedro\AppData\Local\npm-cache_logs\2024-03-14T14_34_10_878Z-debug-0.log
+
+npm ERR! ERESOLVE unable to resolve dependency tree
+npm ERR!
+npm ERR! While resolving: reactjs-hooks-tdd-clean-architecture-solid-patterns2@0.0.0
+npm ERR! Found: @typescript-eslint/parser@7.2.0
+npm ERR! node_modules/@typescript-eslint/parser
+npm ERR! dev @typescript-eslint/parser@"^7.1.1" from the root project
+npm ERR!
+npm ERR! Could not resolve dependency:
+...
+
+Se quiser usar a versão mais atual do standard você tera que que usar a versão 6.4.0 do @typescript-eslint/eslint-plugin e @typescript-eslint/parser, tanto um como o outro tem que estar na mesma versão(de acordo com o momento atual) https://www.npmjs.com/package/eslint-config-standard-with-typescript.
+
+Mas o problema que o 11 não suporta v3(https://github.com/typescript-eslint/typescript-eslint/issues/2077) do @typescript-eslint/eslint-plugin, @typescript-eslint/parser... dando o erro: error Definition for rule '@typescript-eslint/camelcase' was not found @typescript-eslint/camelcase
+
+Com isso, configuramos no arquivo .eslintrc.json/ts/js/cjs:"@typescript-eslint/camelcase": "off" para desabilitar o erro.
+
 
 npm i lint-staged husky -D --> Impede que façamos commits defeituosos em relação codigo
 
@@ -121,3 +161,22 @@ o arquivo junto com a lib lint-staged .lintstagedrc.json ela pega todos os arqui
 e agora vem o husky, precisamos colocar isso junto com o husky
 
 nele vamos definir hooks para o git, como o pre-commit, basicamente passamos um script para rodar no pre-commit, o lint-staged, toda vez que formos fazer um commit, o husky dispara esse pre-commit, antes do pre-commit rodar, ele executa o comando lint-staged, que nada mais é que o arquivo .lintstagedrc.json
+
+
+E por fim jest que tive que colocar .cjs
+
+em ts estava dando esse erro:
+
+Error: Jest: Failed to parse the TypeScript config file C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\jest.config.ts
+  Error: Jest: 'ts-node' is required for the TypeScript configuration files. Make sure it is installed      
+Error: Cannot find package 'ts-node' imported from C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\node_modules\jest-config\build\readConfigFileAndSetRootDir.js
+...
+
+em js
+
+Error: Jest: Failed to parse the TypeScript config file C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\jest.config.ts
+  Error: Jest: 'ts-node' is required for the TypeScript configuration files. Make sure it is installed
+Error: Cannot find package 'ts-node' imported from C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\node_modules\jest-config\build\readConfigFileAndSetRootDir.js
+    at readConfigFileAndSetRootDir (C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\node_modules\jest-config\build\readConfigFileAndSetRootDir.js:116:13)
+    at async readInitialOptions (C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\node_modules\jest-config\build\index.js:403:13)
+    ...
