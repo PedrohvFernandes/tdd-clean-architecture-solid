@@ -86,3 +86,6 @@ sequencia de commit CLI sem o uso de alias do professor:
 usando o alias:
 git c "feat: add login button" 
 git push origin main
+
+
+@typescript-eslint/eslint-plugin@"^6.4.0" from eslint-config-standard-with-typescript@43.0.1 --> Como estou usando o vite ele por padrão usa @typescript-eslint/eslint-plugin, com isso é impossível de usar o eslint-config-standard-with-typescript, somente na sua versão eslint-config-standard-with-typescript@11
