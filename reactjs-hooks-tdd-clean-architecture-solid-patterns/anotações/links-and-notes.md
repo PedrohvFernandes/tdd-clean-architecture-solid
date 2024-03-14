@@ -82,3 +82,7 @@ sequencia de commit CLI sem o uso de alias do professor:
 . Git add . --> todos os arquivos
 . git commit -m "feat: add login button" --> git commit ou git commit -a --> Se você tiver no windows ele vai abrir no editor de texto padrão que você definiu na instalação do git(no meu caso vs code) o arquivo COMMIT_EDITMSG.git, ai você coloca a mensagem de commit, salva e feche o arquivo, apos colocar o que deseja e fechar o arquivo, ele ira fazer o commit automaticamente(https://stackoverflow.com/questions/30149132/multiline-git-commit-message-in-vscode ou https://github.com/stkb/Rewrap/wiki/Settings-VSCode#wrapping-to-rulers).(No video do diego rockeseat ele usa o vim no mac)
 . git push origin main --> empurra para o github ou cria uma pr(pull request)
+
+usando o alias:
+git c "feat: add login button" 
+git push origin main

@@ -14,5 +14,9 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    // desabilita a config do eslint onde ele dita que so pode usar ou interface ou type
+    "@typescript-eslint/consistent-type-definitions": "off",
+    // ele não deixa fazer comparação que não seja booleana
+    "@typescript-eslint/strict-boolean-expressions": "off",
   },
 }
