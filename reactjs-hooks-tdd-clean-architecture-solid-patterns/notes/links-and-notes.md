@@ -12,22 +12,35 @@ O professor criou uma pasta git-alias somente para demonstrar os commits usando 
 
 [alias(apelido)] --> Atalhos do git
 
+# Isso aqui por padrão envia as tags que você mesmo criou para o seu projeto. git tag "1.0" criamos uma tag para esse projeto, dando git tag conseguimos ver todas as tags criados do projeto, isso é mais para fins de versionamento. No git existe duas tags, a tag normal e a tag anotada --> git tag -a "1.0.1" -m "mensagem 1.0.1". Se dermos um git tag agora iremos ter duas tags. O git so recomenda usar a tag anotada, que pera marcar a release, ou seja, versionamento do projeto e enviar essas tags para o seu servidor, você nunca deve enviar tag normal para o seu servidor, mas caso queira so para fins de estudo, para desenvolvimento, colocando marcadores, por exemplo para marcar o fim de uma etapa no seu git sem nenhum problema pode usar a tag normal, mas queira marcar uma release de um projeto usa a tag anotada. Com essa config followTags ele so envia para o servidor as tags anotadas, o que é o recomendado, todas as tags normais(suas) ele não envia para o servidor(REMENDADO PELO GIT)
 
-# Isso aqui por padrão envia as tags que você mesmo criou para o seu projeto. git tag "1.0" criamos uma tag para esse projeto, dando git tag conseguimos ver todas as tags criados do projeto, isso é mais para fins de versionamento. No git existe duas tags, a tag normal e a tag anotada --> git tag -a "1.0.1" -m "mensagem 1.0.1". Se dermos um git tag agora iremos ter duas tags. O git so recomenda usar a tag anotada, que pera marcar a release, ou seja, versionamento do projeto e enviar essas tags para o seu servidor, você nunca deve enviar tag normal para o seu servidor, mas caso queira so para fins de estudo, para desenvolvimento, colocando marcadores, por exemplo para marcar o fim de uma etapa  no seu git sem nenhum problema pode usar a tag normal, mas queira marcar uma release de um projeto usa a tag anotada. Com essa config followTags ele so envia para o servidor as tags anotadas, o que é o recomendado, todas as tags normais(suas) ele não envia para o servidor(REMENDADO PELO GIT)
 [push]
 followTags = true
+
 # Atalhos que são digitados no terminal, ex: git c, em vez de ter que digitar, git add . e depois git commit
+
 [alias]
+
 # A diferença é que o all pega tudo qualquer arquivo modifocado, não importa se você esteja em outra pasta. já o "." pega somente da onde você abriu o terminal
+
 # c = !git add .
+
 c = !git add --all && git commit -m
+
 # -s status reduzidos, caso queira mais detalhes so digitar git status no termianal
+
 s = !git status -s
+
 # o git log é muito confuso, com a flag --oneline é de forma mais resumida, mas o outline resume muita coisa, então nos iremos personalizar o nosso proprio log usando a flag --pretty=format. h minusculo é a hash do commit pequeno, o d é a onde foi feito a branch e a tag, s o texto do commit, cn nome da pessoa que fez o commit, cr a data relativa que foi feito o commit, e a cor %C(red)
+
 l = !git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr'
+
 # Ele junta um commit novo no commit anterior
-amend = !git add --all && git commit --amend --no-edit 
+
+amend = !git add --all && git commit --amend --no-edit
+
 # Esse comando basicamente conta os commits seguindo o padrão conventional commits, que basicamente são tipos de commits, ex: docs: feat: test: fix: --> Com isso ele conta os commits com base do tipo dele, ex: git count test
+
 count = !git shortlog -s --grep
 
 Na aula 2 configurou as dependências e padronizou os commits:
@@ -84,8 +97,27 @@ sequencia de commit CLI sem o uso de alias do professor:
 . git push origin main --> empurra para o github ou cria uma pr(pull request)
 
 usando o alias:
-git c "feat: add login button" 
+git c "feat: add login button"
 git push origin main
 
+ESLint. O ESLint implementa o processo de Linting, que é responsável por aplicar regras a uma base de código e destacar padrões ou códigos problemáticos, sem a necessidade do código ser executado
 
 @typescript-eslint/eslint-plugin@"^6.4.0" from eslint-config-standard-with-typescript@43.0.1 --> Como estou usando o vite ele por padrão usa @typescript-eslint/eslint-plugin, com isso é impossível de usar o eslint-config-standard-with-typescript, somente na sua versão eslint-config-standard-with-typescript@11
+
+npm i lint-staged husky -D --> Impede que façamos commits defeituosos em relação codigo
+
+o arquivo junto com a lib lint-staged .lintstagedrc.json ela pega todos os arquivos que esteja prontos para entrar no proximo commit, ou seja arquivos modificados, em cima desses arquivos queremos aplicar alguns scripts antes de fazer o commit, ex: eslint, prettier, testes, etc...
+
+{
+"\*.{js,jsx,ts,tsx}": [
+"eslint --fix",
+"prettier --write",
+"git add"
+]
+}
+
+"eslint 'src/\*\* --fix'" --> Basicamente o eslint tenta corrigir os arquivos antes de enviar
+
+e agora vem o husky, precisamos colocar isso junto com o husky
+
+nele vamos definir hooks para o git, como o pre-commit, basicamente passamos um script para rodar no pre-commit, o lint-staged, toda vez que formos fazer um commit, o husky dispara esse pre-commit, antes do pre-commit rodar, ele executa o comando lint-staged, que nada mais é que o arquivo .lintstagedrc.json
