@@ -1,30 +1,227 @@
-# React + TypeScript + Vite
+# Curso ReactJS, Hooks, TDD, Clean Architecture, SOLID e Patterns - Rodrigo manguinho
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Diferenças do meu projeto para o do professor:
 
-Currently, two official plugins are available:
+- A uma certa diferença do projeto do professor para esse, basicamente libs, no meu por exemplo estou usando o Vite, para não ter que baixar o create-react-app e o webpack...
+- Irei usar o Vite e talvez o Tailwind.css
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Aulas
+  ### 1. Introdução
+  #### Aula 1
+ -  Na aula 1 introdução foi ensinando a criar alias para o Git para subir o projeto, facilitando os commits.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+  - Caso o git que você instalou colocou o editor padrão vim ou VI e quer usar o vscode para mudar basta colocar isso em algum terminal(cmd, vscode...): ```git config --global core.editor code --wait```, com isso ele vai abrir o vscode para editar o commit.
 
-- Configure the top-level `parserOptions` property like this:
+  - ```git config --global --edit```: Basta inserir isso em algum terminal. Com isso, ele abre o arquivo de configuração do git *.gitconfig*, onde você pode adicionar alias para comandos do git. Lembrando que a flag ```--global``` é para alterar do usuário, tem somente do projeto ```--local``` e do sistema ```--system``` todos os projetos e usuários da maquina. Ex do *gitconfig em outras maquinas* e arquivo de exemplo do *.gitconfig* na pasta *note*.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+  - O professor criou uma pasta ```git-alias``` somente para demonstrar os commits usando esses atalhos que ele mesmo criou dentro do arquivo *.gitconfig* que ele abriu com o comando ```git config --global --edit```.:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+    > Alias(apelido): Atalhos do git
+      
+    ```bash
+      [push]
+      followTags = true
+      [alias]
+      c = !git add --all && git commit -m
+      s = !git status -s
+      l = !git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr'
+      amend = !git add --all && git commit --amend --no-edit
+      count = !git shortlog -s --grep
+    ```
+  #### Aula 2
+- Na aula 2 configurou as dependências e padronizou os commits:
+
+- [Conventionalcommits](https://www.conventionalcommits.org/en/v1.0.0/): Basicamente ele padroniza a maneira de commitar os projetos.
+
+- Podemos usar o ```npm i git-commit-msg-linter``` (parece com um pre-commit(tipo o husky: [Integrate-commitlint-to-your-repository](https://jamiewen00.medium.com/integrate-commitlint-to-your-repository-67d6524d0d24) nesse caso aqui você consegue usar o ```github desktop```)) para facilitar a padronização dos commits. Basicamente ele impede de enviar algum commit sem estar no padrão. Obs: Ao usar o github desktop ele não funciona, da um erro de *wsl*, somente via *CLI* que está funcionando: [Error-git-commit-msg-linter](https://github.com/legend80s/git-commit-msg-linter)
+
+- Padrão dos commits, ex: 
+  ```bash
+  feat: add login button.
+  ```
+
+- Se não fizer isso, dará esse erro:
+
+  ```bash
+  **\*\***\***\*\*** Mensagem de commit inválida **\*\***\*\***\*\***
+  mensagem de commit: sdfsdf
+  Comprimento inválido: Comprimento 6. Mensagem de commit não pode ser maior que 100 caracteres ou menor que 10
+  formato correto: <type>(scope): <subject>
+  exemplo: docs: atualiza o README com link para a nova documentação
+
+  type:
+  feat Adição de funcionalidade.
+  fix Correção de defeito.
+  docs Mudança em documentação.
+  style Mudança de formatação ou estilo, que não afeta a execução do código (espaço, tabulação, etc).
+  refactor Mudança na organização do código, que não afeta o comportamento existente.
+  test Adição ou mudança de um teste.
+  chore Adição ou mudança em script de build, que não afeta o código de produção.
+  perf Mudança de código para melhoria de desempenho.
+  ci Mudança de configuração de integração contínua.
+  build Mudança em arquivos de build ou em dependências externas.
+  temp Commit temporário, que não deve ser incluído no CHANGELOG.
+
+  scope:
+  Opcional, pode ser qualquer coisa que especifique o escopo da mudança.
+  Exemplos: subpacote, workspace, módulo, componente, página.
+
+  subject:
+  Breve resumo da mudança, escrito no tempo verbal presente. Começa com letra minúscula e não há ponto final.
+
+  ```
+
+- [Essa é a forma que eu crio meus commits (conventional commits) - Rocketseat](https://www.youtube.com/watch?v=sStBPj7JJpM)
+- Como deve ser os commits:
+
+  - O commit tem que ser o mais simples possível.
+  - A mensagem commit você tem que ler da seguinte forma: "Se aplicado, esse commit vai..." e ai mensagem de commit tem que continuar a frase, por isso a mensagem de commit nunca é no passado.
+    - Errado: "added support to spanish on uploads"
+    - Certo: "add support to spanish on uploads"
+
+  - Na mensagem de commit você não coloca explicação da motivação de estar criando esse commit, a motivação(por que você esta fazendo esse commit) e o que esse commit faz(explicação) vem na descrição pode ser feito em Ingles ou Portuguese.
+
+  - Depois so abrir uma pr ou dar push direto pra raiz principal
+
+- sequencia de commit CLI sem o uso de alias do professor:
+  ```bash
+  # Todos os arquivos
+  Git add . 
+
+  # git commit ou git commit -a: Se você tiver no windows ele vai abrir no editor de texto padrão que você definiu na instalação do git(no meu caso vs code) o arquivo COMMIT_EDITMSG.git, ai você coloca a mensagem de commit, salva e feche o arquivo, apos colocar o que deseja e fechar o arquivo, ele ira fazer o [commit automaticamente](https://stackoverflow.com/questions/30149132/multiline-git-commit-message-in-vscode ou https://github.com/stkb/Rewrap/wiki/Settings-VSCode#wrapping-to-rulers).(No video do diego rockeseat ele usa o vim no mac)
+  Git commit -m "feat: add login button"
+
+  # git push origin main: empurra para o github ou cria uma pr(pull request)
+  Git push origin main
+  ```
+- Usando os alias:
+
+  ```bash
+  Git c "feat: add login button"
+  Git push origin main
+  ```
+
+- ESLint. O ESLint implementa o processo de Linting, que é responsável por aplicar regras a uma base de código e destacar padrões ou códigos problemáticos, sem a necessidade do código ser executado
+
+- Error: ```@typescript-eslint/eslint-plugin@"^6.4.0" from eslint-config-standard-with-typescript@43.0.1```: Somente na sua versão ```eslint-config-standard-with-typescript@11``` funciona com o Eslint ```@typescript-eslint/parser@7.1.1``` e ```@typescript-eslint/eslint-plugin@7.1.1```:
+
+  ```bash
+  npm i eslint-config-standard-with-typescript -D  
+  npm ERR! code ERESOLVE
+  npm ERR! ERESOLVE unable to resolve dependency tree
+  npm ERR!
+  npm ERR! While resolving: reactjs-hooks-tdd-clean-architecture-solid-patterns2@0.0.0
+  npm ERR! Found: @typescript-eslint/eslint-plugin@7.2.0
+  npm ERR! node_modules/@typescript-eslint/eslint-plugin
+  npm ERR! dev @typescript-eslint/eslint-plugin@"^7.1.1" from the root project
+  npm ERR!
+  npm ERR! Could not resolve dependency:
+  npm ERR! peer @typescript-eslint/eslint-plugin@"^6.4.0" from eslint-config-standard-with-typescript@43.0.1
+  npm ERR! node_modules/eslint-config-standard-with-typescript
+  npm ERR! dev eslint-config-standard-with-typescript@"\*" from the root project
+  npm ERR!
+  npm ERR! Fix the upstream dependency conflict, or retry
+  npm ERR! this command with --force or --legacy-peer-deps
+  npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+  npm ERR!
+  npm ERR!
+  npm ERR! For a full report see:
+  npm ERR! C:\Users\Pedro\AppData\Local\npm-cache_logs\2024-03-14T14_34_10_878Z-eresolve-report.txt
+
+  npm ERR! A complete log of this run can be found in: C:\Users\Pedro\AppData\Local\npm-cache_logs\2024-03-14T14_34_10_878Z-debug-0.log
+
+  npm ERR! ERESOLVE unable to resolve dependency tree
+  npm ERR!
+  npm ERR! While resolving: reactjs-hooks-tdd-clean-architecture-solid-patterns2@0.0.0
+  npm ERR! Found: @typescript-eslint/parser@7.2.0
+  npm ERR! node_modules/@typescript-eslint/parser
+  npm ERR! dev @typescript-eslint/parser@"^7.1.1" from the root project
+  npm ERR!
+  npm ERR! Could not resolve dependency:
+  ...
+  ```
+- Se quiser usar a versão mais atual do standard você tera que que usar a versão 6.4.0 do @typescript-eslint/eslint-plugin e @typescript-eslint/parser, tanto um como o outro tem que estar na mesma versão(de acordo com o momento atual) https://www.npmjs.com/package/eslint-config-standard-with-typescript.
+
+- Mas o problema que o 11 não suporta v3(https://github.com/typescript-eslint/typescript-eslint/issues/2077) do @typescript-eslint/eslint-plugin, @typescript-eslint/parser... dando o erro: error Definition for rule '@typescript-eslint/camelcase' was not found @typescript-eslint/camelcase
+
+- Com isso, configuramos no arquivo .eslintrc.json/ts/js/cjs:"@typescript-eslint/camelcase": "off" para desabilitar o erro.
+
+
+- ```npm i lint-staged husky -D```: Impede que façamos commits defeituosos em relação codigo
+
+- o arquivo junto com a *lib lint-staged .lintstagedrc.json* ela pega todos os arquivos que esteja prontos para entrar no proximo commit, ou seja, arquivos modificados, em cima desses arquivos queremos aplicar alguns scripts antes de fazer o commit, ex: eslint, prettier, testes, etc...
+  ``` bash
+  {
+    "\*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  }
+  ```
+
+- ```"eslint 'src/\*\* --fix'"```: Basicamente o eslint tenta corrigir os arquivos antes de enviar
+
+- E agora vem o husky, precisamos colocar isso junto com o husky
+
+- Nele vamos definir hooks para o git, como o pre-commit, basicamente passamos um script para rodar no pre-commit, o lint-staged, toda vez que formos fazer um commit, o husky dispara esse pre-commit, antes do pre-commit rodar, ele executa o comando lint-staged, que nada mais é que o arquivo .lintstagedrc.json
+
+
+- E por fim jest que tive que colocar .cjs, em ts estava dando esse erro ao tentar rodar os testes:
+  ```bash
+
+      Error: Jest: Failed to parse the TypeScript config file C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\jest.config.ts
+        Error: Jest: 'ts-node' is required for the TypeScript configuration files. Make sure it is installed      
+      Error: Cannot find package 'ts-node' imported from C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\node_modules\jest-config\build\readConfigFileAndSetRootDir.js
+      ...
+  ```
+- Em js
+  ```bash
+  Error: Jest: Failed to parse the TypeScript config file C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\jest.config.ts
+    Error: Jest: 'ts-node' is required for the TypeScript configuration files. Make sure it is installed
+  Error: Cannot find package 'ts-node' imported from C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\node_modules\jest-config\build\readConfigFileAndSetRootDir.js
+      at readConfigFileAndSetRootDir (C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\node_modules\jest-config\build\readConfigFileAndSetRootDir.js:116:13)
+      at async readInitialOptions (C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\node_modules\jest-config\build\index.js:403:13)
+      ...
+  ```
+  ## Tecnologias:
+  - Vite
+  - React
+  - Typescript
+  - Jest
+  - Eslint
+  - Husky
+  - Lint-staged
+  - Git-commit-msg-linter
+  - Conventionalcommits
+  - Clean Architecture
+  - Solid
+
+  ## Comandos:
+  ```bash
+      # Inicia o projeto
+      dev: vite
+      # Builda usando a ferramenta vite build e tsc
+      build: tsc && vite build
+      # Linta o projeto
+      lint: eslint . --ext ts, tsx --report-unused-disable-directives --max-warnings 0
+      preview: vite preview\
+      # Testa tudo que for testável
+      test: jest
+  ```
+
+  ## Ordem de execução:
+  ```bash
+      # Instalar dependências
+      npm i
+      
+      # Inicia o projeto
+      npm run dev
+
+      # Testar o projeto
+      npm run test
+
+      # Verificar se os arquivos estão em ordem
+      npm run lint
+  ```
