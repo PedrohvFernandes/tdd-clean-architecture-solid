@@ -227,7 +227,7 @@
     npm run lint:fix ou npm lint:fix
     npm run test ou npm test
   ```
-  - Tenha em mente que a pasta *.git* esteja a onde você que usar o husky, pois ele cria uma pasta .git/hooks, que é onde ele vai colocar os hooks, se não tiver a pasta .git, ele não vai funcionar. Por exemplo se no repositório você criou uma sub pasta para fazer front e a api, dentro do front e api não vai possui a pasta .git, porque o .git fica na raiz de tudo, ou seja, na pasta do projeto do repositório, antes de entrar nas subs pastas que você criou. Para ver ela basta abrir o projeto no windows explorer e habilitar a opção de mostrar pastas ocultas. Se não tiver ele vai dar esse erro quando tentar dar um npm run prepare:
+  - Tenha em mente que a pasta *.git* esteja a onde você quer usar o husky, pois ele cria uma pasta .git/hooks, que é onde ele vai colocar os hooks, se não tiver a pasta .git, ele não vai funcionar. Por exemplo se no repositório você criou umas subs pastas para fazer front e a api, dentro do front e api não vai possui a pasta .git, porque o .git fica na raiz de tudo, ou seja, na pasta do projeto do repositório, antes de entrar nas subs pastas que você criou. Para ver ela basta abrir o projeto no windows explorer e habilitar a opção de mostrar pastas ocultas. Se não tiver ele vai dar esse erro quando tentar dar um npm run prepare:
   ```bash
   npm run prepare           
 
@@ -292,7 +292,7 @@
 ```bash
   npm uninstall eslint-config-standard-with-typescript eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-standard 
 ```
-- Por fim pro eslint eu mudou o tipo do arquivo dele para .json e estendo minha config do React
+- Por fim pro arquivo do eslint eu mudou o tipo do arquivo dele para .json e estendo minha config do React
 
 - E por fim jest que tive que colocar .cjs, em ts estava dando esse erro ao tentar rodar os testes:
   ```bash
