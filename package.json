@@ -8,7 +8,10 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
     "preview": "vite preview",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
+    "test:watch": "npm test -- --watch",
+    "test:staged": "npm test -- --findRelatedTests",
+    "test:ci": "npm test -- --coverage",
     "prepare": "husky"
   },
   "dependencies": {
@@ -17,7 +20,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@pedrohvfernandes/eslint-config": "^0.1.1",
+    "@pedrohvfernandes/eslint-config": "^0.1.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.26",
     "@types/react": "^18.2.64",

@@ -312,6 +312,36 @@
       at async readInitialOptions (C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\node_modules\jest-config\build\index.js:403:13)
       ...
   ```
+  #### Aula 3
+  - Programação
+  - Scripts de teste: 
+  ```bash
+  # Teste base
+  # --passWithNoTests: Passa se não tiver testes, caso mexemos em um arquivo que não tem teste, ele vai passar
+    "test": "jest --passWithNoTests",
+   
+  # Todos esses testes vão herdar do base
+
+  # Com -- ele herda o que tem no outro e roda o que tem em seguida no caso o --watch
+    "test:watch": "npm test -- --watch",
+  
+  # Ele procura dentro de arquivos pro proximo commit testes relacionados a esses arquivos, e so vai rodar esses testes desses arquivos que estão indo para o proximo commit, para prevenir de rodar todos os testes do sistema
+    "test:staged": "npm test -- --findRelatedTests",
+
+  # Coverage para obter cobertura de teste, rodamos antes de fazer um push para o github
+    "test:ci": "npm test -- --coverage",
+  ```
+- No meu *.lintstagedrc.json* eu coloquei o comando do jest para rodar os testes antes de fazer o commit de arquivos alterados(Somente deles):
+  ```bash
+    {
+      "*/**/*.{ts,tsx}": [
+          "eslint src/**/*.{ts,tsx} --fix",
+          "npm run test:staged"
+      ]
+    }
+  ```
+- Na pasta *.husky* colocamos o hook pre push que roda o script ```npm run test:ci``` antes de fazer o push para o github, que vai gerar a cobertura de testes
+
   ## Tecnologias:
   - Vite
   - React

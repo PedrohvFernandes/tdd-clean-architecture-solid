@@ -1,5 +1,6 @@
 {
   "*/**/*.{ts,tsx}": [
-      "eslint src/**/*.{ts,tsx} --fix"
+      "eslint src/**/*.{ts,tsx} --fix",
+      "npm run test:staged"
   ]
 }

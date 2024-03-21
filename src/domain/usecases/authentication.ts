@@ -1,3 +1,4 @@
+import { AccountModel } from 'domain/models'
 /*
   Primeiro caso uso que vamos ter, a nossa regra de negocio, a nossa regra de autenticação  vai ser somente uma interface/abstração e vamos ter a implementação na layer de data
 
@@ -5,7 +6,6 @@
 
   E precisamos receber um token de acesso - objeto - Que vai conter os dados da conta do usuario, porem a rota que iremos trabalhar so espoem o token e não os dados da conta do usuario(todos os objetos)
 */
-import { AccountModel } from 'domain/models'
 
 // Type alias, colocando os params em um objeto
 type AuthenticationParams = {
