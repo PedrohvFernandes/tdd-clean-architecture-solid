@@ -237,10 +237,10 @@
     .git can't be found
     ```
   - Links de ajuda para instalar o Husky(Algumas coisas estão desatualizadas, mas ajudaram a tomar um norte):
-   - [Husky e lint-staged para pré-commit em React](https://dev.to/griseduardo/husky-e-lint-staged-para-pre-commit-em-react-2l26)
-   - [Lint-staged + Husky](https://valchan.com.br/lint-staged-husky/)
-   - [Setting up a ESLint, Prettier, Husky and lint-staged Integration with TypeScript in Next.js 13 | 14](https://medium.com/yavar/setting-up-a-eslint-prettier-husky-and-lint-staged-integration-with-typescript-in-next-js-13-14-68044dfae920)
-   - [O que mudou no script](https://github.com/typicode/husky/releases/tag/v9.0.1)
+     - [Husky e lint-staged para pré-commit em React](https://dev.to/griseduardo/husky-e-lint-staged-para-pre-commit-em-react-2l26)
+     - [Lint-staged + Husky](https://valchan.com.br/lint-staged-husky/)
+     - [Setting up a ESLint, Prettier, Husky and lint-staged Integration with TypeScript in Next.js 13 | 14](https://medium.com/yavar/setting-up-a-eslint-prettier-husky-and-lint-staged-integration-with-typescript-in-next-js-13-14-68044dfae920)
+     - [O que mudou no script](https://github.com/typicode/husky/releases/tag/v9.0.1)
   
   - Por fim o Husky agora funciona no projeto, mas o eslint que o professor configurou esta todo desatualizando:
     ```bash
@@ -289,11 +289,11 @@
         },
       }
     ```
-- Vou usar um pacote meu para configurar o eslint: ```npm i @pedrohvfernandes/eslint-config``` e dar uninstall:
-  ```bash
-    npm uninstall eslint-config-standard-with-typescript eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-standard @typescript-eslint/eslint-plugin @typescript-eslint/parser
-  ```
-- Por fim pro arquivo do eslint eu mudou o tipo do arquivo dele para .json e estendo minha config do React
+  - Vou usar um pacote meu para configurar o eslint: ```npm i @pedrohvfernandes/eslint-config``` e dar uninstall:
+    ```bash
+      npm uninstall eslint-config-standard-with-typescript eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-standard @typescript-eslint/eslint-plugin @typescript-eslint/parser
+    ```
+  - Por fim pro arquivo do eslint eu mudou o tipo do arquivo dele para .json e estendo minha config do React
 
 - E por fim jest que tive que colocar .cjs, em ts estava dando esse erro ao tentar rodar os testes:
   ```bash
