@@ -1,0 +1,9 @@
+# Não iremos fazer o lint dessas pastas:
+node_modules
+.vscode
+coverage
+public
+dist
+*.scss
+*.json
+notes
