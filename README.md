@@ -290,9 +290,9 @@
     }
   ```
 - Vou usar um pacote meu para configurar o eslint: ```npm i @pedrohvfernandes/eslint-config``` e dar uninstall:
-```bash
-  npm uninstall eslint-config-standard-with-typescript eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-standard @typescript-eslint/eslint-plugin @typescript-eslint/parser
-```
+  ```bash
+    npm uninstall eslint-config-standard-with-typescript eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-standard @typescript-eslint/eslint-plugin @typescript-eslint/parser
+  ```
 - Por fim pro arquivo do eslint eu mudou o tipo do arquivo dele para .json e estendo minha config do React
 
 - E por fim jest que tive que colocar .cjs, em ts estava dando esse erro ao tentar rodar os testes:
@@ -329,20 +329,31 @@
   ```bash
       # Inicia o projeto
       dev: vite
+
       # Builda usando a ferramenta vite build e tsc
       build: tsc && vite build
+
       # Linta o projeto
       lint: eslint . --ext ts, tsx --report-unused-disable-directives --max-warnings 0
-      preview: vite preview\
+      lint:fix: eslint src/**/*.{ts,tsx} --fix
+
+      preview: vite preview
+
       # Testa tudo que for testável
       test: jest
+
+      #Do husky
+      prepare: husky
   ```
 
   ## Ordem de execução:
   ```bash
       # Instalar dependências
       npm i
-      
+
+      # Pre commits
+      npm run prepare
+
       # Inicia o projeto
       npm run dev
 
@@ -351,4 +362,5 @@
 
       # Verificar se os arquivos estão em ordem
       npm run lint
+      npm run lint:fix
   ```
