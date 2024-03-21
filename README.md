@@ -240,6 +240,7 @@
    - [Husky e lint-staged para pré-commit em React](https://dev.to/griseduardo/husky-e-lint-staged-para-pre-commit-em-react-2l26)
    - [Lint-staged + Husky](https://valchan.com.br/lint-staged-husky/)
    - [Setting up a ESLint, Prettier, Husky and lint-staged Integration with TypeScript in Next.js 13 | 14](https://medium.com/yavar/setting-up-a-eslint-prettier-husky-and-lint-staged-integration-with-typescript-in-next-js-13-14-68044dfae920)
+   - [O que mudou no script](https://github.com/typicode/husky/releases/tag/v9.0.1)
   
   - Por fim o Husky agora funciona no projeto, mas o eslint que o professor configurou esta todo desatualizando:
   ```bash
