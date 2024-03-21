@@ -291,7 +291,7 @@
   ```
 - Vou usar um pacote meu para configurar o eslint: ```npm i @pedrohvfernandes/eslint-config``` e dar uninstall:
 ```bash
-  npm uninstall eslint-config-standard-with-typescript eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-standard 
+  npm uninstall eslint-config-standard-with-typescript eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-standard @typescript-eslint/eslint-plugin @typescript-eslint/parser
 ```
 - Por fim pro arquivo do eslint eu mudou o tipo do arquivo dele para .json e estendo minha config do React
 
