@@ -12,7 +12,7 @@ export class RemoteAuthentication {
   ) {}
 
   async auth(): Promise<void> {
-    // Não sabemos como esse post vai ser implementado, só sabemos que ele vai ser implementado no infra
+    // Não sabemos como esse post vai ser implementado, só sabemos que ele vai ser implementado no infra e pela camada de teste, tanto que podemos receber um httPostSpy como um httpAxiosPost(Nome de classe de exemplo implementada no infra layer)
     await this.httpPostClient.post(this.url)
   }
 }
