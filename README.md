@@ -383,6 +383,7 @@
   ```
   #### Aula 2
   - Instalando a lib faker, para mocar os dados/valores na parte de teste ```npm install --save-dev @faker-js/faker``` O ```npm i -D faker @types/faker``` foi descontinuado
+  - Devemos fazer as refatorações necessárias/identificado quando o teste esta no verde, antes de começar de escrever o proximo teste
 
   ## Tecnologias:
   - Vite
