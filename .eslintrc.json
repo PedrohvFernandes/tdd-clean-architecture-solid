@@ -1,3 +1,6 @@
 {
-  "extends": "@pedrohvfernandes/eslint-config/myconfigreact"
+  "extends": "@pedrohvfernandes/eslint-config/myconfigreact",
+  "rules": {
+    "no-useless-constructor": 0
+  }
 }

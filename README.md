@@ -312,7 +312,9 @@
       at async readInitialOptions (C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\reactjs-hooks-tdd-clean-architecture-solid-patterns\node_modules\jest-config\build\index.js:403:13)
       ...
   ```
-  #### Aula 3
+  ### 2. Login - Domain e Data Layer
+
+  #### Aula 1
 - Programação
 - Scripts de teste: 
   ```bash
@@ -379,6 +381,8 @@
     husky - pre-push script failed (code 1)
     error: failed to push some refs to 'https://github.com/PedrohvFernandes/tdd-clean-architecture-solid.git'
   ```
+  #### Aula 2
+  - Instalando a lib faker, para mocar os dados/valores na parte de teste ```npm install --save-dev @faker-js/faker``` O ```npm i -D faker @types/faker``` foi descontinuado
 
   ## Tecnologias:
   - Vite
@@ -392,6 +396,7 @@
   - Conventionalcommits
   - Clean Architecture
   - Solid
+  - Faker
 
   ## Comandos:
   ```bash
