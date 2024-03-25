@@ -1,5 +1,5 @@
 /*
-  Dentro da pasta do test vamos colocar todas as versões spy que são tipo as implementações da camada de infra usando a interface do data layer, logo as spy são consideradas como um mock, são as versões mocadas do spy, porque quase todos os casos de uso vão utilizar httpClient --> Post, get... então nada melhor que separar e se tornar algo único para reaproveitar esse mock em vários lugares
+  Dentro da pasta do test vamos colocar todas as versões spy que são tipo as implementações da camada de infra para data usando a interface do data layer, logo as spy são consideradas como um mock, são as versões mocadas Spy da verdadeira implementação na camada de infra, porque quase todos os casos de uso vão utilizar httpClient --> Post, get... então nada melhor que separar e se tornar algo único para reaproveitar esse mock em vários lugares
 
   Aqui vamos colocar todos os mocks que tiverem haver com httpclient, não precisa ser so o post, pode ser o get, put, delete, patch, etc...
 */
@@ -16,9 +16,12 @@ import { HttpPostClient, HttpPostParams } from 'data/protocols/http'
 */
 class HttpPostClientSpy implements HttpPostClient {
   url?: string
+  // Object porque pode ter qualquer coisa, email, senha, token, etc...
+  body?: object
 
   async post(params: HttpPostParams): Promise<void> {
     this.url = params.url
+    this.body = params.body
     return Promise.resolve()
   }
 }
