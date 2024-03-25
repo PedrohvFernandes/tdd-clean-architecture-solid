@@ -13,6 +13,8 @@ import { HttpPostClient, HttpPostParams } from 'data/protocols/http'
   Ele cria variáveis auxiliareis para capturar valores para fazer comparação
 
   basicamente ele substitui a implementação original por outra que vai nos ajudar a testar, uma classe/arquivo de teste, ele faz o papel do infra que "implementa" a interface do data layer
+
+  Basicamente essa é a implementação do post fake
 */
 class HttpPostClientSpy implements HttpPostClient {
   url?: string
