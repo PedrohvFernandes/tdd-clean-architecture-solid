@@ -15,7 +15,7 @@ type SutTypes = {
 
 // Criamos um factory(design pattern) para criar o SUT, para evitar de ficar mudando o construtor toda vez que precisar mudar algo, porque aos poucos vai ter mais dependências e evitar de modificar a implementação do SUT toda vez que precisar mudar algo, usamos esse design pattern para evitar isso. Ele gera o SUT tendo acesso a todas as dependências que ele precisa, e se precisar mudar algo, muda só no factory
 // Como a url não vamos se preocupar com ele em nenhum teste, somente com o correct URL  para garantir a integração dele, então injetamos a url como parametro, colocando um valor padrão, porque tanto faz o valor, porque não estamos testando a url de fato, mas sim se o método foi chamado com o valor correto, logo quando for testar outra coisa não precisa ficar passando a url pro makeSut
-// Usamos o faker para gerar uma URL "valida", em vez de setar qual string 'any_url'
+// Usamos o faker para gerar uma URL "valida", em vez de setar qualquer string 'any_url'
 const makeSut = (url: string = faker.internet.url()): SutTypes => {
   // Mock
   // Vamos criar um mock para testar, se o retorno funciona e se o remote vai funcionar com a resposta dele
@@ -37,7 +37,7 @@ describe('RemoteAuthentication', () => {
     // Criamos a url somente para injetar no make sut
     // const url = 'other_url'
 
-    // Usando o faker para gerar uma URL "valida", em vez de setar qual string
+    // Usando o faker para gerar uma URL "valida", em vez de setar qualquer string
     const url = faker.internet.url()
 
     const { sut, httpPostClientSpy } = makeSut(url)
