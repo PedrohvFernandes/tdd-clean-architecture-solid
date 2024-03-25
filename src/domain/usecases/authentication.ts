@@ -7,8 +7,8 @@ import { AccountModel } from 'domain/models'
   E precisamos receber um token de acesso - objeto - Que vai conter os dados da conta do usuario, porem a rota que iremos trabalhar so espoem o token e não os dados da conta do usuario(todos os objetos)
 */
 
-// Type alias, colocando os params em um objeto
-type AuthenticationParams = {
+// Type alias, colocando os params em um objeto, o body da requisição vai ser esse obj.
+export type AuthenticationParams = {
   email: string
   password: string
 }
