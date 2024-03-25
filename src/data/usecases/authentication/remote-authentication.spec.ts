@@ -1,6 +1,8 @@
 import { HttpPostClientSpy } from '../../test/mock-http-client'
 import { RemoteAuthentication } from './remote-authentication'
 
+import { faker } from '@faker-js/faker'
+
 // Podemos ter diversos testes de authentication, tendo um arquivo para cada teste
 // Esse caso vamos pegar de uma api por isso remote, poderia ter um local authentication que pegaria os dados de um cash.
 
@@ -12,7 +14,8 @@ type SutTypes = {
 
 // Criamos um factory(design pattern) para criar o SUT, para evitar de ficar mudando o construtor toda vez que precisar mudar algo, porque aos poucos vai ter mais dependências e evitar de modificar a implementação do SUT toda vez que precisar mudar algo, usamos esse design pattern para evitar isso. Ele gera o SUT tendo acesso a todas as dependências que ele precisa, e se precisar mudar algo, muda só no factory
 // Como a url não vamos se preocupar com ele em nenhum teste, somente com esse para garantir a integração dele, então injetamos a url como parametro, colocando um valor padrão, porque tanto faz o valor, porque não estamos testando a url de fato, mas sim se o método foi chamado com o valor correto
-const makeSut = (url: string = 'any_url'): SutTypes => {
+// Usamos o faker para gerar uma URL "valida", em vez de setar qual string 'any_url'
+const makeSut = (url: string = faker.internet.url()): SutTypes => {
   // Mock
   // Vamos criar um mock para testar, se o retorno funciona e se o remote vai funcionar com a resposta dele
   // Helper
@@ -31,7 +34,10 @@ const makeSut = (url: string = 'any_url'): SutTypes => {
 describe('RemoteAuthentication', () => {
   test('Should call HttpPostClient with correct URL', async () => {
     // Criamos a url somente para injetar no make sut
-    const url = 'other_url'
+    // const url = 'other_url'
+
+    // Usando o faker para gerar uma URL "valida", em vez de setar qual string
+    const url = faker.internet.url()
 
     const { sut, httpPostClientSpy } = makeSut(url)
 
