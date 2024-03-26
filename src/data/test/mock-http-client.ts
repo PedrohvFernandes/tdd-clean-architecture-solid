@@ -34,6 +34,7 @@ class HttpPostClientSpy implements HttpPostClient {
   async post(params: HttpPostParams): Promise<HttpResponse> {
     this.url = params.url
     this.body = params.body
+    // Retornamos a resposta fake, que foi setada aqui e possivelmente no test, caso ele test alguma resposta error ou sucesso
     return Promise.resolve(this.response)
   }
 }

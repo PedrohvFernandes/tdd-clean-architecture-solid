@@ -21,6 +21,7 @@ export class RemoteAuthentication {
       body: params
     })
 
+    // Com base no statusCode do post(Spy(test) ou infra) da resposta, fazemos um switch para tratar os possíveis erros
     switch (httpResponse.statusCode) {
       // Se o status for 200, OK, então não fazemos nada. Lembrando que no mock Spy esta setado como padrão OK, caso algum teste não esteja testando o statusCode e para não dar problema fazemos isso
       case HttpStatusCode.OK:
