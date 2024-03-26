@@ -4,7 +4,7 @@
   Aqui vamos colocar todos os mocks que tiverem haver com httpclient, não precisa ser so o post, pode ser o get, put, delete, patch, etc...
 */
 
-import { HttpPostClient, HttpPostParams } from 'data/protocols/http'
+import { HttpPostClient, HttpPostParams } from '@/data/protocols/http'
 
 // Spy é um duble de teste, é um tipo de mock, que serve para duas coisas:
 // Spy é um objeto que vai espionar o método, e não vai fazer nada, só vai verificar se o método foi chamado com o valor correto

@@ -21,9 +21,11 @@
     "noFallthroughCasesInSwitch": true,
 
     // Url
-    "baseUrl": ".",
+    "baseUrl": "src",
+    // Os paths tem como base o baseUrl
     "paths": {
-      "*": ["./src/*"]
+      // @/* -> src/*
+      "@/*": ["*"]
     }
   },
   "include": ["src"],

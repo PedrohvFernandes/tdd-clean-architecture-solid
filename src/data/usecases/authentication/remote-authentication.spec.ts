@@ -1,7 +1,7 @@
-import { mockAuthentication } from '../../../domain/test/mock-authentication'
-import { HttpPostClientSpy } from '../../test/mock-http-client'
 import { RemoteAuthentication } from './remote-authentication'
 
+import { HttpPostClientSpy } from '@/data/test/mock-http-client'
+import { mockAuthentication } from '@/domain/test/mock-authentication'
 import { faker } from '@faker-js/faker'
 
 // Podemos ter diversos testes de authentication, tendo um arquivo para cada teste

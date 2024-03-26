@@ -73,6 +73,14 @@
   ```
 
 - [Essa é a forma que eu crio meus commits (conventional commits) - Rocketseat](https://www.youtube.com/watch?v=sStBPj7JJpM)
+
+- [git-workflow](https://gist.github.com/vtenq/7a93687108cb876f884c3ce75a8a8023)
+
+- [conventionalcommits](https://www.conventionalcommits.org/en/v1.0.0/#specification)
+
+- [GIT: Mini Curso para Você Sair do Zero! (Aprenda em 45 Minutos)](https://www.youtube.com/watch?v=ts-H3W1uLMM)
+
+- [Boas práticas com GIT (importante se você trabalha com time)](https://www.youtube.com/watch?v=2p45AP5wJdE)
 - Como deve ser os commits:
 
   - O commit tem que ser o mais simples possível.
@@ -382,9 +390,15 @@
     error: failed to push some refs to 'https://github.com/PedrohvFernandes/tdd-clean-architecture-solid.git'
   ```
   #### Aula 2
+
   - Instalando a lib faker, para mocar os dados/valores na parte de teste ```npm install --save-dev @faker-js/faker``` O ```npm i -D faker @types/faker``` foi descontinuado
   - Devemos fazer as refatorações necessárias/identificado quando o teste esta no verde, antes de começar de escrever o proximo teste
+  
+  #### Aula 3
+  - Modularização dos paths em *tsconfig.json*
+  - Agora para o Jest como fazer para resolver esses path, porque foi dito so para o TS
 
+  
   ## Tecnologias:
   - Vite
   - React

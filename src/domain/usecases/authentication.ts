@@ -1,4 +1,4 @@
-import { AccountModel } from 'domain/models'
+import { AccountModel } from '@/domain/models'
 /*
   Primeiro caso uso que vamos ter, a nossa regra de negocio, a nossa regra de autenticação  vai ser somente uma interface/abstração e vamos ter a implementação na layer de data
 
