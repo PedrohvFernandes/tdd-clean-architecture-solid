@@ -26,7 +26,7 @@ class HttpPostClientSpy implements HttpPostClient {
   url?: string
   // Object porque pode ter qualquer coisa, email, senha, token, etc...
   body?: object
-  // Deixamos um valor default(mocado) so para teste, mas para cada teste pode ser diferente(ou seja, para cada teste podemos mocar um statusCode diferente), passamos um valor diferente para cada teste para simular uma resposta diferente caso o teste queira testar essa parte
+  // Deixamos um valor default(mocado) so para teste, mas para cada teste pode ser diferente(ou seja, para cada teste podemos mocar um statusCode diferente), passamos um valor diferente para cada teste para simular uma resposta diferente caso o teste queira testar essa parte. Se não passar nada, enviamos um statusCode 200 OK, e o data layer vai tratar isso. O mesmo para o infra quando enviar a resposta do httPostClient para o data layer da API verdadeira que ele vai consumir
   response: HttpResponse = {
     statusCode: HttpStatusCode.OK
   }
