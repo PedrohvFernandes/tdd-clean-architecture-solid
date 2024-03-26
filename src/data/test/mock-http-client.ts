@@ -4,7 +4,13 @@
   Aqui vamos colocar todos os mocks que tiverem haver com httpclient, não precisa ser so o post, pode ser o get, put, delete, patch, etc...
 */
 
-import { HttpPostClient, HttpPostParams } from '@/data/protocols/http'
+import { HttpStatusCode } from '../protocols/http/http-response'
+
+import {
+  HttpPostClient,
+  HttpPostParams,
+  HttpResponse
+} from '@/data/protocols/http'
 
 // Spy é um duble de teste, é um tipo de mock, que serve para duas coisas:
 // Spy é um objeto que vai espionar o método, e não vai fazer nada, só vai verificar se o método foi chamado com o valor correto
@@ -20,11 +26,15 @@ class HttpPostClientSpy implements HttpPostClient {
   url?: string
   // Object porque pode ter qualquer coisa, email, senha, token, etc...
   body?: object
+  // Deixamos um valor default(mocado) so para teste, mas para cada teste pode ser diferente(ou seja, para cada teste podemos mocar um statusCode diferente), passamos um valor diferente para cada teste para simular uma resposta diferente caso o teste queira testar essa parte
+  response: HttpResponse = {
+    statusCode: HttpStatusCode.NOCONTENT
+  }
 
-  async post(params: HttpPostParams): Promise<void> {
+  async post(params: HttpPostParams): Promise<HttpResponse> {
     this.url = params.url
     this.body = params.body
-    return Promise.resolve()
+    return Promise.resolve(this.response)
   }
 }
 
