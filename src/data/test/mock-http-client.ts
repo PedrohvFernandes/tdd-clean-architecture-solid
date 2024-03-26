@@ -28,7 +28,7 @@ class HttpPostClientSpy implements HttpPostClient {
   body?: object
   // Deixamos um valor default(mocado) so para teste, mas para cada teste pode ser diferente(ou seja, para cada teste podemos mocar um statusCode diferente), passamos um valor diferente para cada teste para simular uma resposta diferente caso o teste queira testar essa parte
   response: HttpResponse = {
-    statusCode: HttpStatusCode.NOCONTENT
+    statusCode: HttpStatusCode.OK
   }
 
   async post(params: HttpPostParams): Promise<HttpResponse> {
