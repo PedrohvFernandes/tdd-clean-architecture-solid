@@ -9,6 +9,7 @@
     "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
     "preview": "vite preview",
     "test": "jest --passWithNoTests",
+    "test:clear": "jest --clearCache",
     "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",

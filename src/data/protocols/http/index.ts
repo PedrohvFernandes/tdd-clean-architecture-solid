@@ -1,5 +1,6 @@
 // Abstrações de protocolos HTTP, ou melhor interfaces/abstrações da camada data layer, para a infra e os testes implementarem
 
 import { HttpPostClient, HttpPostParams } from './http-post-client'
+import { HttpResponse } from './http-response'
 
-export type { HttpPostClient, HttpPostParams }
+export type { HttpPostClient, HttpPostParams, HttpResponse }
