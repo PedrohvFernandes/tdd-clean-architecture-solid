@@ -22,16 +22,16 @@ import {
 
   Basicamente essa é a implementação do post fake
 */
-class HttpPostClientSpy implements HttpPostClient {
+class HttpPostClientSpy<T, R> implements HttpPostClient<T, R> {
   url?: string
-  // Object porque pode ter qualquer coisa, email, senha, token, etc...
-  body?: object
+  // Tipamos o body como T, pois não sabemos o tipo de body que vai ser passado, então deixamos generico
+  body?: T
   // Deixamos um valor default(mocado) so para teste, mas para cada teste pode ser diferente(ou seja, para cada teste podemos mocar um statusCode diferente), passamos um valor diferente para cada teste para simular uma resposta diferente caso o teste queira testar essa parte. Se não passar nada, enviamos um statusCode 200 OK, e o data layer vai tratar isso. O mesmo para o infra quando enviar a resposta do httPostClient para o data layer da API verdadeira que ele vai consumir
-  response: HttpResponse = {
+  response: HttpResponse<R> = {
     statusCode: HttpStatusCode.OK
   }
 
-  async post(params: HttpPostParams): Promise<HttpResponse> {
+  async post(params: HttpPostParams<T>): Promise<HttpResponse<R>> {
     this.url = params.url
     this.body = params.body
     // Retornamos a resposta fake, que foi setada aqui e possivelmente no test, caso ele test alguma resposta error ou sucesso

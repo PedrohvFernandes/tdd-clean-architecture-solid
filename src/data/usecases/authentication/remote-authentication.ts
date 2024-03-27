@@ -2,6 +2,7 @@
 import { HttpPostClient } from '@/data/protocols/http'
 import { HttpStatusCode } from '@/data/protocols/http/http-response'
 import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors'
+import { AccountModel } from '@/domain/models'
 import { AuthenticationParams } from '@/domain/usecases/authentication'
 
 // Esse ja é para produção e o arquivo de cima é para teste
@@ -9,7 +10,11 @@ export class RemoteAuthentication {
   constructor(
     private readonly url: string,
     // HttpPostClient --> Uma abstração, uma interface junto com o data layer, seria um dos metodos que o authentication ira fazer
-    private readonly httpPostClient: HttpPostClient
+    // Informamos o tipo de dados que o HttpPostClient ira receber, no caso AuthenticationParams para o body da requisição e AccountModel para o body da resposta da requisição
+    private readonly httpPostClient: HttpPostClient<
+      AuthenticationParams,
+      AccountModel
+    >
   ) {}
 
   // Params --> Email e senha do usuário que deseja se autenticar

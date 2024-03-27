@@ -12,9 +12,10 @@ export enum HttpStatusCode {
   SERVER_ERROR = 500
 }
 
-export type HttpResponse = {
+// Como o body é algo generico usamos o generics <R> para definir o tipo do body da nossa response.
+export type HttpResponse<R> = {
   // statusCode: HttpStatusCode.unauthorized
   statusCode: HttpStatusCode
   // A resposta do response pode retornar qualquer coisa
-  body?: any
+  body?: R
 }

@@ -3,7 +3,9 @@ import { RemoteAuthentication } from './remote-authentication'
 import { HttpStatusCode } from '@/data/protocols/http/http-response'
 import { HttpPostClientSpy } from '@/data/test/mock-http-client'
 import { UnexpectedError, InvalidCredentialsError } from '@/domain/errors'
+import { AccountModel } from '@/domain/models'
 import { mockAuthentication } from '@/domain/test/mock-authentication'
+import { AuthenticationParams } from '@/domain/usecases/authentication'
 import { faker } from '@faker-js/faker'
 
 // Podemos ter diversos testes de authentication, tendo um arquivo para cada teste
@@ -12,7 +14,7 @@ import { faker } from '@faker-js/faker'
 // TypeAlias
 type SutTypes = {
   sut: RemoteAuthentication
-  httpPostClientSpy: HttpPostClientSpy
+  httpPostClientSpy: HttpPostClientSpy<AuthenticationParams, AccountModel>
 }
 
 // Criamos um factory(design pattern) para criar o SUT, para evitar de ficar mudando o construtor toda vez que precisar mudar algo, porque aos poucos vai ter mais dependências e evitar de modificar a implementação do SUT toda vez que precisar mudar algo, usamos esse design pattern para evitar isso. Ele gera o SUT tendo acesso a todas as dependências que ele precisa, e se precisar mudar algo, muda só no factory
@@ -22,7 +24,10 @@ const makeSut = (url: string = faker.internet.url()): SutTypes => {
   // Mock
   // Vamos criar um mock para testar, se o retorno funciona e se o remote vai funcionar com a resposta dele
   // Helper
-  const httpPostClientSpy = new HttpPostClientSpy()
+  const httpPostClientSpy = new HttpPostClientSpy<
+    AuthenticationParams,
+    AccountModel
+  >()
 
   // System Under Test - SUT - Nomenclatura para facilmente saber qual objeto estamos testando nessa class e é ela quem vai implementar o método que estamos testando auth() do usecase authentication. A gente implementa ela para o teste, com mocks, passando o post e a url fake, e la nela ela usa o post do spy e a url fake
   const sut = new RemoteAuthentication(url, httpPostClientSpy)

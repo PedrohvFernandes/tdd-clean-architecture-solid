@@ -399,7 +399,12 @@
   - Agora para o Jest como fazer para resolver esses path, porque foi dito so para o TS
   - [Enum](https://awari.com.br/javascript-enum-implementando-enums-em-javascript/#:~:text=Enums%20em%20JavaScript%20são%20uma,um%20conjunto%20de%20valores%20nomeados.)
   - ``` jest --clearCache``` ou ```npm run test:clear``` limpa o cache do jest, caso esteja dando erro de importação de arquivos...
-  
+  - Testes de falha(Caminho triste)
+
+  #### Aula 4
+  - Últimos testes para o componente RemoteAuthentication
+  - Testes de sucesso(Caminho feliz)
+
   ## Tecnologias:
   - Vite
   - React
