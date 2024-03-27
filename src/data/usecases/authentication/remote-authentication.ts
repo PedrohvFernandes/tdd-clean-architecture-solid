@@ -1,12 +1,8 @@
 // O infra layer é responsável por implementar as interfaces do data layer, pois é ele quem vai definir qual framework vai usar para implementar essas interfaces do data layer, enquanto o data layer é responsável por definir as interfaces que o infra layer vai implementar e usar elas como abstração
-import { HttpPostClient } from '@/data/protocols/http'
-import { HttpStatusCode } from '@/data/protocols/http/http-response'
+import { HttpPostClient, HttpStatusCode } from '@/data/protocols/http'
 import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors'
 import { AccountModel } from '@/domain/models'
-import {
-  Authentication,
-  AuthenticationParams
-} from '@/domain/usecases/authentication'
+import { Authentication, AuthenticationParams } from '@/domain/usecases'
 
 // Esse ja é para produção e o arquivo de cima é para teste
 export class RemoteAuthentication implements Authentication {

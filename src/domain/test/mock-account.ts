@@ -2,7 +2,7 @@
 
 import { AccountModel } from '../models'
 
-import { AuthenticationParams } from '@/domain/usecases/authentication'
+import { AuthenticationParams } from '@/domain/usecases'
 import { faker } from '@faker-js/faker'
 
 // Email e senha falsos usando o faker, para o body. Um factory(função que gera objeto - factory) para gerar uma conta fake

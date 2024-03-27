@@ -4,7 +4,7 @@
 import { HttpResponse } from '.'
 
 // Type alias
-// Como o body é algo generico usamos o generics <R> para definir o tipo do body da nossa requisição.
+// Como o body é algo generico usamos o generics <T> para definir o tipo do body da nossa requisição.
 export type HttpPostParams<T> = {
   url: string
   // caso queira passar um body(um objeto de qualquer coisa para a requisição http) ou header, tokens de acesso, body: email e senha, etc... outros params alem da url(obrigatoria) para o post,  e nem sempre o body e nem o header vai ser obrigatórios, então colocamos como opcional
