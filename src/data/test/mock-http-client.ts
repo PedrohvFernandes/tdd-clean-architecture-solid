@@ -22,7 +22,7 @@ import {
 
   Basicamente essa é a implementação do post fake
 */
-// Deixamos o HttPostClientSpy generico, para que possamos passar qualquer tipo de body e receber o body de resposta esperado. Ex: No caso do RemoteAuthentication, ele vai passar um body do tipo AuthenticationParams e uma resposta do tipo AccountModel. Com isso o body da resposta e requisição fica generico
+// Deixamos o HttPostClientSpy generico, para que possamos passar qualquer tipo de body e receber o body de resposta esperado. Ex: No caso do RemoteAuthentication, ele vai passar um body do tipo AuthenticationParams e uma resposta do tipo AccountModel e o mesmo para o test. Com isso o body da resposta e requisição fica generico
 class HttpPostClientSpy<T, R> implements HttpPostClient<T, R> {
   url?: string
   // Tipamos o body como T, pois não sabemos o tipo de body que vai ser passado, então deixamos generico
