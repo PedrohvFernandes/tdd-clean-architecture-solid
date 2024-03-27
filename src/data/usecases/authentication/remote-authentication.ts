@@ -27,7 +27,7 @@ export class RemoteAuthentication implements Authentication {
 
     // Com base no statusCode do post(Spy(test) ou infra) da resposta, fazemos um switch para tratar os possíveis erros
     switch (httpResponse.statusCode) {
-      // Lembrando que no mock Spy esta setado como padrão OK, caso algum teste não esteja testando o statusCode e para não dar problema para os demais testes deixamos ele como default no mock Spy  de teste
+      // Lembrando que no mock Spy esta setado como padrão OK, caso algum teste não esteja testando o statusCode e para não dar problema para os demais testes que não esteja testando o statusCode setamos  ele como default no mock Spy de teste
       case HttpStatusCode.OK:
         return httpResponse.body as AccountModel
       // Se o status for 401, Unauthorized, então lançamos um erro de credenciais inválidas

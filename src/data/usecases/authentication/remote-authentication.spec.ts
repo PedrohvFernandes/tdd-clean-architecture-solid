@@ -122,6 +122,7 @@ describe('RemoteAuthentication', () => {
     await expect(promiseErrorException).rejects.toThrow(new UnexpectedError())
   })
 
+  // O teste de sucesso é o mais importante, porque é o que vai retornar o objeto que a camada de UI vai usar para mostrar ao usuário se ele está autenticado ou não
   test('Should return an AccountModel if HttpPostClient returns 200', async () => {
     const { sut, httpPostClientSpy } = makeSut()
 
