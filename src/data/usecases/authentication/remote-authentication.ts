@@ -3,10 +3,13 @@ import { HttpPostClient } from '@/data/protocols/http'
 import { HttpStatusCode } from '@/data/protocols/http/http-response'
 import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors'
 import { AccountModel } from '@/domain/models'
-import { AuthenticationParams } from '@/domain/usecases/authentication'
+import {
+  Authentication,
+  AuthenticationParams
+} from '@/domain/usecases/authentication'
 
 // Esse ja é para produção e o arquivo de cima é para teste
-export class RemoteAuthentication {
+export class RemoteAuthentication implements Authentication {
   constructor(
     private readonly url: string,
     // HttpPostClient --> Uma abstração, uma interface junto com o data layer, seria um dos metodos que o authentication ira fazer
@@ -18,7 +21,7 @@ export class RemoteAuthentication {
   ) {}
 
   // Params --> Email e senha do usuário que deseja se autenticar
-  async auth(params: AuthenticationParams): Promise<void> {
+  async auth(params: AuthenticationParams): Promise<AccountModel> {
     // Não sabemos como esse post vai ser implementado, só sabemos que ele vai ser implementado no infra e pela camada de teste, tanto que podemos receber um httpPostClientSpy na classe de test no objeto makeSut como um httpAxiosPost(Nome de classe de exemplo implementada no infra layer)
     // Pegamos a resposta do httpPostClient.post Spy(test) ou infra e salvamos na variavel httpResponse. Body e statusCode são os atributos que o post retorna definido pela interface http-response e passada para o post do httpPostClient como resposta
     const httpResponse = await this.httpPostClient.post({
@@ -28,9 +31,9 @@ export class RemoteAuthentication {
 
     // Com base no statusCode do post(Spy(test) ou infra) da resposta, fazemos um switch para tratar os possíveis erros
     switch (httpResponse.statusCode) {
-      // Se o status for 200, OK, então não fazemos nada. Lembrando que no mock Spy esta setado como padrão OK, caso algum teste não esteja testando o statusCode e para não dar problema fazemos isso
+      // Lembrando que no mock Spy esta setado como padrão OK, caso algum teste não esteja testando o statusCode e para não dar problema para os demais testes deixamos ele como default no mock Spy  de teste
       case HttpStatusCode.OK:
-        break
+        return httpResponse.body as AccountModel
       // Se o status for 401, Unauthorized, então lançamos um erro de credenciais inválidas
       case HttpStatusCode.UNAUTHORIZED:
         throw new InvalidCredentialsError()
