@@ -5,6 +5,7 @@ import axios from 'axios'
 export class AxiosHttpClient {
   // Aqui como pode retornar qualquer coisa do Axios, usamos o any como generico
   async post(params: HttpPostParams<any>): Promise<void> {
-    await axios(params.url)
+    // await axios(params.url)
+    await axios.post(params.url)
   }
 }
