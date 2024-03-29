@@ -13,5 +13,5 @@ export const mockAuthentication = (): AuthenticationParams => ({
 
 // Um factory para gerar um AccountModel fake
 export const mockAccountModel = (): AccountModel => ({
-  accessToken: faker.datatype.uuid()
+  accessToken: faker.string.uuid()
 })
