@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 // Todos types de resposta dos http: 200, 201, 204, 400, 401, 403, 404, 500
 

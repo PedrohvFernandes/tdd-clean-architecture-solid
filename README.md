@@ -405,6 +405,11 @@
   - Últimos testes para o componente RemoteAuthentication
   - Testes de sucesso(Caminho feliz)
 
+  ### 3. Infra Layer - Implementando o HttpPostClient
+  #### Aula 1  Criando o AxiosHttpClient e testando sua integração com a biblioteca axios
+  - Usando o axios para fazer as requisições http
+  
+
   ## Tecnologias:
   - Vite
   - React
@@ -418,6 +423,7 @@
   - Clean Architecture
   - Solid
   - Faker
+  - Axios
 
   ## Comandos:
   ```bash
