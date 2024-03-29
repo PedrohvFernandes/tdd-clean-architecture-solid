@@ -13,12 +13,12 @@ const makeSut = (): AxiosHttpClient => {
 
 // A classe de teste do AxiosHttpClient
 describe('AxiosHttpClient', () => {
-  // Vamos testar a url. Se a url passada para o axios é a mesma que passamos para o AxiosHttpClient e que la é passada para o axios
-  test('Should call axios with correct URL', async () => {
+  // Vamos testar a url. Se a url passada para o axios é a mesma que passamos para o AxiosHttpClient e que la é passada para o axios e se estou usando o verbo correto que é o post para chamar a url
+  test('Should call axios with correct URL and verb post', async () => {
     const url = faker.internet.url()
 
     const sut = makeSut()
     await sut.post({ url })
-    expect(mockedAxios).toHaveBeenCalledWith(url)
+    expect(mockedAxios.post).toHaveBeenCalledWith(url)
   })
 })
