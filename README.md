@@ -410,7 +410,36 @@
   - Usando o axios para fazer as requisições http
 
   #### Aula 2  Refatorando o AxiosHttpClient
-  
+  - Criando os mocks separados
+
+  ### 4. Login - Presentation Layer
+  #### Aula 1. Configurando o React
+  - Configurando o React com o Vite. Questões de build, bundler e webpack o vite ja configura por si só, não precisamos nos preocupar com isso.
+  - Em *Jest.config.cjs* colocamos o ```testEnvironment: 'node'``` para ```testEnvironment: 'jsdom'``` porque vamos começar a fazer testes que precisa acessar o DOM
+  - Transform ts e tsx
+  ``` 
+    transform: {
+      '.+\\.(ts|tsx)$': 'ts-jest'
+    },
+  ```
+  - Em eslint
+  ```
+  {
+    // Para resolver um warn do eslint
+    "settings":{
+      "react":{
+        "version":"detect"
+      }
+    }
+    // Evitar alguns erros do eslint
+    "extends": [
+      "plugin:react/recommended",
+    ],
+  	"rules": {
+      "react/jsx-uses-react": "off",
+      "react/jsx-uses-vars": "off"
+    }
+  }
 
   ## Tecnologias:
   - Vite

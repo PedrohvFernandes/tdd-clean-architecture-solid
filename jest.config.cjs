@@ -3,7 +3,8 @@ module.exports = {
   rootDir: './src',
   // roots: ['<rootDir>/src'],
   collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
-  testEnvironment: 'node',
+  // testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   // Diretório onde os testes estão localizados
   coverageDirectory: 'coverage',
   // Antes de rodar os testes, ele aplica esse ts-jest em todos os arquivos que terminam com .ts ou .tsx, convertendo para js
