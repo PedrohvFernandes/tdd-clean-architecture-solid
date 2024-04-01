@@ -14,8 +14,8 @@ export class AxiosHttpClientAdapter implements HttpPostClient<any, any> {
     // O primeiro param é a url da API e o segundo é o body(data) da requisição
     const httpResponse = await axios.post(params.url, params.body)
     return {
-      statusCode: httpResponse.status,
-      body: httpResponse.data
+      body: httpResponse.data,
+      statusCode: httpResponse.status
     }
   }
 }

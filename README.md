@@ -408,6 +408,8 @@
   ### 3. Infra Layer - Implementando o HttpPostClient
   #### Aula 1  Criando o AxiosHttpClient e testando sua integração com a biblioteca axios
   - Usando o axios para fazer as requisições http
+
+  #### Aula 2  Refatorando o AxiosHttpClient
   
 
   ## Tecnologias:
