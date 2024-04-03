@@ -452,7 +452,21 @@
   - [Vite vs webpack](https://kinsta.com/pt/blog/vite-vs-webpack/)
   - [Como substituir webpack & babel por Vite em um projeto React Typescript legado](https://dev.to/richardbray/how-to-replace-webpack-babel-with-vite-on-a-legacy-react-typescript-project-3ofg)
   - [Por que você deve usar swc ? Alternativa de Babel (escrita em Rust) SWC](https://blog.logrocket.com/why-you-should-use-swc/)
+  - Caso de esse erro no jest:
+  ```bash
+  
+    ✖ npm run test:staged:
+    ● Validation Error:
 
+      Test environment jest-environment-jsdom cannot be found. Make sure the testEnvironment configuration option points to an existing node module.
+
+      Configuration Documentation:
+      https://jestjs.io/docs/configuration
+
+
+    As of Jest 28 "jest-environment-jsdom" is no longer shipped by default, make sure to install it separately.
+  ```
+  De um ```npm i jest-environment-jsdom -D``` para resolver o problema [Error Test environment jest-environment-jsdom cannot be found](https://stackoverflow.com/questions/72013449/upgrading-jest-to-v29-error-test-environment-jest-environment-jsdom-cannot-be)
   ## Tecnologias:
   - Vite
   - React
