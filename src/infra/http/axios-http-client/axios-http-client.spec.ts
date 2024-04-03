@@ -37,9 +37,13 @@ describe('AxiosHttpClientAdapter', () => {
   // O nosso http response responde com um status code e um body. Então vamos testar se o axios retorna o status code e o body correto
   test('Should return the correct and body', () => {
     const { sut, mockedAxios } = makeSut()
+
     // const httpResponse = await sut.post(mockPostRequest())
+    // Usamos o post do axios do AxiosHttpClientAdapter passando um mock de requisição
     const httpPromiseResponse = sut.post(mockPostRequest())
+
     // const mockedResolvedValue = await mockedAxios.post.mock.results[0].value
+    // Comparamos o result do post do axios mock-axios(mockedAxios) com o result do post  do AxiosHttpClientAdapter
     const mockedResolvedValuePromise = mockedAxios.post.mock.results[0].value
     expect(httpPromiseResponse).toEqual(mockedResolvedValuePromise)
   })
