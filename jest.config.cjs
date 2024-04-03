@@ -2,7 +2,8 @@ module.exports = {
   // Diretório raiz dos arquivos de teste
   rootDir: './src',
   // roots: ['<rootDir>/src'],
-  collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
+  // Quando não quero fazer o coverage de algum arquivo, eu coloco o caminho do arquivo dentro do array com ! nesse caso não quero fazer o coverage de arquivos de types
+  collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}', '!**/*.d.ts'],
   // testEnvironment: 'node',
   testEnvironment: 'jsdom',
   // Diretório onde os testes estão localizados
