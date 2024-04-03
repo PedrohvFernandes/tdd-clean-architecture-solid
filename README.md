@@ -467,6 +467,12 @@
     As of Jest 28 "jest-environment-jsdom" is no longer shipped by default, make sure to install it separately.
   ```
   De um ```npm i jest-environment-jsdom -D``` para resolver o problema [Error Test environment jest-environment-jsdom cannot be found](https://stackoverflow.com/questions/72013449/upgrading-jest-to-v29-error-test-environment-jest-environment-jsdom-cannot-be)
+  - O Husky depois da v5 gera conflitos com o pacote git-commit-msg-linter, para resolver basta criar um arquivo dentro do husky *commit-msg* e colocar o seguinte comando:
+  ```bash
+  .git/hooks/commit-msg \$1
+  ```
+  Mais detalhes em: [The package is not working with husky v5](https://github.com/legend80s/git-commit-msg-linter/issues/7)
+
   ## Tecnologias:
   - Vite
   - React
