@@ -450,7 +450,7 @@
   - [Usando o suporte do babel para o Typescript, você consegue trabalhar com pipelines de build existentes e tem mais chances de gerar JS mais rápido porque o Babel não faz checagem de tipo no seu código.](https://www.typescriptlang.org/pt/docs/handbook/babel-with-typescript.html#:~:text=Usando%20o%20suporte%20do%20babel,de%20tipo%20no%20seu%20código.)
   - [O'Que é o Babel e como integrar ele na sua aplicação JS](https://www.linkedin.com/pulse/oque-é-o-babel-e-como-integrar-ele-na-sua-aplicação-js-júnior/?originalSubdomain=pt)
   - [Vite vs webpack](https://kinsta.com/pt/blog/vite-vs-webpack/)
-  - [Como substituir webpack & babel por Vite em um projeto React Typescript legado](https://dev.to/richardbray/how-to-replace-webpack-babel-with-vite-on-a-legacy-react-typescript-project-3ofg)
+  - [Como substituir webpack & babel por Vite(bundler + compiler(tendo swc como opção)) em um projeto React Typescript legado](https://dev.to/richardbray/how-to-replace-webpack-babel-with-vite-on-a-legacy-react-typescript-project-3ofg)
   - [Por que você deve usar swc ? Alternativa de Babel (escrita em Rust) SWC](https://blog.logrocket.com/why-you-should-use-swc/)
   - Caso de esse erro no jest:
   ```bash
