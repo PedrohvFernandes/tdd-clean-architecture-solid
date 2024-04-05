@@ -1,7 +1,5 @@
+import { Login } from './presentation/pages/login/login'
+
 export function App() {
-  return (
-    <>
-      <h1>Hello World!!!</h1>
-    </>
-  )
+  return <Login />
 }

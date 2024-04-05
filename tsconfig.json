@@ -25,7 +25,10 @@
     // Os paths tem como base o baseUrl
     "paths": {
       // @/* -> src/*
-      "@/*": ["*"]
+      "@/*": ["*"],
+      "@/assets/*": ["assets/*"],
+      "@/main/*": ["main/*"],
+      "@/components/*": ["main/presentation/components/*"],
     }
   },
   "include": ["src"],

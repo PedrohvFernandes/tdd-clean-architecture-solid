@@ -473,6 +473,10 @@
   ```
   Mais detalhes em: [The package is not working with husky v5](https://github.com/legend80s/git-commit-msg-linter/issues/7)
 
+  #### 4. Criando o layout da tela do Login
+  - [CONVERT YOUR IMAGES TO BASE64](https://www.base64-image.de)
+  - [Loaders em Css](https://loading.io/css/)
+
   ## Tecnologias:
   - Vite
   - React
