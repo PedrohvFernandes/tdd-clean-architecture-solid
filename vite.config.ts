@@ -19,7 +19,8 @@ export default defineConfig({
     alias: {
       // O @ é um atalho para a pasta src
       '@/components': path.resolve('./src/main/presentation/components'),
-      '@/assets': path.resolve('./src/assets')
+      '@/assets': path.resolve('./src/assets'),
+      '@/pages': path.resolve('./src/main/presentation/pages')
     }
   }
 })

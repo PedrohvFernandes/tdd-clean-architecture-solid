@@ -29,6 +29,7 @@
       "@/assets/*": ["assets/*"],
       "@/main/*": ["main/*"],
       "@/components/*": ["main/presentation/components/*"],
+      "@/pages/*": ["main/presentation/pages/*"],
     }
   },
   "include": ["src"],
