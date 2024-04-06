@@ -477,6 +477,8 @@
   - [CONVERT YOUR IMAGES TO BASE64](https://www.base64-image.de)
   - [Loaders em Css](https://loading.io/css/)
 
+  #### 5. Refatorando layout do Login em componentes
+
   ## Tecnologias:
   - Vite
   - React
