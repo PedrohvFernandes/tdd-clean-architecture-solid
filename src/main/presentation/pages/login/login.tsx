@@ -1,7 +1,7 @@
+import { FormStatus } from '../../components/form-status'
 import { Footer } from '@/components/footer'
 import { LoginHeader } from '@/components/headers'
 import { InputDefault } from '@/components/inputs'
-import { Ellipsis } from '@/components/loadings'
 
 export function Login() {
   return (
@@ -35,12 +35,7 @@ export function Login() {
         <a className="text-primary lowercase cursor-pointer hover:underline ease-in-out duration-300 hover:opacity-80">
           Criar conta
         </a>
-        <div className="flex flex-col items-center gap-4">
-          <Ellipsis />
-          <span className="text-primary-LIGHT font-bold uppercase tracking-wider">
-            Error
-          </span>
-        </div>
+        <FormStatus />
       </form>
       <Footer />
     </div>
