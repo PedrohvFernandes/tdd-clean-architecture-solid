@@ -1,4 +1,4 @@
-import { Login } from '@/pages/login/login'
+import { Login } from '@/pages/login'
 
 export function App() {
   return <Login />

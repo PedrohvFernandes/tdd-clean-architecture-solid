@@ -1,5 +1,5 @@
-import { FormStatus } from '../../components/form-status'
 import { Footer } from '@/components/footer'
+import { FormStatus } from '@/components/form-status'
 import { LoginHeader } from '@/components/headers'
 import { InputDefault } from '@/components/inputs'
 
@@ -32,6 +32,7 @@ export function Login() {
         >
           Entrar
         </button>
+
         <a className="text-primary lowercase cursor-pointer hover:underline ease-in-out duration-300 hover:opacity-80">
           Criar conta
         </a>
