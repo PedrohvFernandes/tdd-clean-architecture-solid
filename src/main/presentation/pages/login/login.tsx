@@ -1,12 +1,11 @@
 import { Ellipsis } from '@/components/loadings/ellipsis'
-
-import imageLogo from '@/assets/4Dev.svg'
+import { Logo } from '@/components/logo'
 
 export function Login() {
   return (
     <div className="flex flex-col h-screen justify-between">
       <header className="bg-primary flex flex-col items-center border-t-[40px] border-primary-DARK gap-4 py-10">
-        <img src={imageLogo} alt="4Dev" />
+        <Logo />
         <h1 className="text-white">4Dev - Enquetes para Programadores</h1>
       </header>
       <form className="flex flex-col gap-4 w-[400px] bg-white p-10 rounded-lg self-center text-center shadow">
