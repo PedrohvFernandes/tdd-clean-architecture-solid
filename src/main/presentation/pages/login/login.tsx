@@ -1,5 +1,6 @@
 import { Footer } from '@/components/footer'
 import { LoginHeader } from '@/components/headers'
+import { InputDefault } from '@/components/inputs'
 import { Ellipsis } from '@/components/loadings'
 
 export function Login() {
@@ -10,30 +11,21 @@ export function Login() {
         <h2 className="text-primary-DARK text-xl uppercase font-bold tracking-wider">
           Login
         </h2>
-        <div className="flex items-center relative">
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Digite seu email"
-            className="border border-primary-LIGHT p-5 rounded focus:outline-primary-LIGHT focus:ring-2 ring-primary-DARK flex-1"
-          />
-          <span className="absolute right-2 cursor-help hover:animate-bounce">
-            🔴
-          </span>
-        </div>
-        <div className="flex relative items-center">
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Digite seu password"
-            className="border border-primary-LIGHT p-5 rounded focus:outline-primary-LIGHT focus:ring-2 ring-primary-DARK flex-1"
-          />
-          <span className="absolute right-2 cursor-help hover:animate-bounce">
-            🔴
-          </span>
-        </div>
+
+        <InputDefault
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Digite seu email"
+        />
+
+        <InputDefault
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Digite seu password"
+        />
+
         <button
           type="submit"
           className="bg-primary text-white rounded-lg border-none p-4 hover:opacity-90"
