@@ -25,12 +25,17 @@
     // Os paths tem como base o baseUrl
     "paths": {
       // @/* -> src/*
-      "@/*": ["*"],
+      // "@/*": ["*"],
+      "@/infra/*": ["infra/*"],
+      "@/data/*": ["data/*"],
+      "@/domain/*": ["domain/*"],
       "@/assets/*": ["assets/*"],
       "@/main/*": ["main/*"],
       "@/components/*": ["main/presentation/components/*"],
       "@/pages/*": ["main/presentation/pages/*"],
-      "@/layouts/*": ["main/presentation/layouts/*"]
+      "@/layouts/*": ["main/presentation/layouts/*"],
+      "@/contexts/*": ["main/presentation/contexts/*"],
+      "@/hooks/*": ["main/hooks/*"],
     }
   },
   "include": ["src"],

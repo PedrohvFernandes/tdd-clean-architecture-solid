@@ -18,10 +18,16 @@ export default defineConfig({
     // O alias serve para criar um atalho para um caminho
     alias: {
       // O @ é um atalho para a pasta src
+      '@/infra': path.resolve('./src/main/infra'),
+      '@/data': path.resolve('./src/main/data'),
+      '@/domain': path.resolve('./src/main/domain'),
+      '@/main': path.resolve('./src/main'),
       '@/components': path.resolve('./src/main/presentation/components'),
       '@/assets': path.resolve('./src/assets'),
       '@/pages': path.resolve('./src/main/presentation/pages'),
-      '@/layouts': path.resolve('./src/main/presentation/layouts')
+      '@/layouts': path.resolve('./src/main/presentation/layouts'),
+      '@/contexts': path.resolve('./src/main/presentation/contexts'),
+      '@/hooks': path.resolve('./src/main/hooks')
     }
   }
 })
