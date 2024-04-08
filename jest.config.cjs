@@ -15,8 +15,9 @@ module.exports = {
   moduleNameMapper: {
     // Uma expressão regular, dentro do parentese eu coloco o que eu quero capturar, no caso qualquer carácter, e depois eu coloco o que eu quero substituir, e dentro do $1 eu coloco o que eu capturei dentro do parentese, ou seja, eu troco tudo que vier depois de @/ por <rootDir>/$1
     // '^@/(.*)$': '<rootDir>/$1',
-    '^@/infra/(.*)$': '<rootDir>/infra/$1',
+    '^@/domain/(.*)$': '<rootDir>/domain/$1',
     '^@/data/(.*)$': '<rootDir>/data/$1',
+    '^@/infra/(.*)$': '<rootDir>/infra/$1',
     '^@/hooks/(.*)$': '<rootDir>/main/hooks/$1',
     '^@/components/(.*)$': '<rootDir>/main/presentation/components/$1',
     '^@/contexts/(.*)$': '<rootDir>/main//presentation/contexts/$1'
