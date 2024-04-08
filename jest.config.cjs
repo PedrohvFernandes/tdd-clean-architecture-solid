@@ -17,7 +17,7 @@ module.exports = {
     // '^@/(.*)$': '<rootDir>/$1',
     '^@/infra/(.*)$': '<rootDir>/infra/$1',
     '^@/data/(.*)$': '<rootDir>/data/$1',
-    '^@/hooks/(.*)$': '<rootDir>/hooks/$1',
+    '^@/hooks/(.*)$': '<rootDir>/main/hooks/$1',
     '^@/components/(.*)$': '<rootDir>/main/presentation/components/$1',
     '^@/contexts/(.*)$': '<rootDir>/main//presentation/contexts/$1'
   }
