@@ -20,7 +20,8 @@ export default defineConfig({
       // O @ é um atalho para a pasta src
       '@/components': path.resolve('./src/main/presentation/components'),
       '@/assets': path.resolve('./src/assets'),
-      '@/pages': path.resolve('./src/main/presentation/pages')
+      '@/pages': path.resolve('./src/main/presentation/pages'),
+      '@/layouts': path.resolve('./src/main/presentation/layouts')
     }
   }
 })

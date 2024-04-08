@@ -30,6 +30,7 @@
       "@/main/*": ["main/*"],
       "@/components/*": ["main/presentation/components/*"],
       "@/pages/*": ["main/presentation/pages/*"],
+      "@/layouts/*": ["main/presentation/layouts/*"]
     }
   },
   "include": ["src"],

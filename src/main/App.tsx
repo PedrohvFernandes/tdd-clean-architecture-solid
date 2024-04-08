@@ -1,5 +1,7 @@
-import { Login } from '@/pages/login'
+import { RouterProvider } from 'react-router-dom'
+
+import { Router } from './routes'
 
 export function App() {
-  return <Login />
+  return <RouterProvider router={Router} />
 }
