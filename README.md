@@ -480,6 +480,9 @@
   #### 5. Refatorando layout do Login em componentes
 
   #### 6. Definindo um Router para o sistema
+  
+  #### 7. Testando o estado inicial do Login 12
+  - ```npm i -D @testing-library/react```
 
   ## Tecnologias:
   - Vite
