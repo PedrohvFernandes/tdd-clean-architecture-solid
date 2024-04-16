@@ -5,10 +5,15 @@ import { Login } from './login'
 import { render } from '@testing-library/react'
 
 describe('Login Component', () => {
-  test('Should not render spinner and error on start', () => {
+  test('Should start with initial state', () => {
     const { getByTestId } = render(<Login />)
+    // Em form status data-testid="error-wrap"
     const errorWrap = getByTestId('error-wrap')
     // No inicio o status não deve ter nada, nem o spinner nem a mensagem de erro
     expect(errorWrap.childElementCount).toBe(0)
+
+    // Fazemos um cast para HTMLInputElement para ter acesso a propriedade disabled
+    const submitButton = getByTestId('submit') as HTMLButtonElement
+    expect(submitButton.disabled).toBe(true)
   })
 })
