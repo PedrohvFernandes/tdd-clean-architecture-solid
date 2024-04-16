@@ -1,10 +1,13 @@
-import { memo } from 'react'
+import React, { memo } from 'react'
 
-function IconBallRed() {
+interface IconBallRedProps extends React.HTMLAttributes<HTMLSpanElement> {}
+
+function IconBallRed(props: IconBallRedProps) {
   return (
-    <span className="absolute right-2 cursor-help hover:animate-bounce">
-      🔴
-    </span>
+    <span
+      {...props}
+      className="absolute right-2 cursor-help hover:animate-bounce"
+    />
   )
 }
 
