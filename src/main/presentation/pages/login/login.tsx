@@ -27,7 +27,9 @@ export function Login() {
 
         <button
           type="submit"
-          className="bg-primary text-white rounded-lg border-none p-4 hover:opacity-90"
+          className="bg-primary text-white rounded-lg border-none p-4 hover:opacity-90 disabled:bg-disabled-background disabled:text-disabled-text disabled:cursor-not-allowed ease-in-out duration-300"
+          data-testid="submit"
+          disabled
         >
           Entrar
         </button>

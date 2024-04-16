@@ -9,6 +9,10 @@ export default {
           DEFAULT: '#880E4F',
           DARK: '#560027',
           LIGHT: '#BC477B'
+        },
+        disabled: {
+          background: '#CCC',
+          text: '#666'
         }
       },
       keyframes: {
