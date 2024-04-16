@@ -20,7 +20,8 @@ module.exports = {
     '^@/infra/(.*)$': '<rootDir>/infra/$1',
     '^@/hooks/(.*)$': '<rootDir>/main/hooks/$1',
     '^@/components/(.*)$': '<rootDir>/main/presentation/components/$1',
-    '^@/contexts/(.*)$': '<rootDir>/main//presentation/contexts/$1'
+    '^@/contexts/(.*)$': '<rootDir>/main/presentation/contexts/$1',
+    '^@/main/(.*)$': '<rootDir>/main/$1'
   }
 
   // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
