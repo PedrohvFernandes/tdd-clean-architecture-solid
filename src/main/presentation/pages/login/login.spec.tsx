@@ -18,7 +18,7 @@ type SutTypes = {
 // Factory
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy()
-  // Por padrão ele sempre vai ter erro, e nos casos de sucesso retiramos o erro
+  // Por padrão ele sempre vai ter erro
   validationSpy.errorMessage = faker.word.adjective()
   const sut = render(<Login validation={validationSpy} />)
   return {
@@ -31,6 +31,7 @@ describe('Login Component', () => {
   // Limpa o ambiente de teste entre os testes, isso garante que o teste não vai ser influenciado por um teste anterior, em relação ao estado do componente
   afterEach(cleanup)
 
+  // Estado inicial
   test('Should start with initial state', () => {
     const { sut, validationSpy } = makeSut()
 
@@ -51,10 +52,11 @@ describe('Login Component', () => {
     expect(emailStatus.textContent).toBe('🔴')
 
     const passwordStatus = getByTestId('password-status')
-    expect(passwordStatus.title).toBe('Campo obrigatório')
+    expect(passwordStatus.title).toBe(validationSpy.errorMessage)
     expect(passwordStatus.textContent).toBe('🔴')
   })
 
+  // Testando se aquele campo é aquele campo em si e o valor que ele tem
   test('Should call validation with correct email', () => {
     const { sut, validationSpy } = makeSut()
 
@@ -81,18 +83,36 @@ describe('Login Component', () => {
     expect(validationSpy.fieldValue).toBe(password)
   })
 
+  // Testando a mensagem de erro
   test('Should show email error if call validation fails', () => {
     const { sut, validationSpy } = makeSut()
 
-    const errorMessage = faker.word.adjective()
-    validationSpy.errorMessage = errorMessage
+    // const errorMessage = faker.word.adjective()
+    // validationSpy.errorMessage = errorMessage
 
     const emailInput = sut.getByTestId('email')
 
-    // Alterando o input de algum campo. O value faz com que a gente popule o campo
+    // Alterando o input de algum campo. O value faz com que a gente popule o campo. Como não iremos testar o valor do input em si, mas o erro, não importa o valor que colocamos, logo não precisamos fixar esse valor em uma variável
     fireEvent.input(emailInput, { target: { value: faker.internet.email() } })
     const emailStatus = sut.getByTestId('email-status')
     expect(emailStatus.title).toBe(validationSpy.errorMessage)
     expect(emailStatus.textContent).toBe('🔴')
+  })
+
+  test('Should show password error if call validation fails', () => {
+    const { sut, validationSpy } = makeSut()
+
+    // const errorMessage = faker.word.adjective()
+    // validationSpy.errorMessage = errorMessage
+
+    const passwordInput = sut.getByTestId('password')
+
+    // Alterando o input de algum campo. O value faz com que a gente popule o campo. Como não iremos testar o valor do input em si, mas o erro, não importa o valor que colocamos, logo não precisamos fixar esse valor em uma variável
+    fireEvent.input(passwordInput, {
+      target: { value: faker.internet.password() }
+    })
+    const passwordStatus = sut.getByTestId('password-status')
+    expect(passwordStatus.title).toBe(validationSpy.errorMessage)
+    expect(passwordStatus.textContent).toBe('🔴')
   })
 })
