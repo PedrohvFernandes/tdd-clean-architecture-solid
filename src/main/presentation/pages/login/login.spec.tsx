@@ -64,7 +64,7 @@ describe('Login Component', () => {
     expect(passwordStatus.textContent).toBe('🔴')
   })
 
-  test('Should call validation with correct value', () => {
+  test('Should call validation with correct email', () => {
     const { sut, validationSpy } = makeSut()
 
     const emailInput = sut.getByTestId('email')
@@ -74,6 +74,19 @@ describe('Login Component', () => {
     expect(validationSpy.input).toEqual({
       // O meu validation vai receber o campo que foi alterado(email) e o valor que foi alterado(any_email)
       email: 'any_email'
+    })
+  })
+
+  test('Should call validation with correct password', () => {
+    const { sut, validationSpy } = makeSut()
+
+    const passwordInput = sut.getByTestId('password')
+    // Alterando o input de algum campo. O value faz com que a gente popule o campo
+    fireEvent.input(passwordInput, { target: { value: 'any_password' } })
+    // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
+    expect(validationSpy.input).toEqual({
+      // O meu validation vai receber o campo que foi alterado(password) e o valor que foi alterado(any_password)
+      password: 'any_password'
     })
   })
 })
