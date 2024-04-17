@@ -1,22 +1,45 @@
-// import React from 'react'
-
 import { Login } from './login'
 
-import { RenderResult, render } from '@testing-library/react'
+import { Validation } from '@/protocols/validation'
+import {
+  RenderResult,
+  render,
+  fireEvent,
+  cleanup
+} from '@testing-library/react'
 
 type SutTypes = {
   sut: RenderResult
+  // eslint-disable-next-line no-use-before-define
+  validationSpy: ValidationSpy
+}
+
+class ValidationSpy implements Validation {
+  // errorMessage!: string
+  // input!: object
+  errorMessage = ''
+  input: object = {}
+
+  validate(input: object): string {
+    this.input = input
+    return this.errorMessage
+  }
 }
 
 // Factory
 const makeSut = (): SutTypes => {
-  const sut = render(<Login />)
+  const validationSpy = new ValidationSpy()
+  const sut = render(<Login validation={validationSpy} />)
   return {
-    sut
+    sut,
+    validationSpy
   }
 }
 
 describe('Login Component', () => {
+  // Limpa o ambiente de teste entre os testes, isso garante que o teste não vai ser influenciado por um teste anterior, em relação ao estado do componente
+  afterEach(cleanup)
+
   test('Should start with initial state', () => {
     const { sut } = makeSut()
 
@@ -39,5 +62,18 @@ describe('Login Component', () => {
     const passwordStatus = getByTestId('password-status')
     expect(passwordStatus.title).toBe('Campo obrigatório')
     expect(passwordStatus.textContent).toBe('🔴')
+  })
+
+  test('Should call validation with correct value', () => {
+    const { sut, validationSpy } = makeSut()
+
+    const emailInput = sut.getByTestId('email')
+    // Alterando o input de algum campo. O value faz com que a gente popule o campo
+    fireEvent.input(emailInput, { target: { value: 'any_email' } })
+    // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
+    expect(validationSpy.input).toEqual({
+      // O meu validation vai receber o campo que foi alterado(email) e o valor que foi alterado(any_email)
+      email: 'any_email'
+    })
   })
 })
