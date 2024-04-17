@@ -18,6 +18,8 @@ type SutTypes = {
 // Factory
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy()
+  // Por padrão ele sempre vai ter erro, e nos casos de sucesso retiramos o erro
+  validationSpy.errorMessage = faker.word.adjective()
   const sut = render(<Login validation={validationSpy} />)
   return {
     sut,
@@ -30,7 +32,7 @@ describe('Login Component', () => {
   afterEach(cleanup)
 
   test('Should start with initial state', () => {
-    const { sut } = makeSut()
+    const { sut, validationSpy } = makeSut()
 
     // sut.getAllByTestId
     const { getByTestId } = sut
@@ -45,7 +47,7 @@ describe('Login Component', () => {
 
     // Testando os inputs
     const emailStatus = getByTestId('email-status')
-    expect(emailStatus.title).toBe('Campo obrigatório')
+    expect(emailStatus.title).toBe(validationSpy.errorMessage)
     expect(emailStatus.textContent).toBe('🔴')
 
     const passwordStatus = getByTestId('password-status')
@@ -77,5 +79,20 @@ describe('Login Component', () => {
     // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
     expect(validationSpy.filedName).toBe('password')
     expect(validationSpy.fieldValue).toBe(password)
+  })
+
+  test('Should show email error if call validation fails', () => {
+    const { sut, validationSpy } = makeSut()
+
+    const errorMessage = faker.word.adjective()
+    validationSpy.errorMessage = errorMessage
+
+    const emailInput = sut.getByTestId('email')
+
+    // Alterando o input de algum campo. O value faz com que a gente popule o campo
+    fireEvent.input(emailInput, { target: { value: faker.internet.email() } })
+    const emailStatus = sut.getByTestId('email-status')
+    expect(emailStatus.title).toBe(validationSpy.errorMessage)
+    expect(emailStatus.textContent).toBe('🔴')
   })
 })
