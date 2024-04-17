@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 
 interface IconBallRedProps extends React.HTMLAttributes<HTMLSpanElement> {}
 
-function IconBallRed(props: IconBallRedProps) {
+function IconBall(props: IconBallRedProps) {
   return (
     <span
       {...props}
@@ -11,6 +11,6 @@ function IconBallRed(props: IconBallRedProps) {
   )
 }
 
-const MemoIconBallRed = memo(IconBallRed)
+const MemoIconBall = memo(IconBall)
 
-export { MemoIconBallRed as IconBallRed }
+export { MemoIconBall as IconBall }

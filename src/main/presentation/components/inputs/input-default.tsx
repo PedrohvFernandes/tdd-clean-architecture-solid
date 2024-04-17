@@ -1,6 +1,6 @@
 import React, { HTMLAttributes, InputHTMLAttributes, useEffect } from 'react'
 
-import { IconBallRed } from '../icon-ball-red'
+import { IconBall } from '../icon-ball'
 
 import { useHookErrorState } from '@/hooks/use-hook-error-state-context'
 import { useHookForm } from '@/main/hooks'
@@ -16,14 +16,15 @@ export function InputDefault(
   { ...rest }: DivDefaultProps
 ) {
   const errorState = useHookErrorState()
+  const { setEmailError } = useHookErrorState()
   // Pegamos o erro de acordo com o nome do input. o as keyof typeof valueContext é para tipar o erro
-  const error = errorState[`${props.name}` as keyof typeof errorState]
+  const error = errorState[`${props.name}Error` as keyof typeof errorState]
 
   const { email, password, handleChange } = useHookForm()
 
   useEffect(() => {
-    validation.validate('email', email)
-  }, [email, validation])
+    setEmailError(validation.validate('email', email))
+  }, [email, setEmailError, validation])
 
   useEffect(() => {
     validation.validate('password', password)
@@ -59,9 +60,9 @@ export function InputDefault(
         data-testid={props.name}
       />
 
-      <IconBallRed title={getTitle()} data-testid={`${props.name}-status`}>
+      <IconBall title={getTitle()} data-testid={`${props.name}-status`}>
         {getStatus()}
-      </IconBallRed>
+      </IconBall>
     </div>
   )
 }

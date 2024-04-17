@@ -6,10 +6,10 @@ interface IErrorStateContextType {
   // setEmailError: (emailError: string) => void
   // setPasswordError: (passwordError: string) => void
 
-  email: string
-  password: string
-  setEmail: (email: string) => void
-  setPassword: (password: string) => void
+  emailError: string
+  passwordError: string
+  setEmailError: (email: string) => void
+  setPasswordError: (password: string) => void
 
   errorMessageMain: string
   setErrorMessageMain: (errorMessage: string) => void
@@ -26,8 +26,9 @@ interface IErrorSateProviderProps {
 export const ErrorStateContextProvider = ({
   children
 }: IErrorSateProviderProps) => {
-  const [email, setEmail] = useState<string>('Campo obrigatório')
-  const [password, setPassword] = useState<string>('Campo obrigatório')
+  const [emailError, setEmailError] = useState<string>('')
+  const [passwordError, setPasswordError] =
+    useState<string>('Campo obrigatório')
   const [errorMessageMain, setErrorMessageMain] = useState<string>('')
 
   // const [errorState, setErrorState] = useState<Record<string, string>>({
@@ -48,11 +49,11 @@ export const ErrorStateContextProvider = ({
   // }
 
   function handlerEmail(email: string) {
-    setEmail(email)
+    setEmailError(email)
   }
 
   function handlerPassword(password: string) {
-    setPassword(password)
+    setPasswordError(password)
   }
   function handlerErrorMessageMain(message: string) {
     setErrorMessageMain(message)
@@ -61,10 +62,10 @@ export const ErrorStateContextProvider = ({
   return (
     <ErrorContext.Provider
       value={{
-        email,
-        password,
-        setEmail: handlerEmail,
-        setPassword: handlerPassword,
+        emailError,
+        passwordError,
+        setEmailError: handlerEmail,
+        setPasswordError: handlerPassword,
         errorMessageMain,
         setErrorMessageMain: handlerErrorMessageMain
       }}
