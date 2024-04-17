@@ -1,6 +1,7 @@
 import { Login } from './login'
 
 import { ValidationSpy } from '@/presentation/test'
+import { faker } from '@faker-js/faker'
 import {
   RenderResult,
   render,
@@ -56,21 +57,25 @@ describe('Login Component', () => {
     const { sut, validationSpy } = makeSut()
 
     const emailInput = sut.getByTestId('email')
+    const email = faker.internet.email()
     // Alterando o input de algum campo. O value faz com que a gente popule o campo
-    fireEvent.input(emailInput, { target: { value: 'any_email' } })
+    // fireEvent.input(emailInput, { target: { value: 'any_email' } })
+    fireEvent.input(emailInput, { target: { value: email } })
     // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
     expect(validationSpy.filedName).toBe('email')
-    expect(validationSpy.fieldValue).toBe('any_email')
+    expect(validationSpy.fieldValue).toBe(email)
   })
 
   test('Should call validation with correct password', () => {
     const { sut, validationSpy } = makeSut()
 
     const passwordInput = sut.getByTestId('password')
+    const password = faker.internet.password()
+
     // Alterando o input de algum campo. O value faz com que a gente popule o campo
-    fireEvent.input(passwordInput, { target: { value: 'any_password' } })
+    fireEvent.input(passwordInput, { target: { value: password } })
     // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
     expect(validationSpy.filedName).toBe('password')
-    expect(validationSpy.fieldValue).toBe('any_password')
+    expect(validationSpy.fieldValue).toBe(password)
   })
 })
