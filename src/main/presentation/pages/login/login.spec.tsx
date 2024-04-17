@@ -18,7 +18,7 @@ class ValidationSpy implements Validation {
   // errorMessage!: string
   // input!: object
   errorMessage = ''
-  input: object = {}
+  input: object = {} // ex: { email: 'any_email' }
 
   validate(input: object): string {
     this.input = input
