@@ -116,6 +116,7 @@ describe('Login Component', () => {
     expect(passwordStatus.textContent).toBe('🔴')
   })
 
+  // Testando a mensagem de sucesso
   test('Should show valid password state if call Validation succeeds', () => {
     const { sut, validationSpy } = makeSut()
 
@@ -131,5 +132,22 @@ describe('Login Component', () => {
     const passwordStatus = sut.getByTestId('password-status')
     expect(passwordStatus.title).toBe('Tudo Certo!')
     expect(passwordStatus.textContent).toBe('🟢')
+  })
+
+  test('Should show valid email state if call Validation succeeds', () => {
+    const { sut, validationSpy } = makeSut()
+
+    // Ele não tem erro mensagem
+    validationSpy.errorMessage = ''
+
+    const emailInput = sut.getByTestId('email')
+
+    // Alterando o input de algum campo. O value faz com que a gente popule o campo. Como não iremos testar o valor do input em si, mas o erro, não importa o valor que colocamos, logo não precisamos fixar esse valor em uma variável
+    fireEvent.input(emailInput, {
+      target: { value: faker.internet.email() }
+    })
+    const emailStatus = sut.getByTestId('email-status')
+    expect(emailStatus.title).toBe('Tudo Certo!')
+    expect(emailStatus.textContent).toBe('🟢')
   })
 })
