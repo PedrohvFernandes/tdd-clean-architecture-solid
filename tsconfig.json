@@ -36,6 +36,7 @@
       "@/layouts/*": ["main/presentation/layouts/*"],
       "@/contexts/*": ["main/presentation/contexts/*"],
       "@/hooks/*": ["main/hooks/*"],
+      "@/protocols/*": ["main/presentation/protocols/*"],
     }
   },
   "include": ["src"],

@@ -3,8 +3,13 @@ import { InputDefault } from '@/components/inputs'
 
 import { ErrorStateContextProvider } from '@/contexts/form/error-state-context'
 import { FormContextProvider } from '@/contexts/form/form-context'
+import { Validation } from '@/protocols/validation'
 
-export function Login() {
+type IPropsLogin = {
+  validation: Validation
+}
+
+export function Login({ validation }: IPropsLogin) {
   return (
     <FormContextProvider>
       <ErrorStateContextProvider>
@@ -17,16 +22,16 @@ export function Login() {
             type="email"
             name="email"
             id="email"
-            data-testid="email"
             placeholder="Digite seu email"
+            validation={validation}
           />
 
           <InputDefault
             type="password"
             name="password"
             id="password"
-            data-testid="password"
             placeholder="Digite seu password"
+            validation={validation}
           />
 
           <button

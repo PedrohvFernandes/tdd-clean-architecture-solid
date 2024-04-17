@@ -27,7 +27,8 @@ export default defineConfig({
       '@/pages': path.resolve('./src/main/presentation/pages'),
       '@/layouts': path.resolve('./src/main/presentation/layouts'),
       '@/contexts': path.resolve('./src/main/presentation/contexts'),
-      '@/hooks': path.resolve('./src/main/hooks')
+      '@/hooks': path.resolve('./src/main/hooks'),
+      '@/protocols': path.resolve('./src/main/presentation/protocols')
     }
   }
 })

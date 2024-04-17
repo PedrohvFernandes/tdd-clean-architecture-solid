@@ -21,7 +21,8 @@ module.exports = {
     '^@/hooks/(.*)$': '<rootDir>/main/hooks/$1',
     '^@/components/(.*)$': '<rootDir>/main/presentation/components/$1',
     '^@/contexts/(.*)$': '<rootDir>/main/presentation/contexts/$1',
-    '^@/main/(.*)$': '<rootDir>/main/$1'
+    '^@/main/(.*)$': '<rootDir>/main/$1',
+    '^@/protocols/(.*)$': '<rootDir>/main/protocols/$1'
   }
 
   // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
