@@ -18,10 +18,14 @@ class ValidationSpy implements Validation {
   // errorMessage!: string
   // input!: object
   errorMessage = ''
-  input: object = {} // ex: { email: 'any_email' }
+  // input: object = {} // ex: { email: 'any_email' }
+  filedName: string = ''
+  fieldValue: string = ''
 
-  validate(input: object): string {
-    this.input = input
+  validate(filedName: string, fieldValue: string): string {
+    // this.input = input
+    this.filedName = filedName
+    this.fieldValue = fieldValue
     return this.errorMessage
   }
 }
@@ -71,10 +75,12 @@ describe('Login Component', () => {
     // Alterando o input de algum campo. O value faz com que a gente popule o campo
     fireEvent.input(emailInput, { target: { value: 'any_email' } })
     // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
-    expect(validationSpy.input).toEqual({
-      // O meu validation vai receber o campo que foi alterado(email) e o valor que foi alterado(any_email)
-      email: 'any_email'
-    })
+    // expect(validationSpy.input).toEqual({
+    //   // O meu validation vai receber o campo que foi alterado(email) e o valor que foi alterado(any_email)
+    //   email: 'any_email'
+    // })
+    expect(validationSpy.filedName).toBe('email')
+    expect(validationSpy.fieldValue).toBe('any_email')
   })
 
   test('Should call validation with correct password', () => {
@@ -84,9 +90,11 @@ describe('Login Component', () => {
     // Alterando o input de algum campo. O value faz com que a gente popule o campo
     fireEvent.input(passwordInput, { target: { value: 'any_password' } })
     // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
-    expect(validationSpy.input).toEqual({
-      // O meu validation vai receber o campo que foi alterado(password) e o valor que foi alterado(any_password)
-      password: 'any_password'
-    })
+    // expect(validationSpy.input).toEqual({
+    //   // O meu validation vai receber o campo que foi alterado(password) e o valor que foi alterado(any_password)
+    //   password: 'any_password'
+    // })
+    expect(validationSpy.filedName).toBe('password')
+    expect(validationSpy.fieldValue).toBe('any_password')
   })
 })

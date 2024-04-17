@@ -9,7 +9,7 @@ type IPropsLogin = {
   validation: Validation
 }
 
-export function Login({ validation }: IPropsLogin) {
+export function Login({ validation }: Readonly<IPropsLogin>) {
   return (
     <FormContextProvider>
       <ErrorStateContextProvider>
