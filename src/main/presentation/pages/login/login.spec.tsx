@@ -2,11 +2,26 @@
 
 import { Login } from './login'
 
-import { render } from '@testing-library/react'
+import { RenderResult, render } from '@testing-library/react'
+
+type SutTypes = {
+  sut: RenderResult
+}
+
+// Factory
+const makeSut = (): SutTypes => {
+  const sut = render(<Login />)
+  return {
+    sut
+  }
+}
 
 describe('Login Component', () => {
   test('Should start with initial state', () => {
-    const { getByTestId } = render(<Login />)
+    const { sut } = makeSut()
+
+    // sut.getAllByTestId
+    const { getByTestId } = sut
     // Em form status data-testid="error-wrap"
     const errorWrap = getByTestId('error-wrap')
     // No inicio o status não deve ter nada, nem o spinner nem a mensagem de erro
