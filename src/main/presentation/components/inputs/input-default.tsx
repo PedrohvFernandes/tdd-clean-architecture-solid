@@ -22,12 +22,10 @@ export function InputDefault(
   const { email, password, handleChange } = useHookForm()
 
   useEffect(() => {
-    // validation.validate({ email })
     validation.validate('email', email)
   }, [email, validation])
 
   useEffect(() => {
-    // validation.validate({ password })
     validation.validate('password', password)
   }, [password, validation])
 

@@ -26,16 +26,17 @@
     "paths": {
       // @/* -> src/*
       // "@/*": ["*"],
+      "@/assets/*": ["assets/*"],
       "@/infra/*": ["infra/*"],
       "@/data/*": ["data/*"],
       "@/domain/*": ["domain/*"],
-      "@/assets/*": ["assets/*"],
       "@/main/*": ["main/*"],
-      "@/components/*": ["main/presentation/components/*"],
-      "@/pages/*": ["main/presentation/pages/*"],
-      "@/layouts/*": ["main/presentation/layouts/*"],
-      "@/contexts/*": ["main/presentation/contexts/*"],
       "@/hooks/*": ["main/hooks/*"],
+      "@/presentation/*": ["main/presentation/*"],
+      "@/components/*": ["main/presentation/components/*"],
+      "@/contexts/*": ["main/presentation/contexts/*"],
+      "@/layouts/*": ["main/presentation/layouts/*"],
+      "@/pages/*": ["main/presentation/pages/*"],
       "@/protocols/*": ["main/presentation/protocols/*"],
     }
   },
