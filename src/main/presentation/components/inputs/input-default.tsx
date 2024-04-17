@@ -34,17 +34,11 @@ export function InputDefault(
   }, [password, setPasswordError, validation])
 
   const getStatus = (): string => {
-    if (error) {
-      return '🔴'
-    }
-    return ''
+    return error ? '🔴' : '🟢'
   }
 
   const getTitle = (): string => {
-    if (error) {
-      return error as string
-    }
-    return ''
+    return error ? (error as string) : 'Tudo Certo!'
   }
 
   // A gente desativa a questão de readOnly para que o usuário possa digitar
