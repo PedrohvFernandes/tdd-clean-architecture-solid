@@ -19,11 +19,15 @@ export function InputDefault(
   // Pegamos o erro de acordo com o nome do input. o as keyof typeof valueContext é para tipar o erro
   const error = errorState[`${props.name}` as keyof typeof errorState]
 
-  const { setEmail, email } = useHookForm()
+  const { email, password, handleChange } = useHookForm()
 
   useEffect(() => {
     validation.validate({ email })
   }, [email, validation])
+
+  useEffect(() => {
+    validation.validate({ password })
+  }, [password, validation])
 
   const getStatus = (): string => {
     if (error) {
@@ -50,7 +54,7 @@ export function InputDefault(
         readOnly
         onFocus={enableInput}
         {...props}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={handleChange}
         className="border border-primary-LIGHT p-5 rounded focus:outline-primary-LIGHT focus:ring-2 ring-primary-DARK flex-1"
         data-testid={props.name}
       />
