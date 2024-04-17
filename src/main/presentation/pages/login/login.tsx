@@ -23,6 +23,7 @@ export function Login({ validation }: Readonly<IPropsLogin>) {
             name="email"
             id="email"
             placeholder="Digite seu email"
+            // Esse validation é passado pelo login.spec e no input default ele é usado para validar o campo
             validation={validation}
           />
 

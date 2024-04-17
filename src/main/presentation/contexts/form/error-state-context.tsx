@@ -27,8 +27,7 @@ export const ErrorStateContextProvider = ({
   children
 }: IErrorSateProviderProps) => {
   const [emailError, setEmailError] = useState<string>('')
-  const [passwordError, setPasswordError] =
-    useState<string>('Campo obrigatório')
+  const [passwordError, setPasswordError] = useState<string>('')
   const [errorMessageMain, setErrorMessageMain] = useState<string>('')
 
   // const [errorState, setErrorState] = useState<Record<string, string>>({

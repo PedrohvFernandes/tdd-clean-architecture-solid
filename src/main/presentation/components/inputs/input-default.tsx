@@ -7,7 +7,7 @@ import { useHookForm } from '@/main/hooks'
 import { Validation } from '@/protocols/validation'
 
 interface InputDefaultProps extends InputHTMLAttributes<HTMLInputElement> {
-  validation: Validation
+  validation?: Validation
 }
 interface DivDefaultProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -16,19 +16,22 @@ export function InputDefault(
   { ...rest }: DivDefaultProps
 ) {
   const errorState = useHookErrorState()
-  const { setEmailError } = useHookErrorState()
+  const { setEmailError, setPasswordError } = useHookErrorState()
   // Pegamos o erro de acordo com o nome do input. o as keyof typeof valueContext é para tipar o erro
   const error = errorState[`${props.name}Error` as keyof typeof errorState]
 
   const { email, password, handleChange } = useHookForm()
 
   useEffect(() => {
-    setEmailError(validation.validate('email', email))
+    // Usamos o validation passado pelo login para validar o campo. o ValidationSpy é passado pelo teste login.spec. Com isso deixamos o validation como --> ? porque é somente para teste, mas como o ValidationSpy é passado do login para o input, logo caso eu inicie a aplicação no modo dev ele vai entender que o validation não tem um validate, porque no login em si ele não é passado, mas somente o type e pelo spec passamos o ValidationSpy pelo factory makeSut para o login onde o ValidationSpy implementa o Validation que contem o validate
+    const errorMessage = validation?.validate('email', email) as string
+    setEmailError(errorMessage)
   }, [email, setEmailError, validation])
 
   useEffect(() => {
-    validation.validate('password', password)
-  }, [password, validation])
+    const errorMessage = validation?.validate('password', password) as string
+    setPasswordError(errorMessage)
+  }, [password, setPasswordError, validation])
 
   const getStatus = (): string => {
     if (error) {

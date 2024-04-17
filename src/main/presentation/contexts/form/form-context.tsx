@@ -9,6 +9,10 @@ interface IFormContextType {
   setPassword: (password: string) => void
 
   handleChange: (event: React.FocusEvent<HTMLInputElement>) => void
+  stateForm: {
+    email: string
+    password: string
+  }
 }
 
 export const FormContext = createContext<IFormContextType>(
@@ -82,7 +86,8 @@ export const FormContextProvider = ({ children }: IFormProviderProps) => {
         setEmail: handlerEmail,
         password: stateForm.password,
         setPassword: handlerPassword,
-        handleChange
+        handleChange,
+        stateForm
       }}
     >
       {children}
