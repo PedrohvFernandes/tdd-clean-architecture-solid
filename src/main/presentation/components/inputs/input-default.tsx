@@ -23,7 +23,7 @@ export function InputDefault(
   const { email, password, handleChange } = useHookForm()
 
   useEffect(() => {
-    // Usamos o validation passado pelo login para validar o campo. o ValidationSpy é passado pelo teste login.spec. Com isso deixamos o validation como --> ? porque é somente para teste, mas como o ValidationSpy é passado do login para o input, logo caso eu inicie a aplicação no modo dev ele vai entender que o validation não tem um validate, porque no login em si ele não é passado, mas somente o type e pelo spec passamos o ValidationSpy pelo factory makeSut para o login onde o ValidationSpy implementa o Validation que contem o validate
+    // Usamos o validation passado pelo login para validar o campo. o ValidationSpy é passado pelo teste login.spec. Com isso deixamos o validation como --> ? porque é somente para teste, mas como o ValidationSpy é passado do login para o input, logo caso eu inicie a aplicação no modo dev ele vai entender que o validation não tem um validate, porque no login em si ele não é passado, mas somente o type e pelo spec passamos o ValidationSpy pelo factory makeSut para o login onde o ValidationSpy implementa o Validation que contem o validate. E do login vai para o input
     const errorMessage = validation?.validate('email', email) as string
     setEmailError(errorMessage)
   }, [email, setEmailError, validation])
