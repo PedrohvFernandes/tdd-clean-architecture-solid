@@ -1,4 +1,5 @@
 import { ButtonForms } from '@/components/buttons'
+import { FormLogin } from '@/components/form'
 import { FormStatus } from '@/components/form-status'
 import { InputForm } from '@/components/inputs'
 
@@ -14,7 +15,7 @@ export function Login({ validation }: Readonly<IPropsLogin>) {
   return (
     <FormContextProvider>
       <ErrorStateContextProvider>
-        <form className="flex flex-col gap-4 w-[400px] bg-white p-10 rounded-lg self-center text-center shadow">
+        <FormLogin>
           <h2 className="text-primary-DARK text-xl uppercase font-bold tracking-wider">
             Login
           </h2>
@@ -42,7 +43,7 @@ export function Login({ validation }: Readonly<IPropsLogin>) {
             Criar conta
           </a>
           <FormStatus />
-        </form>
+        </FormLogin>
       </ErrorStateContextProvider>
     </FormContextProvider>
   )

@@ -14,6 +14,7 @@ export function Ellipsis(props: EllipsisProps) {
         'text-primary-LIGHT inline-block relative w-20 h-3',
         props.className
       )}
+      data-testid="ellipsis"
     >
       <Ball className="animate-ldsEllipsis1 left-2" />
       <Ball className="animate-ldsEllipsis2 left-2" />

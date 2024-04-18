@@ -2,7 +2,7 @@ import React, { ReactNode, createContext, useState } from 'react'
 
 interface IFormContextType {
   isLoading: boolean
-  setIsLoading: (isLoading: boolean) => void
+  setIsLoading: () => void
   email: string
   setEmail: (email: string) => void
   password: string
