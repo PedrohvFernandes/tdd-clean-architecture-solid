@@ -183,4 +183,31 @@ describe('Login Component', () => {
     const submitButton = getByTestId('submit') as HTMLButtonElement
     expect(submitButton.disabled).toBe(false)
   })
+
+  // O ellipsis que é um spinner tem que aparecer na tela
+  test('Should show loading ellipsis on submit', () => {
+    const { sut } = makeSut({
+      validationError: false
+    })
+
+    const getByTestId = sut.getByTestId
+
+    const emailInput = getByTestId('email')
+    const passwordInput = getByTestId('password')
+
+    fireEvent.input(emailInput, {
+      target: { value: faker.internet.email() }
+    })
+
+    fireEvent.input(passwordInput, {
+      target: { value: faker.internet.password() }
+    })
+
+    const submitButton = getByTestId('submit')
+    fireEvent.click(submitButton)
+
+    const ellipsis = getByTestId('ellipsis')
+
+    expect(ellipsis).toBeTruthy()
+  })
 })
