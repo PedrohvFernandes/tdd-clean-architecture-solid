@@ -57,6 +57,7 @@ export const FormContextProvider = ({ children }: IFormProviderProps) => {
   //   }
   // }
 
+  // Altera o estado do email
   function handlerEmail(email: string) {
     setStateForm((prev) => ({
       ...prev,
@@ -64,6 +65,7 @@ export const FormContextProvider = ({ children }: IFormProviderProps) => {
     }))
   }
 
+  // Altera o estado do password
   function handlerPassword(password: string) {
     setStateForm((prev) => ({
       ...prev,
@@ -71,9 +73,11 @@ export const FormContextProvider = ({ children }: IFormProviderProps) => {
     }))
   }
 
+  // Altera de acordo com o input que está sendo alterado
   function handleChange(event: React.FocusEvent<HTMLInputElement>) {
     setStateForm({
       ...stateForm,
+      // Nome do input e valor do input
       [event.target.name]: event.target.value
     })
   }

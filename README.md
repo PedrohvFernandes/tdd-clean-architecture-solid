@@ -490,6 +490,8 @@
 
   #### 10. Mostrando status de erro ou sucesso baseado na resposta do Validation
 
+  #### 11. Testando a integração com o Auhentication
+
   ## Tecnologias:
   - Vite
   - React

@@ -1,5 +1,6 @@
+import { ButtonForms } from '@/components/buttons'
 import { FormStatus } from '@/components/form-status'
-import { InputDefault } from '@/components/inputs'
+import { InputForm } from '@/components/inputs'
 
 import { ErrorStateContextProvider } from '@/contexts/form/error-state-context'
 import { FormContextProvider } from '@/contexts/form/form-context'
@@ -18,7 +19,7 @@ export function Login({ validation }: Readonly<IPropsLogin>) {
             Login
           </h2>
 
-          <InputDefault
+          <InputForm
             type="email"
             name="email"
             id="email"
@@ -27,7 +28,7 @@ export function Login({ validation }: Readonly<IPropsLogin>) {
             validation={validation}
           />
 
-          <InputDefault
+          <InputForm
             type="password"
             name="password"
             id="password"
@@ -35,14 +36,7 @@ export function Login({ validation }: Readonly<IPropsLogin>) {
             validation={validation}
           />
 
-          <button
-            type="submit"
-            className="bg-primary text-white rounded-lg border-none p-4 hover:opacity-90 disabled:bg-disabled-background disabled:text-disabled-text disabled:cursor-not-allowed ease-in-out duration-300"
-            data-testid="submit"
-            disabled
-          >
-            Entrar
-          </button>
+          <ButtonForms type="submit" name="submit" />
 
           <a className="text-primary lowercase cursor-pointer hover:underline ease-in-out duration-300 hover:opacity-80">
             Criar conta
