@@ -16,6 +16,7 @@ type SutTypesReturn = {
 
 type SutParams = {
   validationError?: boolean
+  // validationError: boolean
 }
 
 // Factory
@@ -23,6 +24,7 @@ const makeSut = (
   { validationError }: SutParams = {
     validationError: true
   }
+  // params?:SutParams
 ): SutTypesReturn => {
   const validationSpy = new ValidationSpy()
   // Por padrão ele sempre vai ter erro
