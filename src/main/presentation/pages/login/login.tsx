@@ -5,17 +5,20 @@ import { InputForm } from '@/components/inputs'
 
 import { ErrorStateContextProvider } from '@/contexts/form/error-state-context'
 import { FormContextProvider } from '@/contexts/form/form-context'
+import { Authentication } from '@/domain/usecases'
 import { Validation } from '@/protocols/validation'
 
 type IPropsLogin = {
   validation: Validation
+  authentication: Authentication
 }
 
-export function Login({ validation }: Readonly<IPropsLogin>) {
+export function Login({ validation, authentication }: Readonly<IPropsLogin>) {
   return (
     <FormContextProvider>
       <ErrorStateContextProvider>
-        <FormLogin>
+        {/* Assim como no input passamos o validation, aqui passamos o authentication que atualmente esta vindo somente dos testes como um AuthenticationSpy. em Login.spec > <Login/> > <FormLogin/> */}
+        <FormLogin authentication={authentication}>
           <h2 className="text-primary-DARK text-xl uppercase font-bold tracking-wider">
             Login
           </h2>
