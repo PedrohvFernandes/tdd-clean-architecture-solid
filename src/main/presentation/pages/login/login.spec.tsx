@@ -9,17 +9,24 @@ import {
   cleanup
 } from '@testing-library/react'
 
-type SutTypes = {
+type SutTypesReturn = {
   sut: RenderResult
-  // eslint-disable-next-line no-use-before-define
   validationSpy: ValidationSpy
 }
 
+type SutParams = {
+  validationError?: boolean
+}
+
 // Factory
-const makeSut = (): SutTypes => {
+const makeSut = (
+  { validationError }: SutParams = {
+    validationError: true
+  }
+): SutTypesReturn => {
   const validationSpy = new ValidationSpy()
   // Por padrão ele sempre vai ter erro
-  validationSpy.errorMessage = faker.word.adjective()
+  validationSpy.errorMessage = validationError ? faker.word.adjective() : ''
   const sut = render(<Login validation={validationSpy} />)
   return {
     sut,
@@ -42,7 +49,7 @@ describe('Login Component', () => {
     // No inicio o status não deve ter nada, nem o spinner nem a mensagem de erro
     expect(errorWrap.childElementCount).toBe(0)
 
-    // Fazemos um cast para HTMLInputElement para ter acesso a propriedade disabled
+    // Fazemos um cast(as) para HTMLInputElement para ter acesso a propriedade disabled
     const submitButton = getByTestId('submit') as HTMLButtonElement
     expect(submitButton.disabled).toBe(true)
 
@@ -118,10 +125,12 @@ describe('Login Component', () => {
 
   // Testando a mensagem de sucesso
   test('Should show valid password state if call Validation succeeds', () => {
-    const { sut, validationSpy } = makeSut()
+    const { sut } = makeSut({
+      validationError: false
+    })
 
     // Ele não tem erro mensagem
-    validationSpy.errorMessage = ''
+    // validationSpy.errorMessage = ''
 
     const passwordInput = sut.getByTestId('password')
 
@@ -135,10 +144,9 @@ describe('Login Component', () => {
   })
 
   test('Should show valid email state if call Validation succeeds', () => {
-    const { sut, validationSpy } = makeSut()
-
-    // Ele não tem erro mensagem
-    validationSpy.errorMessage = ''
+    const { sut } = makeSut({
+      validationError: false
+    })
 
     const emailInput = sut.getByTestId('email')
 
@@ -149,5 +157,28 @@ describe('Login Component', () => {
     const emailStatus = sut.getByTestId('email-status')
     expect(emailStatus.title).toBe('Tudo Certo!')
     expect(emailStatus.textContent).toBe('🟢')
+  })
+
+  // Testando button quando tudo esta preenchido sem nenhum erro
+  test('Should enable submit button if from is valid', () => {
+    const { sut } = makeSut({
+      validationError: false
+    })
+
+    const getByTestId = sut.getByTestId
+
+    const emailInput = getByTestId('email')
+    const passwordInput = getByTestId('password')
+
+    fireEvent.input(emailInput, {
+      target: { value: faker.internet.email() }
+    })
+
+    fireEvent.input(passwordInput, {
+      target: { value: faker.internet.password() }
+    })
+
+    const submitButton = getByTestId('submit') as HTMLButtonElement
+    expect(submitButton.disabled).toBe(false)
   })
 })
