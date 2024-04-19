@@ -17,7 +17,7 @@ export function Login({ validation, authentication }: Readonly<IPropsLogin>) {
   return (
     <FormContextProvider>
       <ErrorStateContextProvider>
-        {/* Assim como no input passamos o validation, aqui passamos o authentication que atualmente esta vindo somente dos testes como um AuthenticationSpy. em Login.spec > <Login/> > <FormLogin/> */}
+        {/* Assim como no input passamos o validation, aqui passamos o authentication que atualmente esta vindo somente dos testes como um AuthenticationSpy. em Login.spec > <Login validation={validationSpy} authentication={authenticationSpy} /> > <FormLogin/> */}
         <FormLogin authentication={authentication}>
           <h2 className="text-primary-DARK text-xl uppercase font-bold tracking-wider">
             Login
@@ -28,7 +28,7 @@ export function Login({ validation, authentication }: Readonly<IPropsLogin>) {
             name="email"
             id="email"
             placeholder="Digite seu email"
-            // Esse validation é passado pelo login.spec e no input default ele é usado para validar o campo
+            // Esse validation é passado pelo login.spec e no InputForm ele é usado para validar o campo
             validation={validation}
           />
 
