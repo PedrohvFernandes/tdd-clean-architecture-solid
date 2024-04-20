@@ -390,4 +390,15 @@ describe('Login Component', () => {
     // Esperamos que ele chame somente uma vez, porque a autenticação é uma chamada assincrona, ou seja, ja vai estar no processo de autenticação
     expect(authenticationSpy.callsCount).toBe(1)
   })
+
+  test('Should call Authentication if form is invalid', () => {
+    // Agora possui um erro message, logo o form é invalido, porque somente o email esta preenchido
+    const { getByTestId, authenticationSpy } = makeSutLogin()
+
+    populateEmailField(getByTestId)
+    fireEvent.submit(getByTestId('form'))
+
+    // Esperamos que ele não chame a autenticação, porque o form esta invalido, somente o email esta preenchido
+    expect(authenticationSpy.callsCount).toBe(0)
+  })
 })
