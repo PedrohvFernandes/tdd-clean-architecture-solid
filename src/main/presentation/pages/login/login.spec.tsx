@@ -12,6 +12,7 @@ import {
   MatcherOptions,
   waitFor
 } from '@testing-library/react'
+import 'jest-localstorage-mock'
 
 type SutLoginTypesReturn = {
   sutLogin: RenderResult
@@ -154,6 +155,10 @@ const simulateStatusForField = (
 describe('Login Component', () => {
   // Limpa o ambiente de teste entre os testes, isso garante que o teste não vai ser influenciado por um teste anterior, em relação ao estado do componente
   afterEach(cleanup)
+  // Entre os testes eu limpo sempre o localstorage, so pra evitar o problema de um teste influenciar no outro
+  beforeEach(() => {
+    localStorage.clear()
+  })
 
   // Estado inicial
   test('Should start with initial state', () => {
@@ -433,5 +438,21 @@ describe('Login Component', () => {
 
     // Eu espero que o erro seja exibido, somente ele, e que o spinner não esteja em tela. Ou seja, somente um filho no error-wrap
     expect(errorWrap.childElementCount).toBe(1)
+  })
+
+  test('Should add accessToken to localstorage on success', async () => {
+    const { sutLogin, getByTestId, authenticationSpy } = makeSutLogin({
+      validationError: false
+    })
+
+    simulateValidSubmit(sutLogin)
+
+    // Depois que eu chamar o submit, eu fico olhando para o form e depois que ele der um reloading
+    await waitFor(() => getByTestId('form'))
+
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      'accessToken',
+      authenticationSpy.account.accessToken
+    )
   })
 })
