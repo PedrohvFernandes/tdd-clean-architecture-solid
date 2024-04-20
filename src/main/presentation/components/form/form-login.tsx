@@ -28,7 +28,8 @@ export function FormLogin({
       }
 
       setIsLoading()
-      await authentication.auth({ email, password })
+      const account = await authentication.auth({ email, password })
+      localStorage.setItem('accessToken', account.accessToken)
     } catch (error) {
       setIsLoading()
       setErrorMessageMain(
