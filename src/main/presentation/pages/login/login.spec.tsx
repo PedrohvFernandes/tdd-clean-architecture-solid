@@ -1,5 +1,6 @@
 import { Login } from './login'
 
+import { InvalidCredentialsError } from '@/domain/errors'
 import { AuthenticationSpy, ValidationSpy } from '@/presentation/test'
 import { faker } from '@faker-js/faker'
 import {
@@ -8,7 +9,8 @@ import {
   fireEvent,
   cleanup,
   Matcher,
-  MatcherOptions
+  MatcherOptions,
+  waitFor
 } from '@testing-library/react'
 
 type SutLoginTypesReturn = {
@@ -157,6 +159,7 @@ describe('Login Component', () => {
   test('Should start with initial state', () => {
     const {
       // sutLogin,
+      // Por padrão na criação do validationSpy tem um erro, logo o form não esta valido, ou seja, os campos estão vazios
       validationSpy,
       getByTestId
     } = makeSutLogin()
@@ -184,6 +187,7 @@ describe('Login Component', () => {
 
   // Testando se aquele campo é aquele campo em si e o valor que ele tem
   test('Should call validation with correct email', () => {
+    // Aqui é independentemente se tem erro ou não nos campos, so quero validar se de fato é o campo email e se de fato ele tem o valor passado para ele
     const {
       // sutLogin,
       validationSpy,
@@ -197,11 +201,11 @@ describe('Login Component', () => {
     // fireEvent.input(emailInput, { target: { value: email } })
 
     // Aqui como eu tenho que comprar o valor tenho que criar ela por aqui e passar para o helper para ele popularizar o campo e depois fazer a comparação desse mesmo valor
-    const email = faker.internet.email()
-    populateEmailField(getByTestId, email)
+    const emailValue = faker.internet.email()
+    populateEmailField(getByTestId, emailValue)
     // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
     expect(validationSpy.filedName).toBe('email')
-    expect(validationSpy.fieldValue).toBe(email)
+    expect(validationSpy.fieldValue).toBe(emailValue)
   })
 
   test('Should call validation with correct password', () => {
@@ -213,11 +217,11 @@ describe('Login Component', () => {
     // // Alterando o input de algum campo. O value faz com que a gente popule o campo
     // fireEvent.input(passwordInput, { target: { value: password } })
 
-    const password = faker.internet.password()
-    populatePasswordField(getByTestId, password)
+    const passwordValue = faker.internet.password()
+    populatePasswordField(getByTestId, passwordValue)
     // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
     expect(validationSpy.filedName).toBe('password')
-    expect(validationSpy.fieldValue).toBe(password)
+    expect(validationSpy.fieldValue).toBe(passwordValue)
   })
 
   // Testando a mensagem de erro
@@ -378,6 +382,7 @@ describe('Login Component', () => {
     })
   })
 
+  // Validamos se chamamos somente uma vez o Authentication
   test('Should call Authentication only once', () => {
     const { sutLogin, authenticationSpy } = makeSutLogin({
       validationError: false
@@ -391,7 +396,8 @@ describe('Login Component', () => {
     expect(authenticationSpy.callsCount).toBe(1)
   })
 
-  test('Should call Authentication if form is invalid', () => {
+  // Testando se o botão de submit esta desabilitado
+  test('Should not call Authentication if form is invalid', () => {
     // Agora possui um erro message, logo o form é invalido, porque somente o email esta preenchido
     const { getByTestId, authenticationSpy } = makeSutLogin()
 
@@ -400,5 +406,32 @@ describe('Login Component', () => {
 
     // Esperamos que ele não chame a autenticação, porque o form esta invalido, somente o email esta preenchido
     expect(authenticationSpy.callsCount).toBe(0)
+  })
+
+  // Nesse teste, testamos se o erro é exibido na tela caso de errado a autenticação
+  test('Should preset error if Authentication fails', async () => {
+    const { sutLogin, getByTestId, authenticationSpy } = makeSutLogin({
+      validationError: false
+    })
+    const error = new InvalidCredentialsError()
+    // Mocamos o retorno do authentication para ser um erro, porque o padrão dele é retornar um Promise.resolve(this.account) quando passamos os valores corretos, mas nesse caso queremos testar o erro caso de errado no envio das credenciais. Lembrando que isso para ocorrer não pode ter o erro dos campos(errorMessage) no validationSpy, porque eles estão preenchidos corretamente, o erro é na autenticação, logo validationError: false
+    jest
+      // Espionamos o auth e retornamos um reject com o erro, em vez do accountModel
+      .spyOn(authenticationSpy, 'auth')
+      .mockReturnValueOnce(Promise.reject(error))
+
+    simulateValidSubmit(sutLogin)
+
+    const errorWrap = getByTestId('error-wrap')
+
+    // Basicamente ele vai esperar que o erro seja exibido na tela, ou seja, o erro que foi passado no reject, porque como é uma promise, o main-error ainda não vai estar em tela quando cair no catch do formLogin, porque ele é uma promise, então ele vai esperar que algo mude no errorWrap para dar continuidade no teste, ou seja, o main-error so aparece quando setamos o valor do erro no estado dele no formLogin dentro do catch depois que a promise é rejeitada
+    await waitFor(() => errorWrap)
+
+    // Eu espero que o erro seja exibido na tela e tem que ter a mensagem do erro
+    const mainError = getByTestId('main-error')
+    expect(mainError.textContent).toBe(error.message)
+
+    // Eu espero que o erro seja exibido, somente ele, e que o spinner não esteja em tela. Ou seja, somente um filho no error-wrap
+    expect(errorWrap.childElementCount).toBe(1)
   })
 })
