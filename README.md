@@ -495,6 +495,7 @@
   #### 12. Refatorando os testes do Login
 
   #### 13. Testando caso de sucesso e erro
+    - ```npm i -D jest-localstorage-mock``` Biblioteca para mockar o localstorage
 
   ## Tecnologias:
   - Vite
