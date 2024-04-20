@@ -377,4 +377,17 @@ describe('Login Component', () => {
       password: passwordValue
     })
   })
+
+  test('Should call Authentication only once', () => {
+    const { sutLogin, authenticationSpy } = makeSutLogin({
+      validationError: false
+    })
+
+    // Estamos simulando dois cliques no botão de submit
+    simulateValidSubmit(sutLogin)
+    simulateValidSubmit(sutLogin)
+
+    // Esperamos que ele chame somente uma vez, porque a autenticação é uma chamada assincrona, ou seja, ja vai estar no processo de autenticação
+    expect(authenticationSpy.callsCount).toBe(1)
+  })
 })
