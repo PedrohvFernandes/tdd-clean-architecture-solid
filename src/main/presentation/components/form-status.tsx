@@ -10,7 +10,9 @@ export function FormStatus() {
     <div className="flex flex-col items-center gap-4" data-testid="error-wrap">
       {isLoading && <Ellipsis />}
       {errorMessageMain && (
-        <span className="text-red-500 font-bold">{errorMessageMain}</span>
+        <span className="text-red-500 font-bold" data-testid="main-error">
+          {errorMessageMain}
+        </span>
       )}
     </div>
   )

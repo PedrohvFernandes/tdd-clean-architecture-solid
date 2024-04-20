@@ -13,13 +13,13 @@ interface InputFormProps extends InputHTMLAttributes<HTMLInputElement> {
 interface DivDefaultProps extends HTMLAttributes<HTMLDivElement> {}
 
 export function InputForm(
-  { validation, ...props }: InputFormProps,
-  { ...rest }: DivDefaultProps
+  { validation, ...propsInput }: InputFormProps,
+  { ...restDiv }: DivDefaultProps
 ) {
   const errorState = useHookErrorState()
   const { setEmailError, setPasswordError } = useHookErrorState()
   // Pegamos o erro de acordo com o nome do input. o as keyof typeof valueContext é para tipar o erro
-  const error = errorState[`${props.name}Error` as keyof typeof errorState]
+  const error = errorState[`${propsInput.name}Error` as keyof typeof errorState]
 
   const { email, password, handleChange } = useHookForm()
 
@@ -43,10 +43,10 @@ export function InputForm(
   }
 
   return (
-    <div {...rest} className="flex items-center relative">
-      <InputDefault {...props} onChange={handleChange} />
+    <div {...restDiv} className="flex items-center relative">
+      <InputDefault {...propsInput} onChange={handleChange} />
 
-      <IconBall title={getTitle()} data-testid={`${props.name}-status`}>
+      <IconBall title={getTitle()} data-testid={`${propsInput.name}-status`}>
         {getStatus()}
       </IconBall>
     </div>
