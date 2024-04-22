@@ -496,6 +496,8 @@
 
   #### 13. Testando caso de sucesso e erro
     - ```npm i -D jest-localstorage-mock``` Biblioteca para mockar o localstorage
+  
+  #### 14. Testando a navegação entre componentes
 
   ## Tecnologias:
   - Vite

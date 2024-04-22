@@ -27,6 +27,7 @@
       // @/* -> src/*
       // "@/*": ["*"],
       "@/assets/*": ["assets/*"],
+      "@/config/*": ["config/*"],
       "@/infra/*": ["infra/*"],
       "@/data/*": ["data/*"],
       "@/domain/*": ["domain/*"],

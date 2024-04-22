@@ -13,6 +13,11 @@ export default {
       path: '/login',
       routeFragment: '/login',
       next: {}
+    },
+    signup: {
+      path: '/signup',
+      routeFragment: '/signup',
+      next: {}
     }
   }
 }

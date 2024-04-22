@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom'
+
 import { ButtonForms } from '@/components/buttons'
 import { FormLogin } from '@/components/form'
 import { FormStatus } from '@/components/form-status'
 import { InputForm } from '@/components/inputs'
 
+import { ConfigRoute } from '@/config/index'
 import { ErrorStateContextProvider } from '@/contexts/form/error-state-context'
 import { FormContextProvider } from '@/contexts/form/form-context'
 import { Authentication } from '@/domain/usecases'
@@ -42,9 +45,13 @@ export function Login({ validation, authentication }: Readonly<IPropsLogin>) {
 
           <ButtonForms type="submit" name="submit" />
 
-          <a className="text-primary lowercase cursor-pointer hover:underline ease-in-out duration-300 hover:opacity-80">
+          <Link
+            to={ConfigRoute.fourDev.signup.path}
+            className="text-primary lowercase cursor-pointer hover:underline ease-in-out duration-300 hover:opacity-80"
+            data-testid="signup"
+          >
             Criar conta
-          </a>
+          </Link>
           <FormStatus />
         </FormLogin>
       </ErrorStateContextProvider>

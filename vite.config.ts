@@ -19,6 +19,7 @@ export default defineConfig({
     alias: {
       // O @ é um atalho para a pasta src
       '@/assets': path.resolve('./src/assets'),
+      '@/config': path.resolve('./src/config'),
       '@/infra': path.resolve('./src/main/infra'),
       '@/data': path.resolve('./src/main/data'),
       '@/domain': path.resolve('./src/main/domain'),
