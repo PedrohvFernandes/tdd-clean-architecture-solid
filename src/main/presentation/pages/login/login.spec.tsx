@@ -1,5 +1,12 @@
+import {
+  BrowserRouter
+  // RouterProvider,
+  // createMemoryRouter
+} from 'react-router-dom'
+
 import { Login } from './login'
 
+import { ConfigRoute } from '@/config/index'
 import { InvalidCredentialsError } from '@/domain/errors'
 import { AuthenticationSpy, ValidationSpy } from '@/presentation/test'
 import { faker } from '@faker-js/faker'
@@ -12,6 +19,10 @@ import {
   MatcherOptions,
   waitFor
 } from '@testing-library/react'
+
+// Para usar tem que dar um npm i history e npm i @types/history
+// import { createMemoryHistory } from 'history'
+
 import 'jest-localstorage-mock'
 
 type SutLoginTypesReturn = {
@@ -29,6 +40,8 @@ type SutLoginParams = {
   // validationError: boolean
 }
 
+// const history = createMemoryHistory()
+
 // Factory
 const makeSutLogin = (
   { validationError }: SutLoginParams = {
@@ -42,8 +55,51 @@ const makeSutLogin = (
 
   const authenticationSpy = new AuthenticationSpy()
 
+  // Antes quando não íamos para outra tela, era so renderizar o componente
+  // const sutLogin = render(
+  //   <Login validation={validationSpy} authentication={authenticationSpy} />
+  // )
+
+  // Depois que passamos a testar a navegação. Mas essa forma ficou depravada na v6 do react-router-dom, porque não é possivel mais passar o history pro Router ou BrowserRouter
+  // const sutLogin = render(
+  //   <BrowserRouter
+  //     // history={history}
+  //   >
+  //     <Login validation={validationSpy} authentication={authenticationSpy} />
+  //   </BrowserRouter>
+  // )
+
+  // Dessa forma funcionou parcialmente. Lembrando que dessa forma tive que usar o useNavigate para navegar para outra tela no botão de signup, em vez do link
+  // A diferença do createMemoryRouter  pro createBrowserRouter, é que esse é para criar rotas em memoria, qual que é o seguimento que ele vai seguir, qual que é a rota inicial, qual que é o index inicial
+  // https://reactrouter.com/en/main/router-components/memory-router
+  // https://v5.reactrouter.com/web/api/MemoryRouter
+  // https://reactrouter.com/en/main/routers/create-memory-router
+  // https://stackoverflow.com/questions/75802982/what-is-the-difference-between-browserrouter-and-createbrowserrouter-in-react-ro
+  // const routes = [
+  //   {
+  //     path: ConfigRoute.fourDev.login.path,
+  //     element: (
+  //       <Login validation={validationSpy} authentication={authenticationSpy} />
+  //     )
+  //   },
+  //   { path: ConfigRoute.fourDev.signup.path, element: <div>Signup</div> }
+  // ]
+
+  // const router = createMemoryRouter(routes, {
+  //   initialEntries: [
+  //     ConfigRoute.fourDev.login.path,
+  //     ConfigRoute.fourDev.signup.path
+  //   ],
+  //   initialIndex: 0 // Iria inicia no login, que é a posição 0
+  // })
+
+  // const sutLogin = render(<RouterProvider router={router} />)
+
+  // Então resolvi fazer assim. Sem passar o history para ele. Com isso eu puxo o history do window
   const sutLogin = render(
-    <Login validation={validationSpy} authentication={authenticationSpy} />
+    <BrowserRouter>
+      <Login validation={validationSpy} authentication={authenticationSpy} />
+    </BrowserRouter>
   )
 
   const { getByTestId } = sutLogin
@@ -454,5 +510,25 @@ describe('Login Component', () => {
       'accessToken',
       authenticationSpy.account.accessToken
     )
+  })
+
+  // eslint-disable-next-line no-only-tests/no-only-tests
+  test.only('Should go to signup page', async () => {
+    const { getByTestId } = makeSutLogin({
+      validationError: false
+    })
+
+    // Verifica se estamos inicialmente na rota inicial
+    expect(window.location.pathname).toBe(
+      ConfigRoute.fourDev.default.source.path
+    )
+
+    const signup = getByTestId('signup')
+    fireEvent.click(signup)
+
+    // Verifica se estamos agora na rota /signup
+    expect(window.location.pathname).toBe(ConfigRoute.fourDev.signup.path)
+    // Verifica se o historico de navegação tem 2 itens, porque ele vai ter o / e o signup
+    expect(window.history.length).toBe(2)
   })
 })
