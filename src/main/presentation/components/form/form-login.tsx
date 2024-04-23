@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { FormDefault } from './'
 
@@ -16,6 +17,8 @@ export function FormLogin({
   const { setIsLoading, isLoading, email, password } = useHookForm()
   const { emailError, passwordError, setErrorMessageMain } = useHookErrorState()
 
+  const navigate = useNavigate()
+
   const handleFormSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -30,6 +33,7 @@ export function FormLogin({
       setIsLoading()
       const account = await authentication.auth({ email, password })
       localStorage.setItem('accessToken', account.accessToken)
+      navigate('/')
     } catch (error) {
       setIsLoading()
       setErrorMessageMain(
