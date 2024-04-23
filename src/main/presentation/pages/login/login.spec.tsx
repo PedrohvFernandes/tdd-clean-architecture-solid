@@ -1,5 +1,6 @@
 import {
-  BrowserRouter
+  Router
+  // BrowserRouter
   // RouterProvider,
   // createMemoryRouter
 } from 'react-router-dom'
@@ -19,9 +20,8 @@ import {
   MatcherOptions,
   waitFor
 } from '@testing-library/react'
-
-// Para usar tem que dar um npm i history e npm i @types/history
-// import { createMemoryHistory } from 'history'
+// Caso esteja sofrendo Cannot find module 'history': Para usar tem que dar um npm i history e npm i @types/history. Quando instalar o projeto ja vai fir as libs porque tive esse problema
+import { createMemoryHistory } from 'history'
 
 import 'jest-localstorage-mock'
 
@@ -40,7 +40,24 @@ type SutLoginParams = {
   // validationError: boolean
 }
 
-// const history = createMemoryHistory()
+const history = createMemoryHistory({
+  initialEntries: [ConfigRoute.fourDev.login.path] // Ponto de partida /login
+})
+
+// Como tivemos que instalar a lib https://www.npmjs.com/package/history Eles não possuem o length como o history nativo, então tive que criar uma variavel para armazenar a quantidade de rotas visitadas. Poderia usar o window.history.length mas ele não pega a quantidade exata
+// Inicialmente
+let quantityRoutes = 0
+
+// Lista para armazenar as rotas visitadas
+const routesVisited: string[] = []
+// Adicionar um listener para atualizar a lista de rotas visitadas sempre que a localização do histórico mudar
+history.listen((location) => {
+  // Se a nova localização não estiver na lista, adiciona
+  if (!routesVisited.includes(location.location.pathname)) {
+    routesVisited.push(location.location.pathname)
+    quantityRoutes = routesVisited.length
+  }
+})
 
 // Factory
 const makeSutLogin = (
@@ -60,7 +77,7 @@ const makeSutLogin = (
   //   <Login validation={validationSpy} authentication={authenticationSpy} />
   // )
 
-  // Depois que passamos a testar a navegação. Mas essa forma ficou depravada na v6 do react-router-dom, porque não é possivel mais passar o history pro Router ou BrowserRouter
+  // Depois que passamos a testar a navegação. Mas essa forma ficou depravada na v6 do react-router-dom, porque não é possivel mais passar o history pro BrowserRouter
   // const sutLogin = render(
   //   <BrowserRouter
   //     // history={history}
@@ -95,11 +112,18 @@ const makeSutLogin = (
 
   // const sutLogin = render(<RouterProvider router={router} />)
 
-  // Então resolvi fazer assim. Sem passar o history para ele. Com isso eu puxo o history do window
+  // Dessa maneira funcionou, mas não é a melhor maneira, usavamos o history do window para pegar o historico de navegação, mas dava algum problema na quantidade de rotas, e o location do window para pegar a localização atual nos testes finais
+  // const sutLogin = render(
+  //   <BrowserRouter>
+  //     <Login validation={validationSpy} authentication={authenticationSpy} />
+  //   </BrowserRouter>
+  // )
+
+  // Então resolvi fazer assim. usando o history da lib history https://stackoverflow.com/questions/73364590/react-router-and-creatememoryhistory-in-test-property-location-does-not-exist
   const sutLogin = render(
-    <BrowserRouter>
+    <Router location={history.location} navigator={history}>
       <Login validation={validationSpy} authentication={authenticationSpy} />
-    </BrowserRouter>
+    </Router>
   )
 
   const { getByTestId } = sutLogin
@@ -210,7 +234,7 @@ const simulateStatusForField = (
 
 describe('Login Component', () => {
   // Limpa o ambiente de teste entre os testes, isso garante que o teste não vai ser influenciado por um teste anterior, em relação ao estado do componente
-  afterEach(cleanup)
+  afterEach(() => cleanup())
   // Entre os testes eu limpo sempre o localstorage, so pra evitar o problema de um teste influenciar no outro
   beforeEach(() => {
     localStorage.clear()
@@ -510,25 +534,32 @@ describe('Login Component', () => {
       'accessToken',
       authenticationSpy.account.accessToken
     )
+    // Verifica se estamos no /, porque o navigate(form-login) vai para / apos dar tudo certo no auth
+    expect(history.location.pathname).toBe(
+      ConfigRoute.fourDev.default.source.path
+    )
+    console.log({
+      windowHistoryLength: window.history.length,
+      quantityRoutes
+    })
+    expect(quantityRoutes).toBe(1)
   })
 
-  // eslint-disable-next-line no-only-tests/no-only-tests
-  test.only('Should go to signup page', async () => {
+  test('Should go to signup page', async () => {
     const { getByTestId } = makeSutLogin({
       validationError: false
     })
-
-    // Verifica se estamos inicialmente na rota inicial
-    expect(window.location.pathname).toBe(
-      ConfigRoute.fourDev.default.source.path
-    )
 
     const signup = getByTestId('signup')
     fireEvent.click(signup)
 
     // Verifica se estamos agora na rota /signup
-    expect(window.location.pathname).toBe(ConfigRoute.fourDev.signup.path)
-    // Verifica se o historico de navegação tem 2 itens, porque ele vai ter o / e o signup
-    expect(window.history.length).toBe(2)
+    expect(history.location.pathname).toBe(ConfigRoute.fourDev.signup.path)
+    // Verifica se o historico de navegação tem 2 itens, porque ele vai ter o /login e o /signup
+    console.log({
+      windowHistoryLength: window.history.length,
+      quantityRoutes
+    })
+    expect(quantityRoutes).toBe(2)
   })
 })
