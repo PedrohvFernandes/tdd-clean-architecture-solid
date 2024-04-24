@@ -40,6 +40,7 @@
       "@/layouts/*": ["main/presentation/layouts/*"],
       "@/pages/*": ["main/presentation/pages/*"],
       "@/protocols/*": ["main/presentation/protocols/*"],
+      "@/validation/*": ["validation/*"],
     }
   },
   "include": ["src"],

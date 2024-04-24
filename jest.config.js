@@ -24,7 +24,8 @@ module.exports = {
     '^@/presentation/(.*)$': '<rootDir>/main/presentation/$1',
     '^@/components/(.*)$': '<rootDir>/main/presentation/components/$1',
     '^@/contexts/(.*)$': '<rootDir>/main/presentation/contexts/$1',
-    '^@/protocols/(.*)$': '<rootDir>/main/protocols/$1'
+    '^@/protocols/(.*)$': '<rootDir>/main/protocols/$1',
+    '^@/validation/(.*)$': '<rootDir>/validation/$1'
   }
 
   // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {

@@ -24,6 +24,7 @@ export default defineConfig({
       '@/data': path.resolve('./src/main/data'),
       '@/domain': path.resolve('./src/main/domain'),
       '@/main': path.resolve('./src/main'),
+      '@/validation': path.resolve('./src/validation'),
       '@/hooks': path.resolve('./src/main/hooks'),
       '@/presentation': path.resolve('./src/main/presentation'),
       '@/components': path.resolve('./src/main/presentation/components'),
