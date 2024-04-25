@@ -12,27 +12,40 @@ import { EmailValidation } from './email-validation'
 import { InvalidFieldError } from '@/validation/errors'
 import { faker } from '@faker-js/faker'
 
+type SutTypes = {
+  sutEmailValidation: EmailValidation
+  randomFieldName: string
+}
+
+const makeSut = (): SutTypes => {
+  const randomFieldName = faker.database.column()
+  const sutEmailValidation = new EmailValidation(randomFieldName)
+  return {
+    sutEmailValidation,
+    randomFieldName
+  }
+}
+
 describe('EmailValidation', () => {
   test('Should return error if email is empty', () => {
-    const randomFieldName = faker.word.adjective()
-    const sut = new EmailValidation(randomFieldName)
+    const sut = makeSut()
     // Passando um email vazio
-    const error = sut.validate('')
-    expect(error).toEqual(new InvalidFieldError(randomFieldName))
+    const error = sut.sutEmailValidation.validate('')
+    expect(error).toEqual(new InvalidFieldError(sut.randomFieldName))
   })
   // Validamos se o email passado é valido, mas nesse caso vai ser invalido
   test('Should return error if email is invalid', () => {
-    const randomFieldName = faker.word.adjective()
-    const sut = new EmailValidation(randomFieldName)
+    const sut = makeSut()
     // Passando uma palavra aleatoria, que não é um email
-    const error = sut.validate(faker.word.adjective())
-    expect(error).toEqual(new InvalidFieldError(randomFieldName))
+    const error = sut.sutEmailValidation.validate(faker.word.adjective())
+    expect(error).toEqual(new InvalidFieldError(sut.randomFieldName))
   })
 
   // Validamos se o email passado é valido, mas nesse caso vai ser valido
   test('Should return falsy if email is invalid', () => {
-    const sut = new EmailValidation(faker.word.adjective())
-    const error = sut.validate(faker.internet.email())
+    const sut = makeSut()
+    // Validando com email real
+    const error = sut.sutEmailValidation.validate(faker.internet.email())
     expect(error).toBeFalsy()
   })
 })
