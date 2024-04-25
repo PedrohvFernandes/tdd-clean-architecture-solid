@@ -505,6 +505,8 @@
 
   #### 1. Criando o RequiredFieldValidation
 
+  #### 2. Criando o EmailValidation
+
   ## Tecnologias:
   - Vite
   - React
