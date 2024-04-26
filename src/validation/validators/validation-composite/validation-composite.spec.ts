@@ -22,4 +22,20 @@ describe('ValidationComposite', () => {
     const error = sutComposite.validate('any_field', 'any_value')
     expect(error).toBe('any_error_message')
   })
+
+  // Se o primeiro ja falhar, o segundo não deve ser chamado
+  test('Should return error if first validation fails', () => {
+    const fieldValidationSpy = new FieldValidationSpy('any_field')
+    fieldValidationSpy.error = new Error('first_error_message')
+    const fieldValidationSpy2 = new FieldValidationSpy('any_field')
+    fieldValidationSpy2.error = new Error('second_error_message')
+
+    const sutComposite = new ValidationComposite([
+      fieldValidationSpy,
+      fieldValidationSpy2
+    ])
+
+    const error = sutComposite.validate('any_field', 'any_value')
+    expect(error).toBe('first_error_message')
+  })
 })
