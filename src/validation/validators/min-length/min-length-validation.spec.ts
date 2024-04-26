@@ -1,20 +1,39 @@
 import { MinlengthFieldError } from '@/validation/errors/minlength-invalid-field-error'
 import { MinLengthValidation } from '@/validation/validators/min-length/min-length-validation'
+import { faker } from '@faker-js/faker'
+
+type SutTypes = {
+  sutMinLengthValidation: MinLengthValidation
+  randomFieldName: string
+  minLength: number
+}
+
+const makeSut = (min: number = 5): SutTypes => {
+  const randomFieldName = faker.database.column()
+  const minLength = min
+  // Testamos o campo "aleatorio" e o valor minimo de caracteres é 5 ou mais, por padrão 5
+  const sutMinLengthValidation = new MinLengthValidation(
+    randomFieldName,
+    minLength
+  )
+  return {
+    sutMinLengthValidation,
+    randomFieldName,
+    minLength
+  }
+}
 
 describe('MinLengthValidation', () => {
   test('Should return error if value is invalid', () => {
-    // Testamos o campo "field" e o valor minimo de caracteres é 5
-    const minLength = 5
-    const sut = new MinLengthValidation('field', minLength)
+    const { minLength, sutMinLengthValidation } = makeSut()
     // Passamos um valor de 3 caracteres
-    const error = sut.validate('123')
+    const error = sutMinLengthValidation.validate(faker.string.sample(3))
     expect(error).toEqual(new MinlengthFieldError(minLength))
   })
 
   test('Should return falsy if value is valid', () => {
-    const minLength = 5
-    const sut = new MinLengthValidation('field', minLength)
-    const error = sut.validate('12345')
+    const { sutMinLengthValidation } = makeSut()
+    const error = sutMinLengthValidation.validate(faker.string.sample(5))
     expect(error).toBeFalsy()
   })
 })
