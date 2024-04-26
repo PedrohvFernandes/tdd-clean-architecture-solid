@@ -507,6 +507,8 @@
 
   #### 2. Criando o EmailValidation
 
+  #### 3. Criando o MinLengthValidation
+
   ## Tecnologias:
   - Vite
   - React
