@@ -27,11 +27,18 @@ const makeSut = (): SutTypes => {
 }
 
 describe('EmailValidation', () => {
-  test('Should return error if email is empty', () => {
+  // test('Should return error if email is empty', () => {
+  //   const sut = makeSut()
+  //   // Passando um email vazio
+  //   const error = sut.sutEmailValidation.validate('')
+  //   expect(error).toEqual(new InvalidFieldError(sut.randomFieldName))
+  // })
+  test('Should return falsy if email is empty', () => {
     const sut = makeSut()
     // Passando um email vazio
     const error = sut.sutEmailValidation.validate('')
-    expect(error).toEqual(new InvalidFieldError(sut.randomFieldName))
+    // Se o campo estiver vazio não precisa retornar erro
+    expect(error).toBeFalsy()
   })
   // Validamos se o email passado é valido, mas nesse caso vai ser invalido
   test('Should return error if email is invalid', () => {
