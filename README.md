@@ -509,6 +509,8 @@
 
   #### 3. Criando o MinLengthValidation
 
+  #### 4. Aplicando o Design Pattern Composite
+
   ## Tecnologias:
   - Vite
   - React
