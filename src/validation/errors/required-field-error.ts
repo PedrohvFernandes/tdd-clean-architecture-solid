@@ -1,6 +1,6 @@
 export class RequiredFieldError extends Error {
-  constructor() {
-    super('Campo obrigatório')
+  constructor(fieldName: string) {
+    super(`Campo obrigatório: ${fieldName}`)
     this.name = 'RequiredFieldError'
   }
 }
