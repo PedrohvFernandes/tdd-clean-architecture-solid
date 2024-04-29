@@ -509,7 +509,7 @@
 
   #### 3. Criando o MinLengthValidation
 
-  #### 4. Aplicando o Design Pattern Composite
+  #### 4. Aplicando o Design Pattern Composite -NÃO TERMINEI ESSA AULA, PAREI NO 16MIN
 
   ## Tecnologias:
   - Vite

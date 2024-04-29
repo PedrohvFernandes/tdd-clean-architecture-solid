@@ -16,6 +16,7 @@ export class ValidationComposite implements Validation {
       // Se o validador daquele campo retornar um erro com base no valor passado, retornamos o erro
       const error = validator.validate(fieldValue)
       if (error) {
+        // A gente ja retorna a mensagem erro do validator em si, ja passa bonitinho para view
         return error.message
       }
     }
