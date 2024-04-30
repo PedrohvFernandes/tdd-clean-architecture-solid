@@ -1,5 +1,8 @@
 import { FieldValidation } from '@/validation/protocols'
-import { RequiredFieldValidation } from '@/validation/validators'
+import {
+  EmailValidation,
+  RequiredFieldValidation
+} from '@/validation/validators'
 
 export class ValidationBuilder {
   // Construtor privado para que não seja possivel instanciar a classe ValidationBuilder fora dela mesma.
@@ -20,6 +23,12 @@ export class ValidationBuilder {
     // Apos chamar o metodo field passando o campo que esta sendo testado, chamamos o metodo required, e ele vai adicionar a validação de campo obrigatório ao array de validações daquele campo que esta sendo testado, passando uma das validações que é a RequiredFieldValidation, ela é uma validação que valida se o campo é obrigatório ou não.
     this.validations.push(new RequiredFieldValidation(this.fieldName))
     // Retornamos a instancia para continuar concatenando um metodo apos o outro. Tipo no zod, yup...
+    return this
+  }
+
+  // Esse metodo faz o mesmo que o required, mas ele adiciona a validação de email ao array de validações, e retorna a instancia para continuar concatenando um metodo apos o outro.
+  email() {
+    this.validations.push(new EmailValidation(this.fieldName))
     return this
   }
 
