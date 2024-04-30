@@ -1,6 +1,6 @@
 import { FieldValidation } from '@/validation/protocols'
 
-// Validador fake para testar o composite
+// Validador fake para testar o composite. Tipo um required-field-validation, ele valida se o campo é obrigatório ou não
 export class FieldValidationSpy implements FieldValidation {
   error: Error | null = null
   constructor(readonly fieldName: string) {}

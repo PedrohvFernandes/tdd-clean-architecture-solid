@@ -511,6 +511,8 @@
 
   #### 4. Aplicando o Design Pattern Composite
 
+  #### 5. Aplicando o Design Pattern Builder
+
   ## Tecnologias:
   - Vite
   - React
