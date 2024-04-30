@@ -1,6 +1,7 @@
 import { FieldValidation } from '@/validation/protocols'
 import {
   EmailValidation,
+  MinLengthValidation,
   RequiredFieldValidation
 } from '@/validation/validators'
 
@@ -29,6 +30,11 @@ export class ValidationBuilder {
   // Esse metodo faz o mesmo que o required, mas ele adiciona a validação de email ao array de validações, e retorna a instancia para continuar concatenando um metodo apos o outro.
   email() {
     this.validations.push(new EmailValidation(this.fieldName))
+    return this
+  }
+
+  min(length: number) {
+    this.validations.push(new MinLengthValidation(this.fieldName, length))
     return this
   }
 
