@@ -1,3 +1,4 @@
+// import { ValidationBuilder } from '../builder/validation-builder'
 import { ValidationComposite } from './validation-composite'
 
 import { FieldValidationSpy } from '@/validation/validators/test/mock-field-validation'
@@ -10,6 +11,7 @@ type SutTypes = {
 
 const makeSut = (
   fieldName: string,
+  // Vamos deixar os validadores fixos, não iremos usar o builder de validadores aqui no test do composite
   fieldValidationSpy: FieldValidationSpy[] = [
     // new FieldValidationSpy('any_field'),
     // new FieldValidationSpy('any_field')
@@ -18,7 +20,17 @@ const makeSut = (
   ]
 ): SutTypes => {
   const fieldValidationsSpy = fieldValidationSpy
-  const sutComposite = new ValidationComposite(fieldValidationsSpy)
+  // const sutComposite = new ValidationComposite(fieldValidationsSpy)
+  // Transformamos o composite em build também,  dois design patterns em um. So por questões de semântica. Com iso não conseguimos instanciar o objeto da classe de composite por aqui, mas somente dentro dela mesma como no build de validadores da pasta de builder
+  const sutComposite = ValidationComposite.build(fieldValidationsSpy)
+
+  // Seria mais ou menos isso aqui caso se usássemos o build dos validadores aqui no test: usamos o spread nós dois, porque eles retornam array das validações dos campos, com isso, concatenamos um array no outro, formando um só que é o que o composite espera, ele espera um array com itens que seja do tipo FieldValidation, ou seja, somente validadores com os nomes do campo que sera validado e dentro de cada array desse contem FieldValidation, ou seja, validadores dos campos passados para o field, ex: email e password. Ou seja, para o password ele retorna um array com  a validação de ser obrigatório e no mínimo 5, no fim o build dele retorna esse array(lista) desses validadores com a campo password, concatenamos com os de email, formando um so array de validadores para cada campo. Se não tivéssemos o build, iriamos ter que fazer um  new RequiredFieldValidation(password), new MinLengthValidation(password, 5), e o mesmo para o email, dentro de cada array, um para o password, outro para o email, e depois passar esses respectivos arrays para o build do composite. Podemos usar de exemplo o fieldValidationSpy que contem dois validadores com o fieldName de forma genérica, onde dentro do array dele instanciamos duas classes de validadores. Dessa forma formamos um schema tipo do zod, yup...
+
+  // const sutComposite = ValidationComposite.build([
+  //   ...ValidationBuilder.field('email').required().email().build(),
+  //   ...ValidationBuilder.field('password').required().min(5).build()
+  // ])
+
   return {
     sutComposite,
     fieldValidationsSpy
