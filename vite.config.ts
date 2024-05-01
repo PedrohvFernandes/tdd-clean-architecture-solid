@@ -20,9 +20,9 @@ export default defineConfig({
       // O @ é um atalho para a pasta src
       '@/assets': path.resolve('./src/assets'),
       '@/config': path.resolve('./src/config'),
-      '@/infra': path.resolve('./src/main/infra'),
-      '@/data': path.resolve('./src/main/data'),
-      '@/domain': path.resolve('./src/main/domain'),
+      '@/infra': path.resolve('./src/infra'),
+      '@/data': path.resolve('./src/data'),
+      '@/domain': path.resolve('./src/domain'),
       '@/main': path.resolve('./src/main'),
       '@/validation': path.resolve('./src/validation'),
       '@/hooks': path.resolve('./src/main/hooks'),

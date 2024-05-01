@@ -4,9 +4,9 @@ import {
 } from 'react-router-dom'
 
 import { ConfigRoute } from '../config/'
+import { MakeLogin } from './factories/pages/login/login-factory'
 
 import { DefaultLayout } from '@/layouts/default-layout'
-import { Login } from '@/pages/login'
 
 export const Router = createBrowserRouter([
   {
@@ -15,11 +15,11 @@ export const Router = createBrowserRouter([
     children: [
       {
         path: ConfigRoute.fourDev.login.path,
-        element: <Login />
+        element: <MakeLogin />
       },
       // {
       //   path: ConfigRoute.fourDev.default.source.path,
-      //   element: <Login />
+      //   element: <MakeLogin />
       // },
       {
         path: ConfigRoute.fourDev.signup.path,
