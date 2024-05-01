@@ -517,6 +517,8 @@
   
   #### 1. Fazendo a composição do Login
 
+  #### 2. Refatorando os Factories
+
 
   ## Tecnologias:
   - Vite
