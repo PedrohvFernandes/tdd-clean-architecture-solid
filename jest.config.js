@@ -2,11 +2,15 @@ module.exports = {
   // Diretório raiz dos arquivos de teste
   rootDir: './src',
   // roots: ['<rootDir>/src'],
+  roots: ['<rootDir>'],
   // Quando não quero fazer o coverage de algum arquivo, eu coloco o caminho do arquivo dentro do array com ! nesse caso não quero fazer o coverage de arquivos de types
   collectCoverageFrom: [
-    '<rootDir>/src/**/*.{ts,tsx}',
-    '!<rootDir>/src/main/**/*',
-    '!<rootDir>/src/presentation/components/router/**/*',
+    '<rootDir>/**/*.{ts,tsx}',
+    '!<rootDir>/main/**/*',
+    // '!<rootDir>/presentation/components/router/**/*',
+    '!<rootDir>/presentation/**/router.tsx',
+    '!<rootDir>/**/index.ts',
+    '!<rootDir>/config/**/*',
     '!**/*.d.ts'
   ],
   // testEnvironment: 'node',
