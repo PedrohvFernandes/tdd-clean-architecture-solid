@@ -1,7 +1,7 @@
 import { AxiosHttpClientAdapter } from './axios-http-client-adapter'
 
 import { mockPostRequest } from '@/data/test'
-import { mockAxios } from '@/infra/test'
+import { mockAxios, mockedAxiosResult } from '@/infra/test'
 import axios from 'axios'
 
 // Mockando a lib do axios. Fazendo isso temos acesso a todas as funções do axios
@@ -34,8 +34,7 @@ describe('AxiosHttpClientAdapter', () => {
     expect(mockedAxios.post).toHaveBeenCalledWith(request.url, request.body)
   })
 
-  // O nosso http response responde com um status code e um body. Então vamos testar se o axios retorna o status code e o body correto
-  test('Should return the correct and body', () => {
+  test('Should return the correct statusCode and body', () => {
     const { sut, mockedAxios } = makeSut()
 
     // const httpResponse = await sut.post(mockPostRequest())
@@ -44,6 +43,18 @@ describe('AxiosHttpClientAdapter', () => {
 
     // const mockedResolvedValue = await mockedAxios.post.mock.results[0].value
     // Comparamos o result do post do axios mock-axios(mockedAxios) com o result do post  do AxiosHttpClientAdapter
+    const mockedResolvedValuePromise = mockedAxios.post.mock.results[0].value
+    expect(httpPromiseResponse).toEqual(mockedResolvedValuePromise)
+  })
+
+  test('Should return the correct statusCode and body on failure', () => {
+    const { sut, mockedAxios } = makeSut()
+    // Fazemos o post do axios mockado retornar um erro, porque por padrão ele retorna como resolvido, retornando o mock de resposta do axios
+    mockedAxios.post.mockRejectedValueOnce({
+      response: mockedAxiosResult()
+    })
+    const httpPromiseResponse = sut.post(mockPostRequest())
+
     const mockedResolvedValuePromise = mockedAxios.post.mock.results[0].value
     expect(httpPromiseResponse).toEqual(mockedResolvedValuePromise)
   })
