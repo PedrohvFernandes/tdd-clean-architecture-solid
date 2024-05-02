@@ -5,7 +5,8 @@ module.exports = {
   // Quando não quero fazer o coverage de algum arquivo, eu coloco o caminho do arquivo dentro do array com ! nesse caso não quero fazer o coverage de arquivos de types
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{ts,tsx}',
-    '!<rootDir>/src/main/*',
+    '!<rootDir>/src/main/**/*',
+    '!<rootDir>/src/presentation/components/router/**/*',
     '!**/*.d.ts'
   ],
   // testEnvironment: 'node',
