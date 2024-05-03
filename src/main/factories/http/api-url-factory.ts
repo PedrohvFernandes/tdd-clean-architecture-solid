@@ -1,3 +1,3 @@
-export function makeUrlApiAuthentication(): string {
-  return 'https://fordevs.herokuapp.com/api/login'
+export function makeUrlApi(path: string): string {
+  return `https://fordevs.herokuapp.com/api${path} `
 }

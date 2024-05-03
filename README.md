@@ -523,6 +523,8 @@
 
   #### 4. Criando últimos testes para bater coverage 100%
 
+  #### 5. Criando variável de ambiente e subindo versão
+
 
   ## Tecnologias:
   - Vite
