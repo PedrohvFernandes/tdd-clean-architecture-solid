@@ -524,7 +524,31 @@
   #### 4. Criando últimos testes para bater coverage 100%
 
   #### 5. Criando variável de ambiente e subindo versão
-
+     - Precisei instalar o ```ts-jest-mock-import-meta``` para resolver o erro de import.meta, que não é suportado pelo jest, ja que o vite usa o import.meta para pegar as variáveis de ambiente. E depois no arquivo de configuração do jest, no *jest.config.js* eu coloquei o plugin para resolver o problema:
+     ```bash
+      {
+        ## [...]
+        transform: {
+          '^.+\\.tsx?$': [
+            'ts-jest',
+            {
+              diagnostics: {
+                ignoreCodes: [1343]
+              },
+              astTransformers: {
+                before: [
+                  {
+                    path: 'node_modules/ts-jest-mock-import-meta',  // or, alternatively, 'ts-jest-mock-import-meta' directly, without node_modules.
+                    options: { metaObjectReplacement: { url: 'https://www.url.com' } }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+     ```
+    Solução encontrada em: [error TS1343: The 'import.meta' meta-property is only allowed when the '--module' option is 'es2020', 'es2022', 'esnext', 'system', 'node16', or 'nodenext'.](https://github.com/kulshekhar/ts-jest/issues/3888)
 
   ## Tecnologias:
   - Vite
