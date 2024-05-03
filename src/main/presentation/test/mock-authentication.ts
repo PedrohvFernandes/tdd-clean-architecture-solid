@@ -10,6 +10,6 @@ export class AuthenticationSpy implements Authentication {
     this.params = params
     // Toda vez que eu chamo o auth eu incremento o callsCount, para saber quantas vezes foi chamado
     this.callsCount++
-    return Promise.resolve(this.account)
+    return this.account
   }
 }

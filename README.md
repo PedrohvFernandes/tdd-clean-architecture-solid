@@ -550,6 +550,18 @@
      ```
     Solução encontrada em: [error TS1343: The 'import.meta' meta-property is only allowed when the '--module' option is 'es2020', 'es2022', 'esnext', 'system', 'node16', or 'nodenext'.](https://github.com/kulshekhar/ts-jest/issues/3888)
 
+  ### 7. Continuous Integration
+
+  #### 1. Integrando o projeto com TravisCI e Coveralls
+    - Nessa aula iremos realizar a integração do projeto com o TravisCI e Coveralls, para que possamos ter um ambiente de integração contínua(continuos integration - CI) e monitoramento de cobertura de testes.
+    - Criamos uma segunda branch chamada *feat/ci* 
+    - Antes de fazer o CI/CD usamos a ferramenta de check, para ver se os pacotes instalados estão atualizados. Instalamos globalmente ```npm i -g npm-check``` e rodamos o comando ```npm-check``` no terminal do projeto para verificar todos os pacotes do projeto. Podemos rodar o comando ```npm-check -u -s``` para atualizar todos os pacotes do projeto. O -S faz um skip em todos os pacotes que ele diz que não estamos utilizando, como por exemplo o tailwindcss, os types... que nunca importamos diretamente em nosso projeto, e o -U da a opção de atualizar todos os pacotes, para selecionar o pacote que deseja atualizar basta apertar a barra de espaço e depois enter.
+    - Criamos um script para facilitar no check:
+    ```bash
+    "check": "npm-check -u -s"
+    ```
+
+
   ## Tecnologias:
   - Vite
   - React
