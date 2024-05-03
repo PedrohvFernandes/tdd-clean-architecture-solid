@@ -1,3 +1,4 @@
+import { ConfigBase } from '@/config/index'
 export function makeUrlApi(path: string): string {
-  return `https://fordevs.herokuapp.com/api${path} `
+  return `${ConfigBase.fourDev.baseUrls.apiUrl(path)}`
 }

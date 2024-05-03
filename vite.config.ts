@@ -33,5 +33,9 @@ export default defineConfig({
       '@/pages': path.resolve('./src/main/presentation/pages'),
       '@/protocols': path.resolve('./src/main/presentation/protocols')
     }
+  },
+  define: {
+    'process.env': process.env,
+    global: 'window'
   }
 })
