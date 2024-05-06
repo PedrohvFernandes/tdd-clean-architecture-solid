@@ -10,9 +10,8 @@ node_js:
   # - 16
   - node
 # Script que tem que ser executado antes do antes do script "principal"
-before_script:
-# Pode ser usado npm ou yarn, escolhemos usar yarn.
-  - yarn install
+before_deploy:
+  - npm install -g npm@9
 # Scripts que irão rodar quando buildar o projeto
 script:
   - eslint 'src/**'
