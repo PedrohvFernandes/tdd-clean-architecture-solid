@@ -1,0 +1,8 @@
+language: node_js
+node_js: 
+  # Versão do node
+  - 20
+# Scripts que irão rodar quando buildar o projeto
+script:
+  - eslint 'src/**'
+  - npm run test:ci

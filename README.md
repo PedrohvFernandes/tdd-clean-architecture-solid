@@ -560,6 +560,12 @@
     ```bash
     "check": "npm-check -u -s"
     ```
+    - [TravisCi](travis-ci.org) - O Travis ira rodar alguns scripts quando dermos um build no projeto, como por exemplo, rodar os testes, verificar se o código esta correto, se esta passando nos testes
+      - Arquivo de configuração na raiz do projeto *travis.yml*
+      - No site do travis permitimos o acesso dele nos repositórios do github ou somente em um repositório especifico ou específicos
+        - [TravisCi](https://app.travis-ci.com/account/repositories)
+          - Nesse link você pode ver todos os repositórios que ele tem acesso
+          - Após isso é só dar um push
 
 
   ## Tecnologias:
