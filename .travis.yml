@@ -1,13 +1,14 @@
 language: node_js
+# versões disponiveis: https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
 node_js: 
 # Podemos acompanhar todo processo de build pelos logs do travis de cada repo
-  # Versão do node. A versão 20 esta dando erro com o travis na parte de instalação
+  # Versão do node. A versão 18 a 20...22 esta dando erro com o travis na parte de instalação do node. Eles utilizam docker de fundo
   # - 20
   # A versão 12 da problema com o react-router-dom@6.23.0
   # - 12
   # A versão 16 da problema com o @testing-library/react@15.0.6
   # - 16
-  - 18
+  - lts/*
 # Script que tem que ser executado antes do antes do script "principal"
 before_script:
 # Pode ser usado npm ou yarn, escolhemos usar yarn.
