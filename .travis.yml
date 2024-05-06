@@ -1,7 +1,8 @@
 language: node_js
 node_js: 
-  # Versão do node
-  - 20
+  # Versão do node. A versão esta dando erro
+  # - 20
+  - 19
 # Scripts que irão rodar quando buildar o projeto
 script:
   - eslint 'src/**'
