@@ -1,10 +1,13 @@
 language: node_js
 node_js: 
-  # Versão do node. A versão esta dando erro
+# Podemos acompanhar todo processo de build pelos logs do travis de cada repo
+  # Versão do node. A versão 20 esta dando erro com o travis na parte de instalação
   # - 20
   # A versão 12 da problema com o react-router-dom@6.23.0
   # - 12
-  - 16
+  # A versão 16 da problema com o @testing-library/react@15.0.6
+  # - 16
+  - 18
 # Script que tem que ser executado antes do antes do script "principal"
 before_script:
 # Pode ser usado npm ou yarn, escolhemos usar yarn.
