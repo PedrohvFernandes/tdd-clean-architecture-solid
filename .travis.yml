@@ -3,6 +3,10 @@ node_js:
   # Versão do node. A versão esta dando erro
   # - 20
   - 12
+# Script que tem que ser executado antes do antes do script "principal"
+before_script:
+# Pode ser usado npm ou yarn, escolhemos usar yarn.
+  - yarn install
 # Scripts que irão rodar quando buildar o projeto
 script:
   - eslint 'src/**'
