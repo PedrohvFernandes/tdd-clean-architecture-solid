@@ -593,7 +593,7 @@
             ```
             Erro de que não encontrou o repositório através do token, para isso basta pegar o token gerado no site do coveralls e criar um arquivo *.coveralls.yml* na raiz do projeto.
           - Para adicionar a chave em um sistema de CI como travis, basta seguir a documentação [Coveralls](https://docs.coveralls.io) no STEP 3: CONFIGURE YOUR PROJECT TO SEND COVERAGE TO COVERALLS
-            - [Ci services](https://docs.coveralls.io/ci-services)
+            - [Ci services](https://docs.coveralls.io/ci-services) - THE COVERALLS REPO TOKEN (REQUIRED)
             - [Configuration](https://github.com/coverallsapp/coverage-reporter/blob/master/doc/configuration.md)
 
     - Depois apagamos a branch *feat/ci*
