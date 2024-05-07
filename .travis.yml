@@ -9,6 +9,8 @@ node_js:
   # A versão 16 da problema com o @testing-library/react@15.0.6
   # - 16
   - stable
+install:
+  - npm install
 # Scripts que irão rodar quando buildar o projeto
 script:
   - eslint 'src/**'
