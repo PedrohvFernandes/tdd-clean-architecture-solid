@@ -595,6 +595,9 @@
           - Para adicionar a chave em um sistema de CI como travis, basta seguir a documentação [Coveralls](https://docs.coveralls.io) no STEP 3: CONFIGURE YOUR PROJECT TO SEND COVERAGE TO COVERALLS
             - [Ci services](https://docs.coveralls.io/ci-services) - THE COVERALLS REPO TOKEN (REQUIRED)
             - [Configuration](https://github.com/coverallsapp/coverage-reporter/blob/master/doc/configuration.md)
+            - [Start measuring code coverage with Jest, Travis CI and Coveralls](https://medium.com/@ollelauribostr/start-measuring-coverage-with-jest-travis-ci-and-coveralls-1867928aca42)
+            - [Easy steps to setup Coverage](https://medium.com/@anayooleru/easy-steps-to-integrate-test-coverage-315008571d0a)
+            -[How to configure Coveralls with Github Action?](https://stackoverflow.com/questions/60362121/how-to-configure-coveralls-with-github-action)
 
     - Depois apagamos a branch *feat/ci*
 
