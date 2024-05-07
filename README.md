@@ -576,7 +576,7 @@
       - Depois Install ```yarn add -D coveralls```
         - Depois crie um script no package.json
         ```bash
-            "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
+            "test:coveralls": "npm run test:ci && coveralls < /src/coverage/lcov.info",
         ```
         - A diferença do test:coveralls para o test:ci. É que depois que fizer o build no travis e subir, ele vai gerar o coverage localmente e vai subir esse status para o coveralls.
           - O que alimenta o coveralls é o arquivo *lcov.info* que é gerado na pasta *coverage* quando rodamos o comando ```npm run test:ci```, lembrando que ela não vai para o github, pois esta no *.gitignore*, por isso dentro do comando do coveralls, ele pega esse arquivo gerado, pois passamos para ele o comando npm run test:ci, e ao rodar isso no momento do build pelo traves CI ele gera a pasta coverage com o arquivo lcov.info e sobe esse arquivo gerado pelo test:ci para o coveralls através de uma pipe( < coverage/lcov.info).
