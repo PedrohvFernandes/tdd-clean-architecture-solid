@@ -569,6 +569,7 @@
           - Após isso é só dar um push
           - [Deployment Fails with node 20](https://travis-ci.community/t/deployment-fails-with-node-20/14215/1)
           - [Deployment to npm fails with node 20](https://travis-ci.community/t/deployment-to-npm-fails-with-node-20/14023/2)
+            - Para solucionar *The command "npm config set progress false" failed and exited with 1 during .* no log do travis Ci por eu colocar uma versão acima de 18 passei a versão 17.9 do node para o yml do travis que é uma pipeline de CI/CD
 
 
   ## Tecnologias:
