@@ -1,2 +1,2 @@
 service_name: travis-ci
-repo_token: yNj4Y5eRSb0JifVecDjqEm8tVh7RiMACC
+repo_token: ${{ secrets.REPO_TOKEN }}
