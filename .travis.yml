@@ -10,7 +10,8 @@ node_js:
   # - 16
   # A versão 17 da problema com o faker
   # - 17
-  - 18
+  - node
+  - 'lts/*'
 # Scripts que irão rodar quando buildar o projeto
 script:
   - eslint 'src/**'
