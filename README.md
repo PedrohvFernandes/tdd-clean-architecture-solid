@@ -571,6 +571,15 @@
           - [Deployment to npm fails with node 20](https://travis-ci.community/t/deployment-to-npm-fails-with-node-20/14023/2)
             - Para solucionar *The command "npm config set progress false" failed and exited with 1 during .* no log do travis Ci por eu colocar uma versão acima de 18 passei a versão 17.9 do node para o yml do travis que é uma pipeline de CI/CD
 
+    -[Coveralls](https://coveralls.io)
+      - [Repos](https://coveralls.io/repos/new) - Ative o repo que deseja monitorar a cobertura de testes
+      - Depois Install ```yarn add -D coveralls```
+        - Depois crie um script no package.json
+        ```bash
+            "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
+        ```
+        - A diferença do test:coveralls para o test:ci. É que depois que fizer o build no travis e subir, ele vai gerar o coverage localmente e vai subir esse status para o coveralls.
+          - O que alimenta o coveralls é o arquivo *lcov.info* que é gerado na pasta *coverage* quando rodamos o comando ```npm run test:ci```, lembrando que ela não vai para o github, pois esta no *.gitignore*, por isso dentro do comando do coveralls, ele pega esse arquivo gerado, pois passamos para ele o comando npm run test:ci, e ao rodar isso no momento do build pelo traves CI ele gera a pasta coverage com o arquivo lcov.info e sobe esse arquivo gerado pelo test:ci para o coveralls através de uma pipe( < coverage/lcov.info).
 
   ## Tecnologias:
   - Vite

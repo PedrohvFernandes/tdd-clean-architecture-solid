@@ -13,6 +13,7 @@
     "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
     "prepare": "husky",
     "check": "npm-check -u -s"
   },
@@ -38,6 +39,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.19",
+    "coveralls": "^3.1.1",
     "eslint": "^8.57.0",
     "git-commit-msg-linter": "^5.0.7",
     "husky": "^9.0.11",
