@@ -582,7 +582,7 @@
         ```
         - A diferença do test:coveralls para o test:ci. É que depois que fizer o build no travis e subir, ele vai gerar o coverage localmente e vai subir esse status para o coveralls.
           - O que alimenta o coveralls é o arquivo *lcov.info* que é gerado na pasta *coverage* quando rodamos o comando ```npm run test:ci```, lembrando que ela não vai para o github, pois esta no *.gitignore*, por isso dentro do comando do coveralls, ele pega esse arquivo gerado, pois passamos para ele o comando npm run test:ci, e ao rodar isso no momento do build pelo travis CI ele gera a pasta coverage com o arquivo lcov.info e sobe esse arquivo para o coveralls através de uma pipe( < coverage/lcov.info).
-          - Para o coveralls funcionar em minha maquina alem no travis-ci crio o arquivo *.coveralls.yml* e coloco o token gerado no site do coveralls, para que ele possa subir a cobertura de testes para o site do coveralls. [CI/CD With Travis CI and Coveralls in Node/Express API](https://dev.to/nedsoft/ci-cd-with-travisci-and-coveralls-in-node-express-api-2i55)
+          - Para o coveralls funcionar no travis-ci crio o arquivo *.coveralls.yml* e coloco o token gerado no site do coveralls, para que ele possa subir a cobertura de testes para o site do coveralls. [CI/CD With Travis CI and Coveralls in Node/Express API](https://dev.to/nedsoft/ci-cd-with-travisci-and-coveralls-in-node-express-api-2i55)
            - Se não fizer isso, irá da esse erro:
             ```bash
               C:\Users\Pedro\OneDrive\Documentos\GitHub\tdd-clean-architecture-solid\node_modules\coveralls\bin\coveralls.js:19
@@ -599,6 +599,7 @@
             - [Easy steps to setup Coverage](https://medium.com/@anayooleru/easy-steps-to-integrate-test-coverage-315008571d0a)
             -[How to configure Coveralls with Github Action?](https://stackoverflow.com/questions/60362121/how-to-configure-coveralls-with-github-action)
             -[Can't get coveralls.io to work with Travis CI and jest](https://stackoverflow.com/questions/66489680/cant-get-coveralls-io-to-work-with-travis-ci-and-jest)
+            - Pode colocar o token pelo secret do github actions e chamar a secret por ele no arquivo *.coveralls.yml*(Metodo utilizado no projeto)
 
       - Depois apagamos a branch *feat/ci*
 
