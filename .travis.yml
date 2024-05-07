@@ -21,5 +21,5 @@ install:
 
 # Scripts que irão rodar quando buildar o projeto
 script:
-  - eslint 'src/**'
+  - eslint 'src/**/*.{ts,tsx}'
   - npm run test:ci
