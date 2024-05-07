@@ -1,7 +1,25 @@
 language: node_js
+# versões disponiveis: https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
+node_js: 
+# Podemos acompanhar todo processo de build pelos logs do travis de cada repo
+  # Versão do node. A versão 18 a 20...22 esta dando erro com o travis na parte de instalação do node. Eles utilizam docker de fundo pra instalar a imagem do node
+  # - 20
+  # A versão 12 da problema com o react-router-dom@6.23.0
+  # - 12
+  # A versão 16 da problema com o @testing-library/react@15.0.6
+  # - 16
+  # A versão 17 da problema com o faker
+  # - 17
+  - 18.3.0 
 
-node_js: 18
 
+
+cache: npm
+
+install:
+  - npm install
+
+# Scripts que irão rodar quando buildar o projeto
 script:
   - eslint 'src/**'
   - npm run test:ci
