@@ -10,9 +10,8 @@ node_js:
   # - 16
   # A versão 17 da problema com o faker
   # - 17
+  # Não consegui usar a latest, node
   - 17.9
-
-
 
 cache: npm
 
@@ -21,5 +20,6 @@ install:
 
 # Scripts que irão rodar quando buildar o projeto
 script:
+  # Pra pegar somente ts e tsx, se quiser pode fazer um eslint para todos src/**
   - eslint 'src/**/*.{ts,tsx}'
   - npm run test:ci

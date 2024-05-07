@@ -1,3 +1,4 @@
+[![Build Status](https://app.travis-ci.com/PedrohvFernandes/tdd-clean-architecture-solid.svg?token=RT9Scg3zQr1wJByy1sD9&branch=main)](https://app.travis-ci.com/PedrohvFernandes/tdd-clean-architecture-solid)
 # Curso ReactJS, Hooks, TDD, Clean Architecture, SOLID e Patterns - Rodrigo manguinho
 
 ### Diferenças do meu projeto para o do professor:
