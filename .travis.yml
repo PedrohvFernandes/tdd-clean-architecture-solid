@@ -10,7 +10,7 @@ node_js:
   # - 16
   # A versão 17 da problema com o faker
   # - 17
-  - 18.3.0 
+  - 17.9
 
 
 
