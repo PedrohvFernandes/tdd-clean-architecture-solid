@@ -581,7 +581,7 @@
             "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
         ```
         - A diferença do test:coveralls para o test:ci. É que depois que fizer o build no travis e subir, ele vai gerar o coverage localmente e vai subir esse status para o coveralls.
-          - O que alimenta o coveralls é o arquivo *lcov.info* que é gerado na pasta *coverage* quando rodamos o comando ```npm run test:ci```, lembrando que ela não vai para o github, pois esta no *.gitignore*, por isso dentro do comando do coveralls, ele pega esse arquivo gerado, pois passamos para ele o comando npm run test:ci, e ao rodar isso no momento do build pelo traves CI ele gera a pasta coverage com o arquivo lcov.info e sobe esse arquivo gerado pelo test:ci para o coveralls através de uma pipe( < coverage/lcov.info).
+          - O que alimenta o coveralls é o arquivo *lcov.info* que é gerado na pasta *coverage* quando rodamos o comando ```npm run test:ci```, lembrando que ela não vai para o github, pois esta no *.gitignore*, por isso dentro do comando do coveralls, ele pega esse arquivo gerado, pois passamos para ele o comando npm run test:ci, e ao rodar isso no momento do build pelo travis CI ele gera a pasta coverage com o arquivo lcov.info e sobe esse arquivo para o coveralls através de uma pipe( < coverage/lcov.info).
           - Para o coveralls funcionar em minha maquina alem no travis-ci crio o arquivo *.coveralls.yml* e coloco o token gerado no site do coveralls, para que ele possa subir a cobertura de testes para o site do coveralls. [CI/CD With Travis CI and Coveralls in Node/Express API](https://dev.to/nedsoft/ci-cd-with-travisci-and-coveralls-in-node-express-api-2i55)
            - Se não fizer isso, irá da esse erro:
             ```bash
