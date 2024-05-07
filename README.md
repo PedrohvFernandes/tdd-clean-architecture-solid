@@ -600,7 +600,7 @@
             -[How to configure Coveralls with Github Action?](https://stackoverflow.com/questions/60362121/how-to-configure-coveralls-with-github-action)
             -[Can't get coveralls.io to work with Travis CI and jest](https://stackoverflow.com/questions/66489680/cant-get-coveralls-io-to-work-with-travis-ci-and-jest)
 
-    - Depois apagamos a branch *feat/ci*
+      - Depois apagamos a branch *feat/ci*
 
   ## Tecnologias:
   - Vite
