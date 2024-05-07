@@ -567,6 +567,7 @@
           - Nesse link você pode ver todos os repositórios que ele tem acesso
           - Após isso é só dar um push
           - [Deployment Fails with node 20](https://travis-ci.community/t/deployment-fails-with-node-20/14215/1)
+          - [Deployment to npm fails with node 20](https://travis-ci.community/t/deployment-to-npm-fails-with-node-20/14023/2)
 
 
   ## Tecnologias:

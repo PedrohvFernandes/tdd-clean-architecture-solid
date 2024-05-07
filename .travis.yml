@@ -8,10 +8,7 @@ node_js:
   # - 12
   # A versão 16 da problema com o @testing-library/react@15.0.6
   # - 16
-  - node
-# Script que tem que ser executado antes do antes do script "principal"
-before_deploy:
-  - npm install -g npm@9
+  - stable
 # Scripts que irão rodar quando buildar o projeto
 script:
   - eslint 'src/**'
