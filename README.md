@@ -573,7 +573,7 @@
           - [Deployment to npm fails with node 20](https://travis-ci.community/t/deployment-to-npm-fails-with-node-20/14023/2)
             - Para solucionar *The command "npm config set progress false" failed and exited with 1 during .* no log do travis Ci por eu colocar uma versão acima de 18 passei a versão 17.9 do node para o yml do travis que é uma pipeline de CI/CD
 
-    -[Coveralls](https://coveralls.io)
+    - [Coveralls](https://coveralls.io)
       - [Repos](https://coveralls.io/repos/new) - Ative o repo que deseja monitorar a cobertura de testes
       - Depois Install ```yarn add -D coveralls```
         - Depois crie um script no package.json
@@ -598,6 +598,7 @@
             - [Start measuring code coverage with Jest, Travis CI and Coveralls](https://medium.com/@ollelauribostr/start-measuring-coverage-with-jest-travis-ci-and-coveralls-1867928aca42)
             - [Easy steps to setup Coverage](https://medium.com/@anayooleru/easy-steps-to-integrate-test-coverage-315008571d0a)
             -[How to configure Coveralls with Github Action?](https://stackoverflow.com/questions/60362121/how-to-configure-coveralls-with-github-action)
+            -[Can't get coveralls.io to work with Travis CI and jest](https://stackoverflow.com/questions/66489680/cant-get-coveralls-io-to-work-with-travis-ci-and-jest)
 
     - Depois apagamos a branch *feat/ci*
 
