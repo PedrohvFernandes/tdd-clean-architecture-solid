@@ -557,7 +557,7 @@
 
   #### 1. Integrando o projeto com TravisCI e Coveralls
     - Nessa aula iremos realizar a integração do projeto com o TravisCI e Coveralls, para que possamos ter um ambiente de integração contínua(continuos integration - CI) e monitoramento de cobertura de testes.
-    - Criamos uma segunda branch chamada *feat/ci* 
+    - Criamos uma segunda branch chamada *feat/ci* `git checkout -b feat/ci` ele ja cria e muda para ela
     - Antes de fazer o CI/CD usamos a ferramenta de check, para ver se os pacotes instalados estão atualizados. Instalamos globalmente ```npm i -g npm-check``` e rodamos o comando ```npm-check``` no terminal do projeto para verificar todos os pacotes do projeto. Podemos rodar o comando ```npm-check -u -s``` para atualizar todos os pacotes do projeto. O -S faz um skip em todos os pacotes que ele diz que não estamos utilizando, como por exemplo o tailwindcss, os types... que nunca importamos diretamente em nosso projeto, e o -U da a opção de atualizar todos os pacotes, para selecionar o pacote que deseja atualizar basta apertar a barra de espaço e depois enter.
     - Criamos um script para facilitar no check:
     ```bash
@@ -600,14 +600,24 @@
             -[How to configure Coveralls with Github Action?](https://stackoverflow.com/questions/60362121/how-to-configure-coveralls-with-github-action)
             -[Can't get coveralls.io to work with Travis CI and jest](https://stackoverflow.com/questions/66489680/cant-get-coveralls-io-to-work-with-travis-ci-and-jest)
             - Pode colocar o token pelo secret do github actions e chamar a secret por ele no arquivo *.coveralls.yml*(Metodo utilizado no projeto)
+            - [Como usar uma env dentro de um yml, especificamente Coveralls + TravisCi + Jest](https://pt.stackoverflow.com/questions/594433/como-usar-uma-env-dentro-de-um-yml-especificamente-coveralls-travisci-jest/594446#594446)
 
-      - Depois apagamos a branch *feat/ci*
+      - Caso queira voltar para a branch principal, basta dar um checkout na branch principal `git checkout main` e assim para as outras branches
+      - Damos um marge da branch *feat/ci* para a branch *main* `git checkout main` e `git merge feat/ci`
+      - Depois damos um push para o github `git push origin main`
+      - E por fim apagamos a branch *feat/ci* `git branch -D feat/ci`
+      
+  ### 8. Movendo LocalStorage para Infra
+ 
+  #### 1. Criando o SaveAccessToken UseCase
 
   ## Tecnologias:
   - Vite
   - React
   - Typescript
   - Jest
+  - Travis
+  - Coveralls
   - Eslint
   - Husky
   - Lint-staged

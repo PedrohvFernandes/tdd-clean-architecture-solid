@@ -32,6 +32,7 @@ export function FormLogin({
 
       setIsLoading()
       const account = await authentication.auth({ email, password })
+      // O localstorage não pode ficar aqui, ele faz parte do infra e vira um novo caso de uso no domain, porque se futuramente mudarmos por exemplo para cookies a maneira de salvar os dados isso não fica nada reutilizavel, ou seja, eu teria que mudar em todo componente que tem ele. Isso seria um novo caso de uso porque ele é uma regra de negocio, onde eu salvo o token de acesso
       localStorage.setItem('accessToken', account.accessToken)
       navigate('/')
     } catch (error) {
