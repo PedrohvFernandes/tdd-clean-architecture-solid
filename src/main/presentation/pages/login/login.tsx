@@ -31,7 +31,7 @@ export function Login({ validation, authentication }: Readonly<IPropsLogin>) {
             name="email"
             id="email"
             placeholder="Digite seu email"
-            // Esse validation é passado pelo login do login.spec e no proprio login por onde ele é chamado para o InputForm, o validate é usado para validar o campo. no Spec para o input testamos com dados falsos em login spec onde testamos o input em si, popularmos com o faker e usamos um Spy para validar(ValidationSpy), e no login pelo makeLogin em factories para o InputForm que valida realmente os campos do form ao usuario digitar. O validation é basicamente como um zod, yup... so que o componente não fica atrelado a ele, que é passado para o componente(de maneira injetada), e no input é chamado o validate para validar os campos do form
+            // Esse validation é passado pelo login do login.spec e no proprio login por onde ele é chamado para o InputForm, o validate é usado para validar o campo. no Spec para o input testamos com dados falsos em login spec onde testamos o input em si, popularmos com o faker e usamos um Spy para validar(ValidationSpy), e no login pelo componente MakeLogin em factories para o InputForm que valida realmente os campos do form ao usuario digitar usando de fato um validation da camada de validation. O validation é basicamente como um zod, yup... so que o componente não fica atrelado a ele, que é passado para o componente(de maneira injetada), e no input é chamado o validate para validar os campos do form
             validation={validation}
           />
 
