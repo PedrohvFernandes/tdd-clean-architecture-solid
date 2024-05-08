@@ -610,6 +610,7 @@
   ### 8. Movendo LocalStorage para Infra
  
   #### 1. Criando o SaveAccessToken UseCase
+  #### 2. Testando caso de exceção
 
   ## Tecnologias:
   - Vite
