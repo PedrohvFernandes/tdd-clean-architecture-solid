@@ -611,6 +611,7 @@
  
   #### 1. Criando o SaveAccessToken UseCase
   #### 2. Testando caso de exceção
+  #### 3. Testando o LocalStorageAdapter
 
   ## Tecnologias:
   - Vite
