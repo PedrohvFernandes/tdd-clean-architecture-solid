@@ -610,8 +610,12 @@
   ### 8. Movendo LocalStorage para Infra
  
   #### 1. Criando o SaveAccessToken UseCase
+  
   #### 2. Testando caso de exceção
+
   #### 3. Testando o LocalStorageAdapter
+
+  #### 4. Mudando o Login para usar o SaveAccessToken ao invés do localStorage diretamente
 
   ## Tecnologias:
   - Vite

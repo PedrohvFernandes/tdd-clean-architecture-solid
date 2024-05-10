@@ -3,15 +3,17 @@ import { useNavigate } from 'react-router-dom'
 
 import { FormDefault } from './'
 
-import { Authentication } from '@/domain/usecases'
+import { Authentication, SaveAccessToken } from '@/domain/usecases'
 import { useHookErrorState, useHookForm } from '@/main/hooks'
 
 interface IFormLoginProps extends React.HTMLAttributes<HTMLFormElement> {
   authentication: Authentication
+  saveAccessToken: SaveAccessToken
 }
 
 export function FormLogin({
   authentication,
+  saveAccessToken,
   ...props
 }: Readonly<IFormLoginProps>) {
   const { setIsLoading, isLoading, email, password } = useHookForm()
@@ -33,7 +35,10 @@ export function FormLogin({
       setIsLoading()
       const account = await authentication.auth({ email, password })
       // O localstorage não pode ficar aqui, ele faz parte do infra e vira um novo caso de uso no domain, implementado no data e dentro do infra usamos a lib(ex: localStorage...) para armazenar localmente, para não acoplar o projeto com libs externas(como foi feito para o axios remote-authentication) porque se futuramente mudarmos por exemplo para cookies a maneira de salvar os dados isso não fica nada reutilizavel, ou seja, eu teria que mudar em todo componente que tem ele. Isso seria um novo caso de uso porque ele é uma regra de negocio, onde eu salvo o token de acesso localmente.
-      localStorage.setItem('accessToken', account.accessToken)
+      // localStorage.setItem('accessToken', account.accessToken)
+
+      // Depois de implementar o saveAccessToken do domain no data, e no infra implementar a interface do data para escolher a lib que vai usar a implementação do data e injetar no componente via login.spec e MakeLogin, podemos usar ele aqui para salvar o token de acesso
+      await saveAccessToken.save(account.accessToken)
       navigate('/')
     } catch (error) {
       setIsLoading()
