@@ -617,6 +617,8 @@
 
   #### 4. Mudando o Login para usar o SaveAccessToken ao invés do localStorage diretamente
 
+  #### 5. Ajustando o Webpack e subindo versão (So subi a versão)
+
   ## Tecnologias:
   - Vite
   - React
