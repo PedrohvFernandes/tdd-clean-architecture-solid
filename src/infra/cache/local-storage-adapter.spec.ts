@@ -9,6 +9,7 @@ const makeSut = (): LocalStorageAdapter => {
 }
 
 describe('LocalStorageAdapter', () => {
+  // Entre os testes eu limpo sempre o localstorage, so pra evitar o problema de um teste influenciar no outro
   beforeEach(() => {
     localStorage.clear()
   })

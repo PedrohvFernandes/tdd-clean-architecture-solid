@@ -13,7 +13,11 @@ import { Login } from './login'
 
 import { ConfigRoute } from '@/config/index'
 import { InvalidCredentialsError } from '@/domain/errors'
-import { AuthenticationSpy, ValidationSpy } from '@/presentation/test'
+import {
+  SaveAccessTokenMock,
+  AuthenticationSpy,
+  ValidationSpy
+} from '@/presentation/test'
 import { faker } from '@faker-js/faker'
 import {
   RenderResult,
@@ -27,8 +31,6 @@ import {
 // Caso esteja sofrendo Cannot find module 'history': Para usar tem que dar um npm i history e npm i @types/history. Quando instalar o projeto ja vai fir as libs porque tive esse problema
 import { createMemoryHistory } from 'history'
 
-import 'jest-localstorage-mock'
-
 type SutLoginTypesReturn = {
   sutLogin: RenderResult
   validationSpy: ValidationSpy
@@ -37,6 +39,7 @@ type SutLoginTypesReturn = {
     id: Matcher,
     options?: MatcherOptions | undefined
   ) => HTMLElement
+  saveAccessTokenMock: SaveAccessTokenMock
 }
 
 type SutLoginParams = {
@@ -75,6 +78,8 @@ const makeSutLogin = (
   validationSpy.errorMessage = validationError ? faker.word.adjective() : ''
 
   const authenticationSpy = new AuthenticationSpy()
+
+  const saveAccessTokenMock = new SaveAccessTokenMock()
 
   // Antes quando não íamos para outra tela, era so renderizar o componente
   // const sutLogin = render(
@@ -126,7 +131,11 @@ const makeSutLogin = (
   // Então resolvi fazer assim. usando o history da lib history https://stackoverflow.com/questions/73364590/react-router-and-creatememoryhistory-in-test-property-location-does-not-exist
   const sutLogin = render(
     <Router location={history.location} navigator={history}>
-      <Login validation={validationSpy} authentication={authenticationSpy} />
+      <Login
+        validation={validationSpy}
+        authentication={authenticationSpy}
+        saveAccessToken={saveAccessTokenMock}
+      />
     </Router>
   )
 
@@ -136,7 +145,8 @@ const makeSutLogin = (
     sutLogin,
     validationSpy,
     authenticationSpy,
-    getByTestId
+    getByTestId,
+    saveAccessTokenMock
   }
 }
 
@@ -305,10 +315,6 @@ const testButtonIsDisabled = (
 describe('Login Component', () => {
   // Limpa o ambiente de teste entre os testes, isso garante que o teste não vai ser influenciado por um teste anterior, em relação ao estado do componente
   afterEach(() => cleanup())
-  // Entre os testes eu limpo sempre o localstorage, so pra evitar o problema de um teste influenciar no outro
-  beforeEach(() => {
-    localStorage.clear()
-  })
 
   // Estado inicial
   test('Should start with initial state', () => {
@@ -584,21 +590,17 @@ describe('Login Component', () => {
     // expect(errorWrap.childElementCount).toBe(1)
     testErrorWrapChildCount(getByTestId, 1)
   })
-
-  test('Should add accessToken to localstorage on success', async () => {
-    const { sutLogin, authenticationSpy } = makeSutLogin({
+  test('Should call SaveAccessToken on success', async () => {
+    const { sutLogin, authenticationSpy, saveAccessTokenMock } = makeSutLogin({
       validationError: false
     })
 
     await simulateValidSubmit(sutLogin)
 
-    // Depois que eu chamar o submit, eu fico olhando para o form e depois que ele der um reloading
-    // await waitFor(() => getByTestId('form'))
-
-    expect(localStorage.setItem).toHaveBeenCalledWith(
-      'accessToken',
+    expect(saveAccessTokenMock.accessToken).toBe(
       authenticationSpy.account.accessToken
     )
+
     // Verifica se estamos no /, porque o navigate(form-login) vai para / apos dar tudo certo no auth
     expect(history.location.pathname).toBe(
       ConfigRoute.fourDev.default.source.path
