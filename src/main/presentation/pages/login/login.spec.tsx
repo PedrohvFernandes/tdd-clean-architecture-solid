@@ -12,7 +12,10 @@ import {
 import { Login } from './login'
 
 import { ConfigRoute } from '@/config/index'
-import { InvalidCredentialsError } from '@/domain/errors'
+import {
+  InvalidCredentialsError,
+  InvalidSaveAccessToken
+} from '@/domain/errors'
 import {
   SaveAccessTokenMock,
   AuthenticationSpy,
@@ -291,7 +294,6 @@ const testElementText = (
 ): void => {
   // const mainError = getByTestId('main-error')
   // expect(mainError.textContent).toBe(error.message)
-
   const el = getByTestId(fieldName)
   expect(el.textContent).toBe(text)
 }
@@ -606,6 +608,28 @@ describe('Login Component', () => {
       ConfigRoute.fourDev.default.source.path
     )
     expect(quantityRoutes).toBe(1)
+  })
+  test('Should present error if SaveAccessToken fails', async () => {
+    const { sutLogin, getByTestId, saveAccessTokenMock } = makeSutLogin({
+      validationError: false
+    })
+
+    const error = new InvalidSaveAccessToken()
+
+    // Mockando o retorno do saveAccessToken para ser um erro
+    jest
+      .spyOn(saveAccessTokenMock, 'save')
+      .mockReturnValue(Promise.reject(error))
+    // jest.spyOn(saveAccessTokenMock, 'save').mockImplementationOnce(async () => {
+    //   throw await Promise.reject(error)
+    // })
+
+    await simulateValidSubmit(sutLogin)
+
+    await waitFor(() => getByTestId('main-error'))
+
+    testElementText(getByTestId, 'main-error', error.message)
+    testErrorWrapChildCount(getByTestId, 1)
   })
 
   test('Should go to signup page', async () => {

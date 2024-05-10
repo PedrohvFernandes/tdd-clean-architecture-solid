@@ -47,26 +47,27 @@ export const ErrorStateContextProvider = ({
   //   setErrorState(errorState)
   // }
 
-  function handlerEmail(email: string) {
-    setEmailError(email)
-  }
+  // function handlerEmail(email: string) {
+  //   setEmailError(email)
+  // }
 
-  function handlerPassword(password: string) {
-    setPasswordError(password)
-  }
-  function handlerErrorMessageMain(message: string) {
-    setErrorMessageMain(message)
-  }
+  // function handlerPassword(password: string) {
+  //   setPasswordError(password)
+  // }
+
+  // function handlerErrorMessageMain(message: string) {
+  //   setErrorMessageMain(message)
+  // }
 
   return (
     <ErrorContext.Provider
       value={{
         emailError,
         passwordError,
-        setEmailError: handlerEmail,
-        setPasswordError: handlerPassword,
+        setEmailError,
+        setPasswordError,
         errorMessageMain,
-        setErrorMessageMain: handlerErrorMessageMain
+        setErrorMessageMain
       }}
     >
       {children}

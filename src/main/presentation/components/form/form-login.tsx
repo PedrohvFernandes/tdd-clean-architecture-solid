@@ -41,10 +41,12 @@ export function FormLogin({
       await saveAccessToken.save(account.accessToken)
       navigate('/')
     } catch (error) {
-      setIsLoading()
+      // const e = error as Error
+      // setErrorMessageMain(e.message)
       setErrorMessageMain(
         error instanceof Error ? error.message : 'Erro inesperado'
       )
+      setIsLoading()
     }
   }
   return (
