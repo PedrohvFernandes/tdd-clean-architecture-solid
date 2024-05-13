@@ -619,6 +619,10 @@
 
   #### 5. Ajustando o Webpack e subindo versão (So subi a versão)
 
+  ### 9. SignUp
+
+  #### 1. Criando o AddAccount UseCase
+
   ## Tecnologias:
   - Vite
   - React
