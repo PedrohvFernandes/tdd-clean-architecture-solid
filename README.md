@@ -623,6 +623,8 @@
 
   #### 1. Criando o AddAccount UseCase
 
+  #### 2. Criando o CompareFieldsValidation
+
   ## Tecnologias:
   - Vite
   - React
