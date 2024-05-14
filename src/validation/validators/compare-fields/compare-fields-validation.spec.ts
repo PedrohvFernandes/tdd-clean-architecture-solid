@@ -29,4 +29,13 @@ describe('CompareFieldsValidation', () => {
     const error = sutCompareFieldsValidation.validate(faker.word.adjective())
     expect(error).toEqual(new InvalidFieldError(randomFieldName))
   })
+
+  test('Should return falsy if  compare is valid', () => {
+    const valueToCompare = faker.word.adjective()
+    const { sutCompareFieldsValidation } =
+      makeSutCompareFieldsValidation(valueToCompare)
+
+    const error = sutCompareFieldsValidation.validate(valueToCompare)
+    expect(error).toBeFalsy()
+  })
 })
