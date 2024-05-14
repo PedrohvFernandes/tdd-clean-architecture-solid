@@ -1,5 +1,5 @@
 // Testando o validation em si
-import { RequiredFieldValidation } from '../required-field/required-field-validation'
+import { RequiredFieldValidation } from './required-field-validation'
 
 import { RequiredFieldError } from '@/validation/errors'
 import { faker } from '@faker-js/faker'
