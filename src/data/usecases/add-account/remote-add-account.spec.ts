@@ -88,7 +88,7 @@ describe('RemoteAddAccount', () => {
       statusCode: HttpStatusCode.NOT_FOUND
     }
 
-    const promiseErrorException = sut.auth(mockAuthentication())
+    const promiseErrorException = sut.add(mockAddAccountParams())
 
     await expect(promiseErrorException).rejects.toThrow(new UnexpectedError())
   })
