@@ -12,7 +12,7 @@ interface InputFormProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 interface DivDefaultProps extends HTMLAttributes<HTMLDivElement> {}
 
-export function InputForm(
+export function InputFormLogin(
   { validation, ...propsInput }: InputFormProps,
   { ...restDiv }: DivDefaultProps
 ) {

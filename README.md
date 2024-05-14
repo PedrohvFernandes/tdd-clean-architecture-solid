@@ -625,6 +625,8 @@
 
   #### 2. Criando o CompareFieldsValidation
 
+  #### 4. Criando layout da tela de cadastro
+
   ## Tecnologias:
   - Vite
   - React
