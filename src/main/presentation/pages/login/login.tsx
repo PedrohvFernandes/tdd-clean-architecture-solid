@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { ButtonForms } from '@/components/buttons'
+import { ButtonFormsLogin } from '@/components/buttons'
 import { FormLogin } from '@/components/form'
 import { FormStatus } from '@/components/form-status'
 import { InputFormLogin } from '@/components/inputs'
@@ -51,7 +51,7 @@ export function Login({
             validation={validation}
           />
 
-          <ButtonForms type="submit" name="submit" />
+          <ButtonFormsLogin type="submit" name="submit" />
 
           <Link
             to={ConfigRoute.fourDev.signup.path}

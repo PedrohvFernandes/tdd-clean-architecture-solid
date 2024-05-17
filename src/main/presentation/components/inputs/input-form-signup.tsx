@@ -1,20 +1,36 @@
-import { HTMLAttributes, InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes, useEffect } from 'react'
 
-import { IconBall } from '../icon-ball'
-import { InputDefault } from './'
+import { InputForm } from './input-form'
+
+import { useHookErrorState, useHookForm } from '@/main/hooks'
 
 interface InputFormProps extends InputHTMLAttributes<HTMLInputElement> {}
-interface DivDefaultProps extends HTMLAttributes<HTMLDivElement> {}
 
-export function InputFormSignUp(
-  { ...propsInput }: InputFormProps,
-  { ...restDiv }: DivDefaultProps
-) {
-  return (
-    <div {...restDiv} className="flex items-center relative">
-      <InputDefault {...propsInput} />
+export function InputFormSignUp({ ...propsInput }: InputFormProps) {
+  const {
+    setNameError,
+    setEmailError,
+    setPasswordError,
+    setPasswordConfirmationError
+  } = useHookErrorState()
 
-      <IconBall data-testid={`${propsInput.name}-status`}>🟢</IconBall>
-    </div>
-  )
+  const { name, email, password, passwordConfirmation } = useHookForm()
+
+  useEffect(() => {
+    setNameError('Campo obrigatório')
+  }, [name, setNameError])
+
+  useEffect(() => {
+    setEmailError('Campo obrigatório')
+  }, [email, setEmailError])
+
+  useEffect(() => {
+    setPasswordError('Campo obrigatório')
+  }, [password, setPasswordError])
+
+  useEffect(() => {
+    setPasswordConfirmationError('Campo obrigatório')
+  }, [passwordConfirmation, setPasswordConfirmationError])
+
+  return <InputForm {...propsInput} />
 }

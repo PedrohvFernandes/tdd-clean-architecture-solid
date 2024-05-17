@@ -3,16 +3,16 @@ import React, { ReactNode, createContext, useState } from 'react'
 interface IFormContextType {
   isLoading: boolean
   setIsLoading: () => void
+  name: string
+  setName: (name: string) => void
   email: string
   setEmail: (email: string) => void
   password: string
   setPassword: (password: string) => void
+  passwordConfirmation: string
+  setPasswordConfirmation: (passwordConfirmation: string) => void
 
-  handleChange: (event: React.FocusEvent<HTMLInputElement>) => void
-  stateForm: {
-    email: string
-    password: string
-  }
+  handleChangeField: (event: React.FocusEvent<HTMLInputElement>) => void
 }
 
 export const FormContext = createContext<IFormContextType>(
@@ -28,8 +28,10 @@ export const FormContextProvider = ({ children }: IFormProviderProps) => {
   // const [email, setEmail] = useState<string>('')
   // const [password, setPassword] = useState<string>('')
   const [stateForm, setStateForm] = useState({
+    name: '',
     email: '',
-    password: ''
+    password: '',
+    passwordConfirmation: ''
   })
 
   function handlerIsLoading() {
@@ -73,13 +75,34 @@ export const FormContextProvider = ({ children }: IFormProviderProps) => {
     }))
   }
 
+  function handlerName(name: string) {
+    setStateForm((prev) => ({
+      ...prev,
+      name
+    }))
+  }
+
+  function handlerPasswordConfirmation(passwordConfirmation: string) {
+    setStateForm((prev) => ({
+      ...prev,
+      passwordConfirmation
+    }))
+  }
+
   // Altera de acordo com o input que está sendo alterado
-  function handleChange(event: React.FocusEvent<HTMLInputElement>) {
-    setStateForm({
-      ...stateForm,
+  function handleChangeField(event: React.FocusEvent<HTMLInputElement>) {
+    // Qualquer metodo funciona, so deixei um comentado para fins didáticos
+
+    // setStateForm({
+    //   ...stateForm,
+    //   // Nome do input e valor do input
+    //   [event.target.name]: event.target.value
+    // })
+    setStateForm((prev) => ({
+      ...prev,
       // Nome do input e valor do input
       [event.target.name]: event.target.value
-    })
+    }))
   }
   return (
     <FormContext.Provider
@@ -90,8 +113,11 @@ export const FormContextProvider = ({ children }: IFormProviderProps) => {
         setEmail: handlerEmail,
         password: stateForm.password,
         setPassword: handlerPassword,
-        handleChange,
-        stateForm
+        handleChangeField,
+        name: stateForm.name,
+        setName: handlerName,
+        passwordConfirmation: stateForm.passwordConfirmation,
+        setPasswordConfirmation: handlerPasswordConfirmation
       }}
     >
       {children}

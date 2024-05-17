@@ -7,7 +7,7 @@ import { useHookErrorState } from '@/main/hooks'
 interface IButtonFormsProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export function ButtonForms({ ...props }: IButtonFormsProps) {
+export function ButtonFormsLogin({ ...props }: IButtonFormsProps) {
   const { emailError, passwordError } = useHookErrorState()
 
   return (
