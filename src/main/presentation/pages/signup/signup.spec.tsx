@@ -7,7 +7,6 @@ import {
   MatcherOptions,
   RenderResult,
   cleanup,
-  fireEvent,
   render
 } from '@testing-library/react'
 
@@ -45,20 +44,6 @@ const makeSutSignUp = (
   }
 }
 
-const populateField = (
-  // sutLogin: RenderResult,
-  getByTestId: (
-    id: Matcher,
-    options?: MatcherOptions | undefined
-  ) => HTMLElement,
-  fieldName: string,
-  fieldValue = faker.word.adjective()
-): void => {
-  // const emailInput = sutLogin.getByTestId('email')
-  const input = getByTestId(fieldName)
-  fireEvent.input(input, { target: { value: fieldValue } })
-}
-
 describe('SignUp Component', () => {
   afterEach(() => cleanup())
   test('Should start with initial state', () => {
@@ -84,7 +69,7 @@ describe('SignUp Component', () => {
   test('Should show name error if call Validation fails', () => {
     const { getByTestId, validationSpy } = makeSutSignUp()
 
-    populateField(getByTestId, 'name')
+    Helper.populateField(getByTestId, 'name')
     Helper.testStatusForField(getByTestId, 'name', validationSpy.errorMessage)
   })
 })

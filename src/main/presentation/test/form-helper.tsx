@@ -41,8 +41,10 @@ export const simulateValidSubmit = async (
 ): Promise<void> => {
   const getByTestId = sutLogin.getByTestId
 
-  populateEmailField(getByTestId, emailValue)
-  populatePasswordField(getByTestId, passwordValue)
+  // populateEmailField(getByTestId, emailValue)
+  populateField(getByTestId, 'email', emailValue)
+  // populatePasswordField(getByTestId, passwordValue)
+  populateField(getByTestId, 'password', passwordValue)
 
   // const submitButton = getByTestId('submit')
   // fireEvent.click(submitButton)
@@ -64,30 +66,43 @@ export const simulateValidSubmit = async (
 //   console.log(input)
 // }
 // Helper 2: Popula o campo de email
-export const populateEmailField = (
+// export const populateEmailField = (
+//   // sutLogin: RenderResult,
+//   getByTestId: (
+//     id: Matcher,
+//     options?: MatcherOptions | undefined
+//   ) => HTMLElement,
+//   emailValue = faker.internet.email()
+// ): void => {
+//   // const emailInput = sutLogin.getByTestId('email')
+//   const emailInput = getByTestId('email')
+//   fireEvent.input(emailInput, { target: { value: emailValue } })
+// }
+// // Helper 3: Popula o campo de password
+// export const populatePasswordField = (
+//   // sutLogin: RenderResult,
+//   getByTestId: (
+//     id: Matcher,
+//     options?: MatcherOptions | undefined
+//   ) => HTMLElement,
+//   passwordValue = faker.internet.password()
+// ): void => {
+//   // const passwordInput = sutLogin.getByTestId('password')
+//   const passwordInput = getByTestId('password')
+//   fireEvent.input(passwordInput, { target: { value: passwordValue } })
+// }
+export const populateField = (
   // sutLogin: RenderResult,
   getByTestId: (
     id: Matcher,
     options?: MatcherOptions | undefined
   ) => HTMLElement,
-  emailValue = faker.internet.email()
+  fieldName: string,
+  fieldValue = faker.word.adjective()
 ): void => {
   // const emailInput = sutLogin.getByTestId('email')
-  const emailInput = getByTestId('email')
-  fireEvent.input(emailInput, { target: { value: emailValue } })
-}
-// Helper 3: Popula o campo de password
-export const populatePasswordField = (
-  // sutLogin: RenderResult,
-  getByTestId: (
-    id: Matcher,
-    options?: MatcherOptions | undefined
-  ) => HTMLElement,
-  passwordValue = faker.internet.password()
-): void => {
-  // const passwordInput = sutLogin.getByTestId('password')
-  const passwordInput = getByTestId('password')
-  fireEvent.input(passwordInput, { target: { value: passwordValue } })
+  const input = getByTestId(fieldName)
+  fireEvent.input(input, { target: { value: fieldValue } })
 }
 
 // Helper 6

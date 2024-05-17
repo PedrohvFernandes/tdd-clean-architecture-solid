@@ -196,7 +196,7 @@ describe('Login Component', () => {
 
     // Aqui como eu tenho que comprar o valor tenho que criar ela por aqui e passar para o helper para ele popularizar o campo e depois fazer a comparação desse mesmo valor
     const emailValue = faker.internet.email()
-    Helper.populateEmailField(getByTestId, emailValue)
+    Helper.populateField(getByTestId, 'email', emailValue)
     // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
     expect(validationSpy.filedName).toBe('email')
     expect(validationSpy.fieldValue).toBe(emailValue)
@@ -212,7 +212,7 @@ describe('Login Component', () => {
     // fireEvent.input(passwordInput, { target: { value: password } })
 
     const passwordValue = faker.internet.password()
-    Helper.populatePasswordField(getByTestId, passwordValue)
+    Helper.populateField(getByTestId, 'password', passwordValue)
     // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
     expect(validationSpy.filedName).toBe('password')
     expect(validationSpy.fieldValue).toBe(passwordValue)
@@ -235,7 +235,7 @@ describe('Login Component', () => {
     // fireEvent.input(emailInput, { target: { value: faker.internet.email() } })
 
     // Como não vou comprar o valor, mas sim somente o erro, então não preciso passar o valor, posso deixar o valor que ja é criado no helper por padrão
-    Helper.populateEmailField(getByTestId)
+    Helper.populateField(getByTestId, 'email')
     Helper.testStatusForField(getByTestId, 'email', validationSpy.errorMessage)
   })
 
@@ -256,7 +256,7 @@ describe('Login Component', () => {
     //   target: { value: faker.internet.password() }
     // })
 
-    Helper.populatePasswordField(getByTestId)
+    Helper.populateField(getByTestId, 'password')
     Helper.testStatusForField(
       getByTestId,
       'password',
@@ -285,7 +285,7 @@ describe('Login Component', () => {
     // })
     // const passwordStatus = sutLogin.getByTestId('password-status')
 
-    Helper.populatePasswordField(getByTestId)
+    Helper.populateField(getByTestId, 'password')
     Helper.testStatusForField(getByTestId, 'password')
   })
 
@@ -294,7 +294,7 @@ describe('Login Component', () => {
       validationError: false
     })
 
-    Helper.populateEmailField(getByTestId)
+    Helper.populateField(getByTestId, 'email')
     // const emailStatus = getByTestId('email-status')
 
     // expect(emailStatus.title).toBe('Tudo Certo!')
@@ -324,8 +324,8 @@ describe('Login Component', () => {
     //   target: { value: faker.internet.password() }
     // })
 
-    Helper.populateEmailField(getByTestId)
-    Helper.populatePasswordField(getByTestId)
+    Helper.populateField(getByTestId, 'email')
+    Helper.populateField(getByTestId, 'password')
 
     // const submitButton = getByTestId('submit') as HTMLButtonElement
     // expect(submitButton.disabled).toBe(false)
