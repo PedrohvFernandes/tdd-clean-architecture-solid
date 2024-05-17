@@ -627,6 +627,8 @@
 
   #### 4. Criando layout da tela de cadastro
 
+  #### 5. Criando testes para o SignUp 13
+
   ## Tecnologias:
   - Vite
   - React
