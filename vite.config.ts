@@ -23,6 +23,7 @@ export default defineConfig({
       '@/infra': path.resolve('./src/infra'),
       '@/data': path.resolve('./src/data'),
       '@/domain': path.resolve('./src/domain'),
+      '@/utils': path.resolve('./src/utils'),
       '@/main': path.resolve('./src/main'),
       '@/validation': path.resolve('./src/validation'),
       '@/hooks': path.resolve('./src/main/hooks'),

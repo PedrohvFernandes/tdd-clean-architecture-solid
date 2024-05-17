@@ -32,6 +32,7 @@
       "@/infra/*": ["infra/*"],
       "@/data/*": ["data/*"],
       "@/domain/*": ["domain/*"],
+      "@/utils/*": ["utils/*"],
       "@/main/*": ["main/*"],
       "@/hooks/*": ["main/hooks/*"],
       "@/presentation/*": ["main/presentation/*"],

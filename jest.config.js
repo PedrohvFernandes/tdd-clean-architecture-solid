@@ -43,6 +43,7 @@ module.exports = {
     '^@/infra/(.*)$': '<rootDir>/src/infra/$1',
     '^@/data/(.*)$': '<rootDir>/src/data/$1',
     '^@/domain/(.*)$': '<rootDir>/src/domain/$1',
+    '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@/main/(.*)$': '<rootDir>/src/main/$1',
     '^@/hooks/(.*)$': '<rootDir>/src/main/hooks/$1',
     '^@/presentation/(.*)$': '<rootDir>/src/main/presentation/$1',
