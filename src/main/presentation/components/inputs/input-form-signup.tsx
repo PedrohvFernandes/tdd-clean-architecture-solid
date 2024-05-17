@@ -3,10 +3,13 @@ import { InputHTMLAttributes, useEffect } from 'react'
 import { InputForm } from './input-form'
 
 import { useHookErrorState, useHookForm } from '@/main/hooks'
+import { Validation } from '@/protocols/validation'
 
-interface InputFormProps extends InputHTMLAttributes<HTMLInputElement> {}
+interface InputFormProps extends InputHTMLAttributes<HTMLInputElement> {
+  validation: Validation
+}
 
-export function InputFormSignUp({ ...propsInput }: InputFormProps) {
+export function InputFormSignUp({ validation, ...propsInput }: InputFormProps) {
   const {
     setNameError,
     setEmailError,
@@ -17,8 +20,9 @@ export function InputFormSignUp({ ...propsInput }: InputFormProps) {
   const { name, email, password, passwordConfirmation } = useHookForm()
 
   useEffect(() => {
-    setNameError('Campo obrigatório')
-  }, [name, setNameError])
+    const errorMessage = validation.validate('name', name)
+    setNameError(errorMessage)
+  }, [name, setNameError, validation])
 
   useEffect(() => {
     setEmailError('Campo obrigatório')

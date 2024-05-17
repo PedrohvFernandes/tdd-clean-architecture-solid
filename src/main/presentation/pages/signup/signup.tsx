@@ -6,10 +6,16 @@ import { FormStatus } from '@/components/form-status'
 import { InputFormSignUp } from '@/components/inputs'
 
 // import { ConfigRoute } from '@/config/index'
+
 import { ErrorStateContextProvider } from '@/contexts/form/error-state-context'
 import { FormContextProvider } from '@/contexts/form/form-context'
+import { Validation } from '@/protocols/validation'
 
-export function SignUp() {
+type IPropsLogin = {
+  validation: Validation
+}
+
+export function SignUp({ validation }: IPropsLogin) {
   return (
     <FormContextProvider>
       <ErrorStateContextProvider>
@@ -23,6 +29,7 @@ export function SignUp() {
             name="name"
             id="name"
             placeholder="Digite seu nome"
+            validation={validation}
           />
 
           <InputFormSignUp
@@ -30,6 +37,7 @@ export function SignUp() {
             name="email"
             id="email"
             placeholder="Digite seu email"
+            validation={validation}
           />
 
           <InputFormSignUp
@@ -37,6 +45,7 @@ export function SignUp() {
             name="password"
             id="password"
             placeholder="Digite seu password"
+            validation={validation}
           />
 
           <InputFormSignUp
@@ -44,6 +53,7 @@ export function SignUp() {
             name="passwordConfirmation"
             id="passwordConfirmation"
             placeholder="Repita sua senha"
+            validation={validation}
           />
 
           <ButtonFormsSignUp type="submit" name="submit" />
