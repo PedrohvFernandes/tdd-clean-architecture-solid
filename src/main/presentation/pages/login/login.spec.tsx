@@ -21,6 +21,7 @@ import {
   AuthenticationSpy,
   ValidationSpy
 } from '@/presentation/test'
+import { countQuantityRoute } from '@/utils/create-memory-history'
 import { faker } from '@faker-js/faker'
 import {
   RenderResult,
@@ -54,19 +55,9 @@ const history = createMemoryHistory({
   initialEntries: [ConfigRoute.fourDev.login.path] // Ponto de partida /login
 })
 
-// Como tivemos que instalar a lib https://www.npmjs.com/package/history Eles não possuem o length como o history nativo, então tive que criar uma variavel para armazenar a quantidade de rotas visitadas. Poderia usar o window.history.length mas ele não pega a quantidade exata. https://github.com/remix-run/history/issues/960
-// Inicialmente
-let quantityRoutes = 0
-
-// Lista para armazenar as rotas visitadas
-const routesVisited: string[] = []
 // Adicionar um listener para atualizar a lista de rotas visitadas sempre que a localização do histórico mudar
 history.listen((location) => {
-  // Se a nova localização não estiver na lista, adiciona
-  if (!routesVisited.includes(location.location.pathname)) {
-    routesVisited.push(location.location.pathname)
-    quantityRoutes = routesVisited.length
-  }
+  countQuantityRoute(location)
 })
 
 // Factory
@@ -607,7 +598,7 @@ describe('Login Component', () => {
     expect(history.location.pathname).toBe(
       ConfigRoute.fourDev.default.source.path
     )
-    expect(quantityRoutes).toBe(1)
+    expect(countQuantityRoute().quantityRoutes).toBe(1)
   })
   test('Should present error if SaveAccessToken fails', async () => {
     const { sutLogin, getByTestId, saveAccessTokenMock } = makeSutLogin({
@@ -645,8 +636,8 @@ describe('Login Component', () => {
     // Verifica se o historico de navegação tem 2 itens, porque ele vai ter o /login e o /signup
     console.log({
       windowHistoryLength: window.history.length,
-      quantityRoutes
+      quantityRoutes: countQuantityRoute().quantityRoutes
     })
-    expect(quantityRoutes).toBe(2)
+    expect(countQuantityRoute().quantityRoutes).toBe(2)
   })
 })
