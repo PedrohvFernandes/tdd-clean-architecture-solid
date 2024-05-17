@@ -17,6 +17,7 @@ import {
   InvalidSaveAccessToken
 } from '@/domain/errors'
 import {
+  Helper,
   SaveAccessTokenMock,
   AuthenticationSpy,
   ValidationSpy
@@ -144,167 +145,6 @@ const makeSutLogin = (
   }
 }
 
-// Helpers
-// Helpers 1: O emailValue e passwordValue ja fica injetado no helper, com valores ja padrões para testes que não precisa necessariamente se os valores estão iguais(corretos - comparação), ex: o spinner que os campos so precisam estar preenchidos para fazer o spinner aparecer
-// const simulateValidSubmit = (
-//   sutLogin: RenderResult,
-//   emailValue = faker.internet.email(),
-//   passwordValue = faker.internet.password()
-// ): void => {
-//   const getByTestId = sutLogin.getByTestId
-
-//   const emailInput = getByTestId('email')
-//   // const emailValue = faker.internet.email()
-
-//   const passwordInput = getByTestId('password')
-//   // const passwordValue = faker.internet.password()
-
-//   fireEvent.input(emailInput, {
-//     target: { value: emailValue }
-//   })
-
-//   fireEvent.input(passwordInput, {
-//     target: { value: passwordValue }
-//   })
-
-//   const submitButton = getByTestId('submit')
-//   fireEvent.click(submitButton)
-// }
-
-const simulateValidSubmit = async (
-  sutLogin: RenderResult,
-  emailValue = faker.internet.email(),
-  passwordValue = faker.internet.password()
-): Promise<void> => {
-  const getByTestId = sutLogin.getByTestId
-
-  populateEmailField(getByTestId, emailValue)
-  populatePasswordField(getByTestId, passwordValue)
-
-  // const submitButton = getByTestId('submit')
-  // fireEvent.click(submitButton)
-
-  const form = getByTestId('form')
-  fireEvent.submit(form)
-
-  await waitFor(() => form)
-}
-
-// Helper 2: Popula os campos com valores
-// const populateField = (
-//   sutLogin: RenderResult,
-//   fieldName: string,
-//   inputValue: string
-// ): void => {
-//   const input = sutLogin.getByTestId(fieldName)
-//   fireEvent.input(input, { target: { inputValue } })
-//   console.log(input)
-// }
-// Helper 2: Popula o campo de email
-const populateEmailField = (
-  // sutLogin: RenderResult,
-  getByTestId: (
-    id: Matcher,
-    options?: MatcherOptions | undefined
-  ) => HTMLElement,
-  emailValue = faker.internet.email()
-): void => {
-  // const emailInput = sutLogin.getByTestId('email')
-  const emailInput = getByTestId('email')
-  fireEvent.input(emailInput, { target: { value: emailValue } })
-}
-// Helper 3: Popula o campo de password
-const populatePasswordField = (
-  // sutLogin: RenderResult,
-  getByTestId: (
-    id: Matcher,
-    options?: MatcherOptions | undefined
-  ) => HTMLElement,
-  passwordValue = faker.internet.password()
-): void => {
-  // const passwordInput = sutLogin.getByTestId('password')
-  const passwordInput = getByTestId('password')
-  fireEvent.input(passwordInput, { target: { value: passwordValue } })
-}
-
-// Helper 4: Simula o status do campo, se ele é valido ou invalido
-const testStatusForField = (
-  getByTestId: (
-    id: Matcher,
-    options?: MatcherOptions | undefined
-  ) => HTMLElement,
-  fieldName: string,
-  // Se não passar nada, ele vai ser um campo valido, se passar ele vai ser um campo invalido, ou seja, estamos testando o campo valido e invalido, o status dele
-  validationErrorMessage?: string
-): void => {
-  // const emailStatus = getByTestId('email-status')
-  const fieldNameStatus = getByTestId(`${fieldName}-status`)
-  // expect(fieldNameStatus.title).toBe(validationSpy.errorMessage)
-  // Se não passar a validationErrorMessage ele mostra o tudo certo, se passar ele mostra a mensagem de erro
-  expect(fieldNameStatus.title).toBe(validationErrorMessage ?? 'Tudo Certo!')
-  expect(fieldNameStatus.textContent).toBe(validationErrorMessage ? '🔴' : '🟢')
-}
-
-// Helper 5
-const testErrorWrapChildCount = (
-  getByTestId: (
-    id: Matcher,
-    options?: MatcherOptions | undefined
-  ) => HTMLElement,
-  count: number
-): void => {
-  // Em form status data-testid="error-wrap"
-  const errorWrap = getByTestId('error-wrap')
-  expect(errorWrap.childElementCount).toBe(count)
-}
-
-// Helper 6
-const testElementExist = (
-  getByTestId: (
-    id: Matcher,
-    options?: MatcherOptions | undefined
-  ) => HTMLElement,
-  fieldName: string
-): void => {
-  // const ellipsis = getByTestId('ellipsis')
-
-  // expect(ellipsis).toBeTruthy()
-
-  const el = getByTestId(fieldName)
-  expect(el).toBeTruthy()
-}
-
-// Helper 7
-const testElementText = (
-  getByTestId: (
-    id: Matcher,
-    options?: MatcherOptions | undefined
-  ) => HTMLElement,
-  fieldName: string,
-  text: string
-): void => {
-  // const mainError = getByTestId('main-error')
-  // expect(mainError.textContent).toBe(error.message)
-  const el = getByTestId(fieldName)
-  expect(el.textContent).toBe(text)
-}
-
-const testButtonIsDisabled = (
-  getByTestId: (
-    id: Matcher,
-    options?: MatcherOptions | undefined
-  ) => HTMLElement,
-  fieldName: string,
-  isDisabled: boolean
-): void => {
-  // const submitButton = getByTestId('submit') as HTMLButtonElement
-  // expect(submitButton.disabled).toBe(true)
-
-  // Fazemos um cast(as) para HTMLInputElement para ter acesso a propriedade disabled
-  const button = getByTestId(fieldName) as HTMLButtonElement
-  expect(button.disabled).toBe(isDisabled)
-}
-
 describe('Login Component', () => {
   // Limpa o ambiente de teste entre os testes, isso garante que o teste não vai ser influenciado por um teste anterior, em relação ao estado do componente
   afterEach(() => cleanup())
@@ -322,17 +162,21 @@ describe('Login Component', () => {
     // const { getByTestId } = sutLogin
 
     // No inicio o status não deve ter nada, nem o spinner nem a mensagem de erro
-    testErrorWrapChildCount(getByTestId, 0)
+    Helper.testElementChildCount(getByTestId, 'error-wrap', 0)
 
-    testButtonIsDisabled(getByTestId, 'submit', true)
+    Helper.testButtonIsDisabled(getByTestId, 'submit', true)
 
     // Testando os status dos inputs
 
     // const emailStatus = getByTestId('email-status')
     // expect(emailStatus.title).toBe(validationSpy.errorMessage)
     // expect(emailStatus.textContent).toBe('🔴')
-    testStatusForField(getByTestId, 'email', validationSpy.errorMessage)
-    testStatusForField(getByTestId, 'password', validationSpy.errorMessage)
+    Helper.testStatusForField(getByTestId, 'email', validationSpy.errorMessage)
+    Helper.testStatusForField(
+      getByTestId,
+      'password',
+      validationSpy.errorMessage
+    )
   })
 
   // Testando se aquele campo é aquele campo em si e o valor que ele tem
@@ -352,7 +196,7 @@ describe('Login Component', () => {
 
     // Aqui como eu tenho que comprar o valor tenho que criar ela por aqui e passar para o helper para ele popularizar o campo e depois fazer a comparação desse mesmo valor
     const emailValue = faker.internet.email()
-    populateEmailField(getByTestId, emailValue)
+    Helper.populateEmailField(getByTestId, emailValue)
     // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
     expect(validationSpy.filedName).toBe('email')
     expect(validationSpy.fieldValue).toBe(emailValue)
@@ -368,7 +212,7 @@ describe('Login Component', () => {
     // fireEvent.input(passwordInput, { target: { value: password } })
 
     const passwordValue = faker.internet.password()
-    populatePasswordField(getByTestId, passwordValue)
+    Helper.populatePasswordField(getByTestId, passwordValue)
     // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
     expect(validationSpy.filedName).toBe('password')
     expect(validationSpy.fieldValue).toBe(passwordValue)
@@ -391,8 +235,8 @@ describe('Login Component', () => {
     // fireEvent.input(emailInput, { target: { value: faker.internet.email() } })
 
     // Como não vou comprar o valor, mas sim somente o erro, então não preciso passar o valor, posso deixar o valor que ja é criado no helper por padrão
-    populateEmailField(getByTestId)
-    testStatusForField(getByTestId, 'email', validationSpy.errorMessage)
+    Helper.populateEmailField(getByTestId)
+    Helper.testStatusForField(getByTestId, 'email', validationSpy.errorMessage)
   })
 
   test('Should show password error if call Validation fails', () => {
@@ -412,8 +256,12 @@ describe('Login Component', () => {
     //   target: { value: faker.internet.password() }
     // })
 
-    populatePasswordField(getByTestId)
-    testStatusForField(getByTestId, 'password', validationSpy.errorMessage)
+    Helper.populatePasswordField(getByTestId)
+    Helper.testStatusForField(
+      getByTestId,
+      'password',
+      validationSpy.errorMessage
+    )
   })
 
   // Testando a mensagem de sucesso
@@ -437,8 +285,8 @@ describe('Login Component', () => {
     // })
     // const passwordStatus = sutLogin.getByTestId('password-status')
 
-    populatePasswordField(getByTestId)
-    testStatusForField(getByTestId, 'password')
+    Helper.populatePasswordField(getByTestId)
+    Helper.testStatusForField(getByTestId, 'password')
   })
 
   test('Should show valid email state if call Validation succeeds', () => {
@@ -446,12 +294,12 @@ describe('Login Component', () => {
       validationError: false
     })
 
-    populateEmailField(getByTestId)
+    Helper.populateEmailField(getByTestId)
     // const emailStatus = getByTestId('email-status')
 
     // expect(emailStatus.title).toBe('Tudo Certo!')
     // expect(emailStatus.textContent).toBe('🟢')
-    testStatusForField(getByTestId, 'email')
+    Helper.testStatusForField(getByTestId, 'email')
   })
 
   // Testando button quando tudo esta preenchido sem nenhum erro
@@ -476,12 +324,12 @@ describe('Login Component', () => {
     //   target: { value: faker.internet.password() }
     // })
 
-    populateEmailField(getByTestId)
-    populatePasswordField(getByTestId)
+    Helper.populateEmailField(getByTestId)
+    Helper.populatePasswordField(getByTestId)
 
     // const submitButton = getByTestId('submit') as HTMLButtonElement
     // expect(submitButton.disabled).toBe(false)
-    testButtonIsDisabled(getByTestId, 'submit', false)
+    Helper.testButtonIsDisabled(getByTestId, 'submit', false)
   })
 
   // O ellipsis que é um spinner tem que aparecer na tela
@@ -490,10 +338,10 @@ describe('Login Component', () => {
       validationError: false
     })
 
-    await simulateValidSubmit(sutLogin)
+    await Helper.simulateValidSubmit(sutLogin)
 
     // Verificamos se o spinner esta em tela
-    testElementExist(sutLogin.getByTestId, 'ellipsis')
+    Helper.testElementExist(sutLogin.getByTestId, 'ellipsis')
   })
 
   // Validamos os valores que estão sendo passados para o Authentication
@@ -524,7 +372,7 @@ describe('Login Component', () => {
     const emailValue = faker.internet.email()
     const passwordValue = faker.internet.password()
     // No simultate valid submit passa os valores para os campos, clica no botão e dispara a função de submit do form que é chamar o authentication com o metodo auth, nesse caso vem da class AuthenticationSpy que é passada para o componente login que é passado para o formLogin
-    await simulateValidSubmit(sutLogin, emailValue, passwordValue)
+    await Helper.simulateValidSubmit(sutLogin, emailValue, passwordValue)
 
     expect(authenticationSpy.params).toEqual({
       email: emailValue,
@@ -539,8 +387,8 @@ describe('Login Component', () => {
     })
 
     // Estamos simulando dois cliques no botão de submit
-    await simulateValidSubmit(sutLogin)
-    await simulateValidSubmit(sutLogin)
+    await Helper.simulateValidSubmit(sutLogin)
+    await Helper.simulateValidSubmit(sutLogin)
 
     // Esperamos que ele chame somente uma vez, porque a autenticação é uma chamada assincrona, ou seja, ja vai estar no processo de autenticação
     expect(authenticationSpy.callsCount).toBe(1)
@@ -551,7 +399,7 @@ describe('Login Component', () => {
     // Agora possui um erro message, logo o form é invalido, porque somente o email esta preenchido
     const { sutLogin, authenticationSpy } = makeSutLogin()
 
-    await simulateValidSubmit(sutLogin)
+    await Helper.simulateValidSubmit(sutLogin)
 
     // Esperamos que ele não chame a autenticação, porque o form esta invalido, nenhum campo está  preenchido
     expect(authenticationSpy.callsCount).toBe(0)
@@ -569,7 +417,7 @@ describe('Login Component', () => {
       .spyOn(authenticationSpy, 'auth')
       .mockReturnValueOnce(Promise.reject(error))
 
-    await simulateValidSubmit(sutLogin)
+    await Helper.simulateValidSubmit(sutLogin)
 
     // const errorWrap = getByTestId('error-wrap')
 
@@ -577,18 +425,18 @@ describe('Login Component', () => {
     // await waitFor(() => errorWrap)
 
     // Eu espero que o erro seja exibido na tela e tem que ter a mensagem do erro
-    testElementText(getByTestId, 'main-error', error.message)
+    Helper.testElementText(getByTestId, 'main-error', error.message)
 
     // Eu espero que o erro seja exibido, somente ele, e que o spinner não esteja em tela. Ou seja, somente um filho no error-wrap
     // expect(errorWrap.childElementCount).toBe(1)
-    testErrorWrapChildCount(getByTestId, 1)
+    Helper.testElementChildCount(getByTestId, 'error-wrap', 1)
   })
   test('Should call SaveAccessToken on success', async () => {
     const { sutLogin, authenticationSpy, saveAccessTokenMock } = makeSutLogin({
       validationError: false
     })
 
-    await simulateValidSubmit(sutLogin)
+    await Helper.simulateValidSubmit(sutLogin)
 
     expect(saveAccessTokenMock.accessToken).toBe(
       authenticationSpy.account.accessToken
@@ -615,12 +463,12 @@ describe('Login Component', () => {
     //   throw await Promise.reject(error)
     // })
 
-    await simulateValidSubmit(sutLogin)
+    await Helper.simulateValidSubmit(sutLogin)
 
     await waitFor(() => getByTestId('main-error'))
 
-    testElementText(getByTestId, 'main-error', error.message)
-    testErrorWrapChildCount(getByTestId, 1)
+    Helper.testElementText(getByTestId, 'main-error', error.message)
+    Helper.testElementChildCount(getByTestId, 'error-wrap', 1)
   })
 
   test('Should go to signup page', async () => {
