@@ -114,12 +114,12 @@ describe('SignUp Component', () => {
     Helper.testStatusForField(getByTestId, 'name')
   })
 
-  test('Should show valid password state if call Validation succeeds', () => {
+  test('Should show valid email state if call Validation succeeds', () => {
     const { getByTestId } = makeSutSignUp({
       validationError: false
     })
 
-    Helper.populateField(getByTestId, 'password')
-    Helper.testStatusForField(getByTestId, 'password')
+    Helper.populateField(getByTestId, 'email')
+    Helper.testStatusForField(getByTestId, 'email')
   })
 })
