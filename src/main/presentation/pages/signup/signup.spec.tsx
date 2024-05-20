@@ -105,4 +105,12 @@ describe('SignUp Component', () => {
       validationSpy.errorMessage
     )
   })
+  test('Should show valid name state if call Validation succeeds', () => {
+    const { getByTestId } = makeSutSignUp({
+      validationError: false
+    })
+
+    Helper.populateField(getByTestId, 'name')
+    Helper.testStatusForField(getByTestId, 'name')
+  })
 })
