@@ -629,6 +629,8 @@
 
   #### 5. Criando testes para o SignUp 13
 
+  #### 6. Criando testes para o SignUp 23
+
   ## Tecnologias:
   - Vite
   - React
