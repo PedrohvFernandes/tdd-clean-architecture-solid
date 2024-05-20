@@ -55,7 +55,7 @@ describe('SignUp Component', () => {
 
     Helper.testStatusForField(getByTestId, 'name', validationSpy.errorMessage)
 
-    Helper.testStatusForField(getByTestId, 'email', 'Campo obrigatório')
+    Helper.testStatusForField(getByTestId, 'email', validationSpy.errorMessage)
 
     Helper.testStatusForField(getByTestId, 'password', 'Campo obrigatório')
 
@@ -71,5 +71,12 @@ describe('SignUp Component', () => {
 
     Helper.populateField(getByTestId, 'name')
     Helper.testStatusForField(getByTestId, 'name', validationSpy.errorMessage)
+  })
+
+  test('Should show email error if call Validation fails', () => {
+    const { getByTestId, validationSpy } = makeSutSignUp()
+
+    Helper.populateField(getByTestId, 'email')
+    Helper.testStatusForField(getByTestId, 'email', validationSpy.errorMessage)
   })
 })
