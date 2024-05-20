@@ -1,11 +1,5 @@
 import { faker } from '@faker-js/faker'
-import {
-  Matcher,
-  MatcherOptions,
-  RenderResult,
-  fireEvent,
-  waitFor
-} from '@testing-library/react'
+import { Matcher, MatcherOptions, fireEvent } from '@testing-library/react'
 
 // Helpers
 // Helpers 1: O emailValue e passwordValue ja fica injetado no helper, com valores ja padrões para testes que não precisa necessariamente se os valores estão iguais(corretos - comparação), ex: o spinner que os campos so precisam estar preenchidos para fazer o spinner aparecer
@@ -33,27 +27,6 @@ import {
 //   const submitButton = getByTestId('submit')
 //   fireEvent.click(submitButton)
 // }
-
-export const simulateValidSubmit = async (
-  sutLogin: RenderResult,
-  emailValue = faker.internet.email(),
-  passwordValue = faker.internet.password()
-): Promise<void> => {
-  const getByTestId = sutLogin.getByTestId
-
-  // populateEmailField(getByTestId, emailValue)
-  populateField(getByTestId, 'email', emailValue)
-  // populatePasswordField(getByTestId, passwordValue)
-  populateField(getByTestId, 'password', passwordValue)
-
-  // const submitButton = getByTestId('submit')
-  // fireEvent.click(submitButton)
-
-  const form = getByTestId('form')
-  fireEvent.submit(form)
-
-  await waitFor(() => form)
-}
 
 // Helper 2: Popula os campos com valores
 // const populateField = (
