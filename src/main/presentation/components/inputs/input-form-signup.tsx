@@ -30,8 +30,9 @@ export function InputFormSignUp({ validation, ...propsInput }: InputFormProps) {
   }, [email, setEmailError, validation])
 
   useEffect(() => {
-    setPasswordError('Campo obrigatório')
-  }, [password, setPasswordError])
+    const errorMessage = validation.validate('password', password)
+    setPasswordError(errorMessage)
+  }, [password, setPasswordError, validation])
 
   useEffect(() => {
     setPasswordConfirmationError('Campo obrigatório')
