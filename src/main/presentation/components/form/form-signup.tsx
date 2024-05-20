@@ -10,13 +10,23 @@ interface IFormSignUpProps extends React.HTMLAttributes<HTMLFormElement> {
 }
 
 export function FormSignUp({ addAccount, ...rest }: IFormSignUpProps) {
-  const { setIsLoading, name, password, email, passwordConfirmation } =
-    useHookForm()
+  const {
+    setIsLoading,
+    isLoading,
+    name,
+    password,
+    email,
+    passwordConfirmation
+  } = useHookForm()
 
   const handleFormSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault()
+
+    if (isLoading) {
+      return
+    }
 
     setIsLoading()
     await addAccount.add({
