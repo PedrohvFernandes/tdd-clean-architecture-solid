@@ -66,7 +66,7 @@ describe('SignUp Component', () => {
     Helper.testStatusForField(
       getByTestId,
       'passwordConfirmation',
-      'Campo obrigatório'
+      validationSpy.errorMessage
     )
   })
 
@@ -91,6 +91,17 @@ describe('SignUp Component', () => {
     Helper.testStatusForField(
       getByTestId,
       'password',
+      validationSpy.errorMessage
+    )
+  })
+
+  test('Should show passwordConfirmation error if call Validation fails', () => {
+    const { getByTestId, validationSpy } = makeSutSignUp()
+
+    Helper.populateField(getByTestId, 'passwordConfirmation')
+    Helper.testStatusForField(
+      getByTestId,
+      'passwordConfirmation',
       validationSpy.errorMessage
     )
   })
