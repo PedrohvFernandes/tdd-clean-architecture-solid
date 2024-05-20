@@ -145,6 +145,28 @@ const makeSutLogin = (
   }
 }
 
+// Helper especifico para o login
+const simulateValidSubmit = async (
+  sutLogin: RenderResult,
+  emailValue = faker.internet.email(),
+  passwordValue = faker.internet.password()
+): Promise<void> => {
+  const getByTestId = sutLogin.getByTestId
+
+  // populateEmailField(getByTestId, emailValue)
+  Helper.populateField(getByTestId, 'email', emailValue)
+  // populatePasswordField(getByTestId, passwordValue)
+  Helper.populateField(getByTestId, 'password', passwordValue)
+
+  // const submitButton = getByTestId('submit')
+  // fireEvent.click(submitButton)
+
+  const form = getByTestId('form')
+  fireEvent.submit(form)
+
+  await waitFor(() => form)
+}
+
 describe('Login Component', () => {
   // Limpa o ambiente de teste entre os testes, isso garante que o teste não vai ser influenciado por um teste anterior, em relação ao estado do componente
   afterEach(() => cleanup())
@@ -338,7 +360,7 @@ describe('Login Component', () => {
       validationError: false
     })
 
-    await Helper.simulateValidSubmit(sutLogin)
+    await simulateValidSubmit(sutLogin)
 
     // Verificamos se o spinner esta em tela
     Helper.testElementExist(sutLogin.getByTestId, 'ellipsis')
@@ -372,7 +394,7 @@ describe('Login Component', () => {
     const emailValue = faker.internet.email()
     const passwordValue = faker.internet.password()
     // No simultate valid submit passa os valores para os campos, clica no botão e dispara a função de submit do form que é chamar o authentication com o metodo auth, nesse caso vem da class AuthenticationSpy que é passada para o componente login que é passado para o formLogin
-    await Helper.simulateValidSubmit(sutLogin, emailValue, passwordValue)
+    await simulateValidSubmit(sutLogin, emailValue, passwordValue)
 
     expect(authenticationSpy.params).toEqual({
       email: emailValue,
@@ -387,8 +409,8 @@ describe('Login Component', () => {
     })
 
     // Estamos simulando dois cliques no botão de submit
-    await Helper.simulateValidSubmit(sutLogin)
-    await Helper.simulateValidSubmit(sutLogin)
+    await simulateValidSubmit(sutLogin)
+    await simulateValidSubmit(sutLogin)
 
     // Esperamos que ele chame somente uma vez, porque a autenticação é uma chamada assincrona, ou seja, ja vai estar no processo de autenticação
     expect(authenticationSpy.callsCount).toBe(1)
@@ -399,7 +421,7 @@ describe('Login Component', () => {
     // Agora possui um erro message, logo o form é invalido, porque somente o email esta preenchido
     const { sutLogin, authenticationSpy } = makeSutLogin()
 
-    await Helper.simulateValidSubmit(sutLogin)
+    await simulateValidSubmit(sutLogin)
 
     // Esperamos que ele não chame a autenticação, porque o form esta invalido, nenhum campo está  preenchido
     expect(authenticationSpy.callsCount).toBe(0)
@@ -417,7 +439,7 @@ describe('Login Component', () => {
       .spyOn(authenticationSpy, 'auth')
       .mockReturnValueOnce(Promise.reject(error))
 
-    await Helper.simulateValidSubmit(sutLogin)
+    await simulateValidSubmit(sutLogin)
 
     // const errorWrap = getByTestId('error-wrap')
 
@@ -436,7 +458,7 @@ describe('Login Component', () => {
       validationError: false
     })
 
-    await Helper.simulateValidSubmit(sutLogin)
+    await simulateValidSubmit(sutLogin)
 
     expect(saveAccessTokenMock.accessToken).toBe(
       authenticationSpy.account.accessToken
@@ -463,7 +485,7 @@ describe('Login Component', () => {
     //   throw await Promise.reject(error)
     // })
 
-    await Helper.simulateValidSubmit(sutLogin)
+    await simulateValidSubmit(sutLogin)
 
     await waitFor(() => getByTestId('main-error'))
 
