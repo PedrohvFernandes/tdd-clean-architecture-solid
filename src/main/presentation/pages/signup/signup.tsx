@@ -9,17 +9,19 @@ import { InputFormSignUp } from '@/components/inputs'
 
 import { ErrorStateContextProvider } from '@/contexts/form/error-state-context'
 import { FormContextProvider } from '@/contexts/form/form-context'
+import { AddAccount } from '@/domain/usecases'
 import { Validation } from '@/protocols/validation'
 
 type IPropsLogin = {
   validation: Validation
+  addAccount: AddAccount
 }
 
-export function SignUp({ validation }: IPropsLogin) {
+export function SignUp({ validation, addAccount }: IPropsLogin) {
   return (
     <FormContextProvider>
       <ErrorStateContextProvider>
-        <FormSignUp>
+        <FormSignUp addAccount={addAccount}>
           <h2 className="text-primary-DARK text-xl uppercase font-bold tracking-wider">
             Criar conta
           </h2>
