@@ -7,7 +7,9 @@ import {
   MatcherOptions,
   RenderResult,
   cleanup,
-  render
+  fireEvent,
+  render,
+  waitFor
 } from '@testing-library/react'
 
 type SutSignUpTypesReturn = {
@@ -42,6 +44,27 @@ const makeSutSignUp = (
     getByTestId,
     validationSpy
   }
+}
+
+export const simulateValidSubmit = async (
+  sutLogin: RenderResult,
+  emailValue = faker.internet.email(),
+  passwordValue = faker.internet.password(),
+  nameValue = faker.internet.userName()
+): Promise<void> => {
+  const getByTestId = sutLogin.getByTestId
+
+  Helper.populateField(getByTestId, 'name', nameValue)
+
+  Helper.populateField(getByTestId, 'email', emailValue)
+
+  Helper.populateField(getByTestId, 'password', passwordValue)
+  Helper.populateField(getByTestId, 'passwordConfirmation', passwordValue)
+
+  const form = getByTestId('form')
+  fireEvent.submit(form)
+
+  await waitFor(() => form)
 }
 
 describe('SignUp Component', () => {
@@ -143,5 +166,17 @@ describe('SignUp Component', () => {
     Helper.populateField(getByTestId, 'passwordConfirmation')
 
     Helper.testButtonIsDisabled(getByTestId, 'submit', false)
+  })
+
+  // O ellipsis que é um spinner tem que aparecer na tela
+  test('Should show loading ellipsis on submit', async () => {
+    const { sutSignUp } = makeSutSignUp({
+      validationError: false
+    })
+
+    await simulateValidSubmit(sutSignUp)
+
+    // Verificamos se o spinner esta em tela
+    Helper.testElementExist(sutSignUp.getByTestId, 'ellipsis')
   })
 })
