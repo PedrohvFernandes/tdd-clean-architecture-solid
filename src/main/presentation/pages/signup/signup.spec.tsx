@@ -1,6 +1,6 @@
 import { SignUp } from './signup'
 
-import { Helper, ValidationSpy } from '@/presentation/test'
+import { Helper, ValidationSpy, AddAccountSpy } from '@/presentation/test'
 import { faker } from '@faker-js/faker'
 import {
   Matcher,
@@ -19,6 +19,7 @@ type SutSignUpTypesReturn = {
     id: Matcher,
     options?: MatcherOptions | undefined
   ) => HTMLElement
+  addAccountSpy: AddAccountSpy
 }
 
 type SutSignUpParams = {
@@ -35,14 +36,19 @@ const makeSutSignUp = (
   // Por padrão ele sempre vai ter erro
   validationSpy.errorMessage = validationError ? faker.word.adjective() : ''
 
-  const sutSignUp = render(<SignUp validation={validationSpy} />)
+  const addAccountSpy = new AddAccountSpy()
+
+  const sutSignUp = render(
+    <SignUp validation={validationSpy} addAccount={addAccountSpy} />
+  )
 
   const { getByTestId } = sutSignUp
 
   return {
     sutSignUp,
     getByTestId,
-    validationSpy
+    validationSpy,
+    addAccountSpy
   }
 }
 
@@ -178,5 +184,24 @@ describe('SignUp Component', () => {
 
     // Verificamos se o spinner esta em tela
     Helper.testElementExist(sutSignUp.getByTestId, 'ellipsis')
+  })
+
+  test('Should call AddAccount with correct values', async () => {
+    const { sutSignUp, addAccountSpy } = makeSutSignUp({
+      validationError: false
+    })
+
+    const nameValue = faker.internet.userName()
+    const emailValue = faker.internet.email()
+    const passwordValue = faker.internet.password()
+
+    await simulateValidSubmit(sutSignUp, emailValue, passwordValue, nameValue)
+
+    expect(addAccountSpy.params).toEqual({
+      name: nameValue,
+      email: emailValue,
+      password: passwordValue,
+      passwordConfirmation: passwordValue
+    })
   })
 })
