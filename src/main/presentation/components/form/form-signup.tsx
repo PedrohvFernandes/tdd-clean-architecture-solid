@@ -19,31 +19,43 @@ export function FormSignUp({ addAccount, ...rest }: IFormSignUpProps) {
     passwordConfirmation
   } = useHookForm()
 
-  const { nameError, emailError, passwordError, passwordConfirmationError } =
-    useHookErrorState()
+  const {
+    nameError,
+    emailError,
+    passwordError,
+    passwordConfirmationError,
+    setErrorMessageMain
+  } = useHookErrorState()
 
   const handleFormSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault()
 
-    if (
-      isLoading ||
-      nameError ||
-      emailError ||
-      passwordError ||
-      passwordConfirmationError
-    ) {
-      return
-    }
+    try {
+      if (
+        isLoading ||
+        nameError ||
+        emailError ||
+        passwordError ||
+        passwordConfirmationError
+      ) {
+        return
+      }
 
-    setIsLoading()
-    await addAccount.add({
-      name,
-      email,
-      password,
-      passwordConfirmation
-    })
+      setIsLoading()
+      await addAccount.add({
+        name,
+        email,
+        password,
+        passwordConfirmation
+      })
+    } catch (error) {
+      setErrorMessageMain(
+        error instanceof Error ? error.message : 'Erro inesperado'
+      )
+      setIsLoading()
+    }
   }
   return (
     <FormDefault {...rest} data-testid="form" onSubmit={handleFormSubmit} />
