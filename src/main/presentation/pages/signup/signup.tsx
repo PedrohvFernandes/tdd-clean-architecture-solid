@@ -1,12 +1,11 @@
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { ButtonFormsSignUp } from '@/components/buttons'
 import { FormSignUp } from '@/components/form'
 import { FormStatus } from '@/components/form-status'
 import { InputFormSignUp } from '@/components/inputs'
 
-// import { ConfigRoute } from '@/config/index'
-
+import { ConfigRoute } from '@/config/index'
 import { ErrorStateContextProvider } from '@/contexts/form/error-state-context'
 import { FormContextProvider } from '@/contexts/form/form-context'
 import { AddAccount, SaveAccessToken } from '@/domain/usecases'
@@ -68,13 +67,14 @@ export function SignUp({
 
           <ButtonFormsSignUp type="submit" name="submit" />
 
-          <span
-            // to={ConfigRoute.fourDev.login.path}
+          <Link
+            // replace
+            to={ConfigRoute.fourDev.login.path}
             className="text-primary lowercase cursor-pointer hover:underline ease-in-out duration-300 hover:opacity-80"
-            data-testid="signup"
+            data-testid="login-link"
           >
             Já tem uma conta? Faça login
-          </span>
+          </Link>
           <FormStatus />
         </FormSignUp>
       </ErrorStateContextProvider>
