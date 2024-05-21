@@ -215,4 +215,12 @@ describe('SignUp Component', () => {
 
     expect(addAccountSpy.callsCount).toBe(1)
   })
+
+  test('Should not call AddAccount if form is invalid', async () => {
+    const { sutSignUp, addAccountSpy } = makeSutSignUp()
+
+    await simulateValidSubmit(sutSignUp)
+
+    expect(addAccountSpy.callsCount).toBe(0)
+  })
 })
