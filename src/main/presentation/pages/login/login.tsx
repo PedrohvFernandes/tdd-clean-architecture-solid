@@ -56,7 +56,7 @@ export function Login({
           <Link
             to={ConfigRoute.fourDev.signup.path}
             className="text-primary lowercase cursor-pointer hover:underline ease-in-out duration-300 hover:opacity-80"
-            data-testid="signup"
+            data-testid="signup-link"
           >
             Criar conta
           </Link>

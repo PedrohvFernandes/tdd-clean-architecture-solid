@@ -58,7 +58,9 @@ const history = createMemoryHistory({
 
 // Adicionar um listener para atualizar a lista de rotas visitadas sempre que a localização do histórico mudar
 history.listen((location) => {
-  countQuantityRoute(location)
+  countQuantityRoute({
+    location
+  })
 })
 
 // Factory
@@ -469,8 +471,9 @@ describe('Login Component', () => {
     expect(history.location.pathname).toBe(
       ConfigRoute.fourDev.default.source.path
     )
-    expect(countQuantityRoute().quantityRoutes).toBe(1)
+    expect(countQuantityRoute({}).quantityRoutes).toBe(1)
   })
+
   test('Should present error if SaveAccessToken fails', async () => {
     const { sutLogin, getByTestId, saveAccessTokenMock } = makeSutLogin({
       validationError: false
@@ -500,16 +503,16 @@ describe('Login Component', () => {
       validationError: false
     })
 
-    const signup = getByTestId('signup')
-    fireEvent.click(signup)
+    const signupLink = getByTestId('signup-link')
+    fireEvent.click(signupLink)
 
     // Verifica se estamos agora na rota /signup
     expect(history.location.pathname).toBe(ConfigRoute.fourDev.signup.path)
     // Verifica se o historico de navegação tem 2 itens, porque ele vai ter o /login e o /signup
     console.log({
       windowHistoryLength: window.history.length,
-      quantityRoutes: countQuantityRoute().quantityRoutes
+      quantityRoutes: countQuantityRoute({}).quantityRoutes
     })
-    expect(countQuantityRoute().quantityRoutes).toBe(2)
+    expect(countQuantityRoute({}).quantityRoutes).toBe(2)
   })
 })
