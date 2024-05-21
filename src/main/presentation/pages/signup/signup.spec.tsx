@@ -1,5 +1,6 @@
 import { SignUp } from './signup'
 
+import { InvalidCredentialsError } from '@/domain/errors'
 import { Helper, ValidationSpy, AddAccountSpy } from '@/presentation/test'
 import { faker } from '@faker-js/faker'
 import {
@@ -222,5 +223,21 @@ describe('SignUp Component', () => {
     await simulateValidSubmit(sutSignUp)
 
     expect(addAccountSpy.callsCount).toBe(0)
+  })
+
+  test('Should preset error if AddAccount fails', async () => {
+    const { sutSignUp, getByTestId, addAccountSpy } = makeSutSignUp({
+      validationError: false
+    })
+    const error = new InvalidCredentialsError()
+
+    // Se o metodo add do usecase addaccount falhar, ele vai retornar um erro. Aqui mocamos um erro para o retorno dele
+    jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(error)
+
+    await simulateValidSubmit(sutSignUp)
+
+    Helper.testElementText(getByTestId, 'main-error', error.message)
+
+    Helper.testElementChildCount(getByTestId, 'error-wrap', 1)
   })
 })

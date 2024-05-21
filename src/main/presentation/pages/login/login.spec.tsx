@@ -437,7 +437,8 @@ describe('Login Component', () => {
     jest
       // Espionamos o auth e retornamos um reject com o erro, em vez do accountModel
       .spyOn(authenticationSpy, 'auth')
-      .mockReturnValueOnce(Promise.reject(error))
+      // .mockReturnValueOnce(Promise.reject(error))
+      .mockRejectedValueOnce(error)
 
     await simulateValidSubmit(sutLogin)
 
