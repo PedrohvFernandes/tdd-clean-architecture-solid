@@ -47,7 +47,9 @@ const history = createMemoryHistory({
 })
 
 history.listen((location) => {
-  countQuantityRoute(location)
+  countQuantityRoute({
+    location
+  })
 })
 
 const makeSutSignUp = (
@@ -286,7 +288,7 @@ describe('SignUp Component', () => {
     expect(history.location.pathname).toBe(
       ConfigRoute.fourDev.default.source.path
     )
-    expect(countQuantityRoute().quantityRoutes).toBe(1)
+    expect(countQuantityRoute({}).quantityRoutes).toBe(1)
   })
 
   test('Should present error if SaveAccessToken fails', async () => {
@@ -304,5 +306,21 @@ describe('SignUp Component', () => {
 
     Helper.testElementText(getByTestId, 'main-error', error.message)
     Helper.testElementChildCount(getByTestId, 'error-wrap', 1)
+  })
+
+  test('Should go to login page', async () => {
+    const { getByTestId } = makeSutSignUp({
+      validationError: false
+    })
+    const loginLink = getByTestId('login-link')
+    fireEvent.click(loginLink)
+
+    expect(history.location.pathname).toBe(ConfigRoute.fourDev.login.path)
+
+    expect(
+      countQuantityRoute({
+        replace: true
+      }).quantityRoutes
+    ).toBe(1)
   })
 })
