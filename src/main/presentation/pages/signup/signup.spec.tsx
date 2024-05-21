@@ -1,7 +1,16 @@
+import { Router } from 'react-router-dom'
+
 import { SignUp } from './signup'
 
+import { ConfigRoute } from '@/config/index'
 import { InvalidCredentialsError } from '@/domain/errors'
-import { Helper, ValidationSpy, AddAccountSpy } from '@/presentation/test'
+import {
+  Helper,
+  ValidationSpy,
+  AddAccountSpy,
+  SaveAccessTokenMock
+} from '@/presentation/test'
+import { countQuantityRoute } from '@/utils/create-memory-history'
 import { faker } from '@faker-js/faker'
 import {
   Matcher,
@@ -12,6 +21,7 @@ import {
   render,
   waitFor
 } from '@testing-library/react'
+import { createMemoryHistory } from 'history'
 
 type SutSignUpTypesReturn = {
   sutSignUp: RenderResult
@@ -21,12 +31,21 @@ type SutSignUpTypesReturn = {
     options?: MatcherOptions | undefined
   ) => HTMLElement
   addAccountSpy: AddAccountSpy
+  saveAccessTokenMock: SaveAccessTokenMock
 }
 
 type SutSignUpParams = {
   validationError?: boolean
   // validationError: boolean
 }
+
+const history = createMemoryHistory({
+  initialEntries: [ConfigRoute.fourDev.signup.path]
+})
+
+history.listen((location) => {
+  countQuantityRoute(location)
+})
 
 const makeSutSignUp = (
   { validationError }: SutSignUpParams = {
@@ -39,8 +58,16 @@ const makeSutSignUp = (
 
   const addAccountSpy = new AddAccountSpy()
 
+  const saveAccessTokenMock = new SaveAccessTokenMock()
+
   const sutSignUp = render(
-    <SignUp validation={validationSpy} addAccount={addAccountSpy} />
+    <Router location={history.location} navigator={history}>
+      <SignUp
+        validation={validationSpy}
+        addAccount={addAccountSpy}
+        saveAccessTokenMock={saveAccessTokenMock}
+      />
+    </Router>
   )
 
   const { getByTestId } = sutSignUp
@@ -49,7 +76,8 @@ const makeSutSignUp = (
     sutSignUp,
     getByTestId,
     validationSpy,
-    addAccountSpy
+    addAccountSpy,
+    saveAccessTokenMock
   }
 }
 
@@ -239,5 +267,22 @@ describe('SignUp Component', () => {
     Helper.testElementText(getByTestId, 'main-error', error.message)
 
     Helper.testElementChildCount(getByTestId, 'error-wrap', 1)
+  })
+
+  test('Should call SaveAccessToken on success', async () => {
+    const { sutSignUp, addAccountSpy, saveAccessTokenMock } = makeSutSignUp({
+      validationError: false
+    })
+
+    await simulateValidSubmit(sutSignUp)
+
+    expect(saveAccessTokenMock.accessToken).toBe(
+      addAccountSpy.account.accessToken
+    )
+
+    expect(history.location.pathname).toBe(
+      ConfigRoute.fourDev.default.source.path
+    )
+    expect(countQuantityRoute().quantityRoutes).toBe(1)
   })
 })
