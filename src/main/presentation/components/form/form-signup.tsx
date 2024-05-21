@@ -3,7 +3,7 @@ import React from 'react'
 import { FormDefault } from './'
 
 import { AddAccount } from '@/domain/usecases'
-import { useHookForm } from '@/main/hooks'
+import { useHookErrorState, useHookForm } from '@/main/hooks'
 
 interface IFormSignUpProps extends React.HTMLAttributes<HTMLFormElement> {
   addAccount: AddAccount
@@ -19,12 +19,21 @@ export function FormSignUp({ addAccount, ...rest }: IFormSignUpProps) {
     passwordConfirmation
   } = useHookForm()
 
+  const { nameError, emailError, passwordError, passwordConfirmationError } =
+    useHookErrorState()
+
   const handleFormSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault()
 
-    if (isLoading) {
+    if (
+      isLoading ||
+      nameError ||
+      emailError ||
+      passwordError ||
+      passwordConfirmationError
+    ) {
       return
     }
 
