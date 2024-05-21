@@ -481,7 +481,8 @@ describe('Login Component', () => {
     // Mockando o retorno do saveAccessToken para ser um erro
     jest
       .spyOn(saveAccessTokenMock, 'save')
-      .mockReturnValue(Promise.reject(error))
+      // .mockReturnValue(Promise.reject(error))
+      .mockRejectedValueOnce(error)
     // jest.spyOn(saveAccessTokenMock, 'save').mockImplementationOnce(async () => {
     //   throw await Promise.reject(error)
     // })

@@ -59,7 +59,7 @@ export function FormSignUp({
         password,
         passwordConfirmation
       })
-      saveAccessTokenMock.save(accessToken.accessToken)
+      await saveAccessTokenMock.save(accessToken.accessToken)
       navigate(ConfigRoute.fourDev.default.source.path)
     } catch (error) {
       setErrorMessageMain(

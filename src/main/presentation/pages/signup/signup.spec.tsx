@@ -3,7 +3,10 @@ import { Router } from 'react-router-dom'
 import { SignUp } from './signup'
 
 import { ConfigRoute } from '@/config/index'
-import { InvalidCredentialsError } from '@/domain/errors'
+import {
+  InvalidCredentialsError,
+  InvalidSaveAccessToken
+} from '@/domain/errors'
 import {
   Helper,
   ValidationSpy,
@@ -284,5 +287,22 @@ describe('SignUp Component', () => {
       ConfigRoute.fourDev.default.source.path
     )
     expect(countQuantityRoute().quantityRoutes).toBe(1)
+  })
+
+  test('Should present error if SaveAccessToken fails', async () => {
+    const { sutSignUp, getByTestId, saveAccessTokenMock } = makeSutSignUp({
+      validationError: false
+    })
+
+    const error = new InvalidSaveAccessToken()
+
+    jest.spyOn(saveAccessTokenMock, 'save').mockRejectedValueOnce(error)
+
+    await simulateValidSubmit(sutSignUp)
+
+    await waitFor(() => getByTestId('main-error'))
+
+    Helper.testElementText(getByTestId, 'main-error', error.message)
+    Helper.testElementChildCount(getByTestId, 'error-wrap', 1)
   })
 })
