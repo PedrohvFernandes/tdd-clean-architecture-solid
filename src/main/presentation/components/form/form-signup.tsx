@@ -1,15 +1,22 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { FormDefault } from './'
 
-import { AddAccount } from '@/domain/usecases'
+import { ConfigRoute } from '@/config/index'
+import { AddAccount, SaveAccessToken } from '@/domain/usecases'
 import { useHookErrorState, useHookForm } from '@/main/hooks'
 
 interface IFormSignUpProps extends React.HTMLAttributes<HTMLFormElement> {
   addAccount: AddAccount
+  saveAccessTokenMock: SaveAccessToken
 }
 
-export function FormSignUp({ addAccount, ...rest }: IFormSignUpProps) {
+export function FormSignUp({
+  addAccount,
+  saveAccessTokenMock,
+  ...rest
+}: IFormSignUpProps) {
   const {
     setIsLoading,
     isLoading,
@@ -26,6 +33,8 @@ export function FormSignUp({ addAccount, ...rest }: IFormSignUpProps) {
     passwordConfirmationError,
     setErrorMessageMain
   } = useHookErrorState()
+
+  const navigate = useNavigate()
 
   const handleFormSubmit = async (
     event: React.FormEvent<HTMLFormElement>
@@ -44,12 +53,14 @@ export function FormSignUp({ addAccount, ...rest }: IFormSignUpProps) {
       }
 
       setIsLoading()
-      await addAccount.add({
+      const accessToken = await addAccount.add({
         name,
         email,
         password,
         passwordConfirmation
       })
+      saveAccessTokenMock.save(accessToken.accessToken)
+      navigate(ConfigRoute.fourDev.default.source.path)
     } catch (error) {
       setErrorMessageMain(
         error instanceof Error ? error.message : 'Erro inesperado'

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { FormDefault } from './'
 
+import { ConfigRoute } from '@/config/index'
 import { Authentication, SaveAccessToken } from '@/domain/usecases'
 import { useHookErrorState, useHookForm } from '@/main/hooks'
 
@@ -39,7 +40,7 @@ export function FormLogin({
 
       // Depois de implementar o saveAccessToken do domain no data, e no infra implementar a interface do data para escolher a lib que vai usar a implementação do data e injetar no componente via login.spec e MakeLogin, podemos usar ele aqui para salvar o token de acesso
       await saveAccessToken.save(account.accessToken)
-      navigate('/')
+      navigate(ConfigRoute.fourDev.default.source.path)
     } catch (error) {
       // const e = error as Error
       // setErrorMessageMain(e.message)

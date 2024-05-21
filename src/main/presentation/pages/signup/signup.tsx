@@ -9,19 +9,27 @@ import { InputFormSignUp } from '@/components/inputs'
 
 import { ErrorStateContextProvider } from '@/contexts/form/error-state-context'
 import { FormContextProvider } from '@/contexts/form/form-context'
-import { AddAccount } from '@/domain/usecases'
+import { AddAccount, SaveAccessToken } from '@/domain/usecases'
 import { Validation } from '@/protocols/validation'
 
 type IPropsLogin = {
   validation: Validation
   addAccount: AddAccount
+  saveAccessTokenMock: SaveAccessToken
 }
 
-export function SignUp({ validation, addAccount }: IPropsLogin) {
+export function SignUp({
+  validation,
+  addAccount,
+  saveAccessTokenMock
+}: IPropsLogin) {
   return (
     <FormContextProvider>
       <ErrorStateContextProvider>
-        <FormSignUp addAccount={addAccount}>
+        <FormSignUp
+          addAccount={addAccount}
+          saveAccessTokenMock={saveAccessTokenMock}
+        >
           <h2 className="text-primary-DARK text-xl uppercase font-bold tracking-wider">
             Criar conta
           </h2>
