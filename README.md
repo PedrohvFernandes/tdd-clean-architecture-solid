@@ -633,6 +633,8 @@
 
   #### 7. Criando testes para o SignUp 33
 
+  #### 8. Criando um componente para o SubmitButton
+
   ## Tecnologias:
   - Vite
   - React

@@ -26,13 +26,7 @@ export function FormSignUp({
     passwordConfirmation
   } = useHookForm()
 
-  const {
-    nameError,
-    emailError,
-    passwordError,
-    passwordConfirmationError,
-    setErrorMessageMain
-  } = useHookErrorState()
+  const { isFormInvalid, setErrorMessageMain } = useHookErrorState()
 
   const navigate = useNavigate()
 
@@ -42,13 +36,7 @@ export function FormSignUp({
     event.preventDefault()
 
     try {
-      if (
-        isLoading ||
-        nameError ||
-        emailError ||
-        passwordError ||
-        passwordConfirmationError
-      ) {
+      if (isLoading || isFormInvalid) {
         return
       }
 

@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
 
 export interface IErrorStateContextType {
   // errorState: Record<string, string>
@@ -14,6 +14,8 @@ export interface IErrorStateContextType {
   setPasswordError: (password: string) => void
   passwordConfirmationError: string
   setPasswordConfirmationError: (passwordConfirmation: string) => void
+  isFormInvalid: boolean
+  setIsFormInvalid: (isFormInvalid: boolean) => void
 
   errorMessageMain: string
   setErrorMessageMain: (errorMessage: string) => void
@@ -39,6 +41,7 @@ export const ErrorStateContextProvider = ({
   const [passwordConfirmationError, setPasswordConfirmationError] =
     useState<string>('')
   const [errorMessageMain, setErrorMessageMain] = useState<string>('')
+  const [isFormInvalid, setIsFormInvalid] = useState<boolean>(true)
 
   // const [errorState, setErrorState] = useState<Record<string, string>>({
   //   email: 'Campo obrigatório',
@@ -77,6 +80,15 @@ export const ErrorStateContextProvider = ({
     return error ? (error as string) : 'Tudo Certo!'
   }
 
+  useEffect(() => {
+    setIsFormInvalid(
+      !!nameError ||
+        !!emailError ||
+        !!passwordError ||
+        !!passwordConfirmationError
+    )
+  }, [nameError, emailError, passwordError, passwordConfirmationError])
+
   return (
     <ErrorContext.Provider
       value={{
@@ -88,6 +100,8 @@ export const ErrorStateContextProvider = ({
         setPasswordError,
         passwordConfirmationError,
         setPasswordConfirmationError,
+        isFormInvalid,
+        setIsFormInvalid,
         errorMessageMain,
         setErrorMessageMain,
         getStatus,
