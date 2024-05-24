@@ -49,7 +49,9 @@ describe('ValidationComposite', () => {
 
     // O valor em si não faz diferença. Eu to testando a validação de um validador de campo especifico(fieldName ex: any_field), então se eu não tiver nem um validador(Spy) que ta validando esse campo(fieldName) o composite não vai validar ninguem. Então ele tem que validar somente os campos do nome passado do campo aqui. E cada validate valida um campo especifico(fieldName, ex: any_field), com isso aqui no composite eu preciso validar o campo especifico que eu to passando aqui atraves do fieldName,se eu não passar nada, ele não valida nem um dos validadores com o seu nome especifico(fieldName). Então se qualquer um dos validadores falhar, ou seja, retornar um erro  o composite tem que falhar também
     // O valor não importa, porque so queremos testas se aquele validador especifico(fieldName) possui erro ou não quando criarmos ele e popularizarmos ele com um erro ou não
-    const error = sutComposite.validate(fieldName, faker.word.adverb())
+    const error = sutComposite.validate(fieldName, {
+      [fieldName]: faker.word.adverb()
+    })
     expect(error).toBe(errorMessage)
   })
 
@@ -61,7 +63,9 @@ describe('ValidationComposite', () => {
     fieldValidationsSpy[0].error = new Error(errorMessage)
     fieldValidationsSpy[1].error = new Error(faker.word.adverb())
 
-    const error = sutComposite.validate(fieldName, faker.word.adverb())
+    const error = sutComposite.validate(fieldName, {
+      [fieldName]: faker.word.adverb()
+    })
     expect(error).toBe(errorMessage)
   })
 
@@ -70,7 +74,9 @@ describe('ValidationComposite', () => {
     const fieldName = faker.database.column()
     const { sutComposite } = makeSut(fieldName)
 
-    const error = sutComposite.validate(fieldName, faker.word.adverb())
+    const error = sutComposite.validate(fieldName, {
+      [fieldName]: faker.word.adverb()
+    })
     expect(error).toBeFalsy()
   })
 })

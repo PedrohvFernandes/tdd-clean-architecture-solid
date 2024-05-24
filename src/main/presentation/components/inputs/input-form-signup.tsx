@@ -17,31 +17,28 @@ export function InputFormSignUp({ validation, ...propsInput }: InputFormProps) {
     setPasswordConfirmationError
   } = useHookErrorState()
 
-  const { name, email, password, passwordConfirmation } = useHookForm()
+  const formData = useHookForm()
 
   useEffect(() => {
-    const errorMessage = validation.validate('name', name)
+    const errorMessage = validation.validate('name', formData)
     setNameError(errorMessage)
-  }, [name, setNameError, validation])
+  }, [formData, setNameError, validation])
 
   useEffect(() => {
-    const errorMessage = validation.validate('email', email)
+    const errorMessage = validation.validate('email', formData)
     setEmailError(errorMessage)
-  }, [email, setEmailError, validation])
+  }, [formData, setEmailError, validation])
 
   useEffect(() => {
-    const errorMessage = validation.validate('password', password)
+    const errorMessage = validation.validate('password', formData)
     setPasswordError(errorMessage)
-  }, [password, setPasswordError, validation])
+  }, [formData, setPasswordError, validation])
 
   useEffect(() => {
-    const errorMessage = validation.validate(
-      'passwordConfirmation',
-      passwordConfirmation
-    )
+    const errorMessage = validation.validate('passwordConfirmation', formData)
 
     setPasswordConfirmationError(errorMessage)
-  }, [passwordConfirmation, setPasswordConfirmationError, validation])
+  }, [formData, setPasswordConfirmationError, validation])
 
   return <InputForm {...propsInput} />
 }

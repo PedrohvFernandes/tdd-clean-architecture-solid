@@ -9,7 +9,7 @@ export class RequiredFieldValidation implements FieldValidation {
   constructor(readonly fieldName: string) {}
 
   // So validamos caso não tenha algum valor retornamos erro, esse é objetivo principal do validate, para validar os campos do form
-  validate(fieldValue: string): Error | null {
-    return fieldValue ? null : new RequiredFieldError(this.fieldName)
+  validate(input: object): Error | null {
+    return input[this.fieldName] ? null : new RequiredFieldError(this.fieldName)
   }
 }

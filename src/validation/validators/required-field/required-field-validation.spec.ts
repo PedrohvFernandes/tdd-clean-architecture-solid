@@ -30,14 +30,19 @@ describe('RequiredFieldValidation', () => {
     const { sutRequiredFieldValidation, randomFieldName } =
       makeSutRequiredFieldValidation()
     // Passamos um campo vazio para o validador desse campo aleatorio
-    const error = sutRequiredFieldValidation.validate('')
+    const error = sutRequiredFieldValidation.validate({
+      [randomFieldName]: ''
+    })
     expect(error).toEqual(new RequiredFieldError(randomFieldName))
   })
 
   test('Should return falsy if field is not empty', () => {
-    const { sutRequiredFieldValidation } = makeSutRequiredFieldValidation()
+    const { sutRequiredFieldValidation, randomFieldName } =
+      makeSutRequiredFieldValidation()
     // Validamos se contem um valor nesse campo aleatorio. Pode ser qualquer informação, so não pode ser vazio
-    const error = sutRequiredFieldValidation.validate(faker.word.adjective())
+    const error = sutRequiredFieldValidation.validate({
+      [randomFieldName]: faker.word.adjective()
+    })
     expect(error).toBeFalsy()
   })
 })

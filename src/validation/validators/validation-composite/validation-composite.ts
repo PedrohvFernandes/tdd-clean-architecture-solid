@@ -10,7 +10,7 @@ export class ValidationComposite implements Validation {
     return new ValidationComposite(validators)
   }
 
-  validate(fieldName: string, fieldValue: string): string {
+  validate(fieldName: string, input: object): string {
     // O composite precisa validar todos os filhos, caso algum deles falhe, ele precisa falhar também
 
     // Pegamos todos os validadores que possuem o mesmo nome do campo que estamos validando
@@ -18,7 +18,7 @@ export class ValidationComposite implements Validation {
     // Fazemos um loop dos validadores e validamos o campo
     for (const validator of validators) {
       // Se o validador daquele campo retornar um erro com base no valor passado, retornamos o erro
-      const error = validator.validate(fieldValue)
+      const error = validator.validate(input)
       if (error) {
         // A gente ja retorna a mensagem erro do validator em si, ja passa bonitinho para view
         return error.message

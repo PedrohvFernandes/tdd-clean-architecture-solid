@@ -635,6 +635,8 @@
 
   #### 8. Criando um componente para o SubmitButton
 
+  #### 9. Criando a composição do SignUp
+
   ## Tecnologias:
   - Vite
   - React

@@ -1,7 +1,7 @@
 // Testando o validation em si
 import { CompareFieldsValidation } from './compare-fields-validation'
 
-import { InvalidFieldError } from '@/validation/errors'
+import { InvalidFieldToCompareError } from '@/validation/errors'
 import { faker } from '@faker-js/faker'
 
 type SutTypes = {
@@ -9,11 +9,11 @@ type SutTypes = {
   randomFieldName: string
 }
 
-const makeSutCompareFieldsValidation = (valueToCompare: string): SutTypes => {
+const makeSutCompareFieldsValidation = (fieldToCompare: string): SutTypes => {
   const randomFieldName = faker.database.column()
   const sutCompareFieldsValidation = new CompareFieldsValidation(
     randomFieldName,
-    valueToCompare
+    fieldToCompare
   )
   return {
     sutCompareFieldsValidation,
@@ -23,19 +23,29 @@ const makeSutCompareFieldsValidation = (valueToCompare: string): SutTypes => {
 
 describe('CompareFieldsValidation', () => {
   test('Should return error if compare is invalid', () => {
+    const fieldToCompare = faker.database.column()
     const { sutCompareFieldsValidation, randomFieldName } =
-      makeSutCompareFieldsValidation(faker.word.adjective())
+      makeSutCompareFieldsValidation(fieldToCompare)
 
-    const error = sutCompareFieldsValidation.validate(faker.word.adjective())
-    expect(error).toEqual(new InvalidFieldError(randomFieldName))
+    const error = sutCompareFieldsValidation.validate({
+      [randomFieldName]: faker.word.adjective(),
+      [fieldToCompare]: faker.word.adjective()
+    })
+    expect(error).toEqual(
+      new InvalidFieldToCompareError(randomFieldName, fieldToCompare)
+    )
   })
 
   test('Should return falsy if  compare is valid', () => {
-    const valueToCompare = faker.word.adjective()
-    const { sutCompareFieldsValidation } =
-      makeSutCompareFieldsValidation(valueToCompare)
+    const fieldToCompare = faker.database.column()
+    const value = faker.word.adjective()
+    const { sutCompareFieldsValidation, randomFieldName } =
+      makeSutCompareFieldsValidation(fieldToCompare)
 
-    const error = sutCompareFieldsValidation.validate(valueToCompare)
+    const error = sutCompareFieldsValidation.validate({
+      [randomFieldName]: value,
+      [fieldToCompare]: value
+    })
     expect(error).toBeFalsy()
   })
 })

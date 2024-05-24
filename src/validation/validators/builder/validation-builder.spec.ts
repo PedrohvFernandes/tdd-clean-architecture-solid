@@ -1,3 +1,4 @@
+import { CompareFieldsValidation } from '../compare-fields/compare-fields-validation'
 import { ValidationBuilder as sut } from './validation-builder'
 
 import {
@@ -28,6 +29,16 @@ describe('ValidationBuilder', () => {
 
     const validations = sut.field(fieldName).min(length).build()
     expect(validations).toEqual([new MinLengthValidation(fieldName, length)])
+  })
+
+  test('Should return CompareFieldsValidation', () => {
+    const fieldName = faker.database.column()
+    const fieldToCompare = faker.database.column()
+
+    const validations = sut.field(fieldName).sameAs(fieldToCompare).build()
+    expect(validations).toEqual([
+      new CompareFieldsValidation(fieldName, fieldToCompare)
+    ])
   })
 
   // Teste para validar se o metodo build esta retornando uma lista de validações, e não apenas uma validação para aquele campo(ex: any_field) que esta sendo testado.

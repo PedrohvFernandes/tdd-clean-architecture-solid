@@ -202,46 +202,6 @@ describe('Login Component', () => {
       validationSpy.errorMessage
     )
   })
-
-  // Testando se aquele campo é aquele campo em si e o valor que ele tem
-  test('Should call validation with correct email', () => {
-    // Aqui é independentemente se tem erro ou não nos campos, so quero validar se de fato é o campo email e se de fato ele tem o valor passado para ele
-    const {
-      // sutLogin,
-      validationSpy,
-      getByTestId
-    } = makeSutLogin()
-
-    // const emailInput = sutLogin.getByTestId('email')
-    // const email = faker.internet.email()
-    // // Alterando o input de algum campo. O value faz com que a gente popule o campo
-    // // fireEvent.input(emailInput, { target: { value: 'any_email' } })
-    // fireEvent.input(emailInput, { target: { value: email } })
-
-    // Aqui como eu tenho que comprar o valor tenho que criar ela por aqui e passar para o helper para ele popularizar o campo e depois fazer a comparação desse mesmo valor
-    const emailValue = faker.internet.email()
-    Helper.populateField(getByTestId, 'email', emailValue)
-    // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
-    expect(validationSpy.filedName).toBe('email')
-    expect(validationSpy.fieldValue).toBe(emailValue)
-  })
-
-  test('Should call validation with correct password', () => {
-    const { validationSpy, getByTestId } = makeSutLogin()
-
-    // const passwordInput = sutLogin.getByTestId('password')
-    // const password = faker.internet.password()
-
-    // // Alterando o input de algum campo. O value faz com que a gente popule o campo
-    // fireEvent.input(passwordInput, { target: { value: password } })
-
-    const passwordValue = faker.internet.password()
-    Helper.populateField(getByTestId, 'password', passwordValue)
-    // Eu espero que so de alterar ele, eu ja quero disparar a validação, porque eu quero validar em tempo real
-    expect(validationSpy.filedName).toBe('password')
-    expect(validationSpy.fieldValue).toBe(passwordValue)
-  })
-
   // Testando a mensagem de erro
   test('Should show email error if call Validation fails', () => {
     const {

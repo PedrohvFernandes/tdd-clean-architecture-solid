@@ -36,7 +36,9 @@ describe('EmailValidation', () => {
   test('Should return falsy if email is empty', () => {
     const sut = makeSut()
     // Passando um email vazio
-    const error = sut.sutEmailValidation.validate('')
+    const error = sut.sutEmailValidation.validate({
+      [sut.randomFieldName]: ''
+    })
     // Se o campo estiver vazio não precisa retornar erro
     expect(error).toBeFalsy()
   })
@@ -44,7 +46,9 @@ describe('EmailValidation', () => {
   test('Should return error if email is invalid', () => {
     const sut = makeSut()
     // Passando uma palavra aleatoria, que não é um email
-    const error = sut.sutEmailValidation.validate(faker.word.adjective())
+    const error = sut.sutEmailValidation.validate({
+      [sut.randomFieldName]: faker.word.adjective()
+    })
     expect(error).toEqual(new InvalidFieldError(sut.randomFieldName))
   })
 
@@ -52,7 +56,9 @@ describe('EmailValidation', () => {
   test('Should return falsy if email is invalid', () => {
     const sut = makeSut()
     // Validando com email real
-    const error = sut.sutEmailValidation.validate(faker.internet.email())
+    const error = sut.sutEmailValidation.validate({
+      [sut.randomFieldName]: faker.internet.email()
+    })
     expect(error).toBeFalsy()
   })
 })
