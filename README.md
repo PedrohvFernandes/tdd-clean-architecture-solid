@@ -606,6 +606,7 @@
       - Damos um marge da branch *feat/ci* para a branch *main* `git checkout main` e `git merge feat/ci`
       - Depois damos um push para o github `git push origin main`
       - E por fim apagamos a branch *feat/ci* `git branch -D feat/ci`
+      - Durante as aulas agora iremos criar diversas branch para cada aula, para que possamos ter um controle melhor do que foi feito em cada aula, e depois de finalizar a aula, iremos fazer o merge da branch da aula para a branch principal(main), depois apagar a branch da aula e por fim dar um push para a origin main.
       
   ### 8. Movendo LocalStorage para Infra
  
