@@ -5,7 +5,7 @@ import {
 
 import { ConfigRoute } from '../config/'
 import { MakeLogin } from './factories/pages/login/login-factory'
-import { SignUp } from './presentation/pages/signup/signup'
+import { MakeSignUp } from './factories/pages/signup/signup-factory'
 
 import { DefaultLayout } from '@/layouts/default-layout'
 
@@ -24,7 +24,7 @@ export const Router = createBrowserRouter([
       // },
       {
         path: ConfigRoute.fourDev.signup.path,
-        element: <SignUp />
+        element: <MakeSignUp />
       }
     ]
   },
