@@ -656,6 +656,8 @@
       - [Ignorar os testes do cypress no Jest](https://jestjs.io/docs/configuration#testpathignorepatterns-arraystring)
 
       - Ao rodar `npm run test:cypress` ele vai abrir o cypress, depois clicamos na opção de *E2E Testing* depois ira aparecer os testes que ele achar.
+  
+  #### 2. Criando testes de integração para o Login 12
 
   ## Tecnologias:
   - Vite
