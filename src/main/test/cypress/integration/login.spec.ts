@@ -14,10 +14,13 @@ describe('Login', () => {
     // )
 
     // Usando o getByTestId que criamos no support/index.js e configuramos o type, a declaração de modulo dele em index.d.ts. Evitamos de ter que escrever o data-testid toda vez.
-    cy.getByTestId('email-status').should(
-      'have.attr',
-      'title',
-      'Campo obrigatório: email'
-    )
+    cy.getByTestId('email-status')
+      .should('have.attr', 'title', 'Campo obrigatório: email')
+      .should('contain.text', '🔴')
+    cy.getByTestId('password-status')
+      .should('have.attr', 'title', 'Campo obrigatório: password')
+      .should('contain.text', '🔴')
+    cy.getByTestId('submit').should('have.attr', 'disabled')
+    cy.getByTestId('error-wrap').should('not.have.descendants')
   })
 })
