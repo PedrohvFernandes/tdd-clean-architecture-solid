@@ -638,6 +638,25 @@
 
   #### 9. Criando a composição do SignUp
 
+  ###  10. Testes de Integração com Cypress
+
+  #### 1. Configurando o [Cypress](https://www.cypress.io)
+    - [Webpack preprocessor for Cypress](https://www.npmjs.com/package/@cypress/webpack-preprocessor) - Porque estamos usando TS(Se estiver usando vite não precisa instalar esse)
+
+    - Faça todos essas configurações:
+      - [ESLINT para CYPRESS](https://www.npmjs.com/package/eslint-plugin-cypress)
+    
+      - Se estiver usando vite faça dessa forma:
+        - [Cypress, React and Vite collaboration](https://medium.com/@nelfayran/cypress-react-and-vite-collaboration-bed6761808fc)
+        - [Cypress with Vite](https://www.npmjs.com/package/cypress-vite)
+
+      - A pasta do cypress vai criar na raiz, nós movemos para a pasta test dentro do main.
+      - [Configuração do Cypress](https://docs.cypress.io/guides/references/configuration)
+
+      - [Ignorar os testes do cypress no Jest](https://jestjs.io/docs/configuration#testpathignorepatterns-arraystring)
+
+      - Ao rodar `npm run test:cypress` ele vai abrir o cypress, depois clicamos na opção de *E2E Testing* depois ira aparecer os testes que ele achar.
+
   ## Tecnologias:
   - Vite
   - React
@@ -655,6 +674,7 @@
   - Faker
   - Axios
   - Tailwindscss
+  - Cypress
 
   ## Comandos:
   ```bash

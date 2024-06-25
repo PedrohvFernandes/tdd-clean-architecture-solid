@@ -14,12 +14,15 @@
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
     "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
+    "test:cypress": "cypress open",
     "prepare": "husky",
     "check": "npm-check -u -s"
   },
   "dependencies": {
     "@types/history": "^5.0.0",
     "axios": "^1.6.8",
+    "cypress-vite": "^1.5.0",
+    "eslint-plugin-cypress": "^3.3.0",
     "history": "^5.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -40,6 +43,7 @@
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.19",
     "coveralls": "^3.1.1",
+    "cypress": "^13.12.0",
     "eslint": "^8.57.0",
     "git-commit-msg-linter": "^5.0.7",
     "husky": "^9.0.11",

@@ -1,5 +1,12 @@
 {
-  "extends": "@pedrohvfernandes/eslint-config/myconfigreact",
+  "extends": [
+    "@pedrohvfernandes/eslint-config/myconfigreact",
+    "plugin:cypress/recommended"	
+  ],
+  "plugins": ["cypress"],
+  "env": {
+    "cypress/globals": true
+  },
   "rules": {
     "no-useless-constructor": 0,
     "@typescript-eslint/consistent-type-definitions": "off",

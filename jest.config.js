@@ -17,6 +17,11 @@ module.exports = {
   testEnvironment: 'jsdom',
   // Diretório onde os testes estão localizados
   coverageDirectory: 'coverage',
+  // Para ignorar os arquivos de test do cypress
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/src/main/test/cypress'
+  ],
   // Antes de rodar os testes, ele aplica esse ts-jest em todos os arquivos que terminam com .ts ou .tsx, convertendo para js
   transform: {
     '^.+\\.tsx?$': [

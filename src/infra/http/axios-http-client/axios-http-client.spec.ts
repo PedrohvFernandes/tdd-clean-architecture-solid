@@ -1,3 +1,5 @@
+// O describe desse teste usa o jest.Describe para descrever os testes
+
 import { AxiosHttpClientAdapter } from './axios-http-client-adapter'
 
 import { mockPostRequest } from '@/data/test'
