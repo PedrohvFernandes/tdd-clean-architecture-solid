@@ -1,5 +1,7 @@
 // Aqui o describe ele usa o Mocha.SuiteFunction para descrever os testes. Para funcionar precisamos criar um arquivo de tsconfig.json na pasta cypress e ter o compilerOptions com cypress.
 
+// Esses são testes de integração E2E, porque estamos testando o fluxo completo da aplicação diretamente no front, nossa tela comunicando diretamente com a API. O que é diferente de testes unitários que testam uma unidade de código, como uma função, um componente, uma classe, etc.
+
 import { faker } from '@faker-js/faker'
 
 const baseUrl = Cypress.config().baseUrl
@@ -99,10 +101,32 @@ describe('Login', () => {
       .should('exist')
     // .should(
     //   'contain.text',
-    //   'Algo de errado aconteceu. Tente novamente em breve.'
+    //   'Algo de errado aconteceu. Tente novamente em breve.' // Credenciais inválidas
     // )
 
     // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
     cy.url().should('eq', `${baseUrl}/login`)
+  })
+
+  // Aqui para testar precisa ter um backend rodando, porque ele vai fazer uma requisição para o backend. Pode ser o back local. Lembrando que a url da API fica no arquivo factories>http>api-url-factory.ts Ou pode fazer um Trade-off e discutir se faz ou não um mock aqui no cypress para retornar um valor fixo da API  para so testar o fluxo, evitando a dependência do backend.
+  it('Should present save accessToken if valid credentials are provided', () => {
+    cy.getByTestId('email').focus().type('mango@gmail.com')
+    cy.getByTestId('password').focus().type('12345')
+
+    cy.getByTestId('submit').click()
+
+    cy.getByTestId('error-wrap')
+      .getByTestId('ellipsis')
+      .should('exist')
+      .getByTestId('main-error')
+      .should('not.exist')
+      .getByTestId('ellipsis')
+      .should('not.exist')
+
+    cy.url().should('eq', `${baseUrl}/`)
+
+    cy.window().then((window) => {
+      assert.isOk(window.localStorage.getItem('accessToken'))
+    })
   })
 })
