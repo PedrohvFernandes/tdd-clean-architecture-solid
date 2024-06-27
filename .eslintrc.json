@@ -13,6 +13,7 @@
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-explicit-any":"off",
     "react/jsx-uses-react": "off",
-    "react/jsx-uses-vars": "off"
+    "react/jsx-uses-vars": "off",
+    "cypress/unsafe-to-chain-command": "off"
   }
 }
