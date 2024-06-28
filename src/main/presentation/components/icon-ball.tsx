@@ -6,7 +6,7 @@ function IconBall(props: IconBallRedProps) {
   return (
     <span
       {...props}
-      className="absolute right-2 cursor-help hover:animate-pulse "
+      className="absolute right-2 cursor-help hover:animate-pulse text-sm"
     />
   )
 }

@@ -1,21 +1,27 @@
-import React, { InputHTMLAttributes } from 'react'
+import React, { InputHTMLAttributes, forwardRef } from 'react'
 
-interface InputDefaultProps extends InputHTMLAttributes<HTMLInputElement> {}
+import { twMerge } from 'tailwind-merge'
 
-export function InputDefault({ ...props }: InputDefaultProps) {
-  // A gente desativa a questão de readOnly para que o usuário possa digitar
-  const enableInput = (event: React.FocusEvent<HTMLInputElement>): void => {
-    event.target.readOnly = false
+interface IPInputDefaultProps extends InputHTMLAttributes<HTMLInputElement> {}
+
+export const InputDefault = forwardRef<HTMLInputElement, IPInputDefaultProps>(
+  function InputDefault({ className, ...props }, ref) {
+    return (
+      <input
+        {...props}
+        ref={ref}
+        // readOnly para desativar a sugestão do google chrome, so que ele impede do usuario digitar
+        readOnly
+        data-testid={props.name ? props.name : 'input-default'}
+        // A gente desativa a questão de readOnly para que o usuário possa digitar
+        onFocus={(event: React.FocusEvent<HTMLInputElement>) => {
+          event.target.readOnly = false
+        }}
+        className={twMerge(
+          'border-none outline-none pl-2 pr-10 py-1 rounded w-full',
+          className
+        )}
+      />
+    )
   }
-
-  return (
-    <input
-      {...props}
-      // readOnly para desativar a sugestão do google chrome, so que ele impede do usuario digitar
-      readOnly
-      data-testid={props.name ? props.name : 'input-default'}
-      onFocus={enableInput}
-      className="border border-primary-LIGHT p-5 rounded focus:outline-primary-LIGHT focus:ring-2 ring-primary-DARK flex-1"
-    />
-  )
-}
+)

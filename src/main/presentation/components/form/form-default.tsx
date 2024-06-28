@@ -6,7 +6,7 @@ export function FormDefault({ ...props }: IFormDefaultProps) {
   return (
     <form
       {...props}
-      className="flex flex-col gap-4 w-[400px] bg-white p-10 rounded-lg self-center text-center shadow"
+      className="flex flex-col gap-8 w-[400px] bg-white p-10 rounded-lg self-center text-center shadow"
     />
   )
 }
