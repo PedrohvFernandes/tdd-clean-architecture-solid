@@ -172,4 +172,28 @@ describe('Login', () => {
     // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
     cy.url().should('eq', `${baseUrl}/login`)
   })
+
+  // Aqui para testar precisa ter um backend rodando, porque ele vai fazer uma requisição para o backend. Pode ser o back local. Lembrando que a url da API fica no arquivo factories>http>api-url-factory.ts Ou pode fazer um Trade-off e discutir se faz ou não um mock aqui no cypress para retornar um valor fixo da API  para so testar o fluxo, evitando a dependência do backend, se a Api estiver fora do ar, o teste vai  passar.
+  it('Should present save accessToken if valid credentials are provided', () => {
+    // Moca a requisição para o login
+    cy.intercept('POST', /login/, {
+      statusCode: 200,
+      body: {
+        accessToken: faker.string.uuid()
+      }
+    })
+    cy.getByTestId('email').focus().type('mango@gmail.com')
+    cy.getByTestId('password').focus().type('12345')
+
+    cy.getByTestId('submit').click()
+
+    cy.getByTestId('ellipsis').should('not.exist')
+    cy.getByTestId('main-error').should('not.exist')
+
+    cy.url().should('eq', `${baseUrl}/`)
+
+    cy.window().then((window) => {
+      assert.isOk(window.localStorage.getItem('accessToken'))
+    })
+  })
 })
