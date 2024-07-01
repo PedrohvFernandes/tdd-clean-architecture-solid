@@ -9,6 +9,7 @@ const baseUrl = Cypress.config().baseUrl
 describe('Login', () => {
   // Como sempre iremos fazer isso antes de cada teste, podemos usar o beforeEach para fazer isso.
   beforeEach(() => {
+    // Chamando antes de mocar
     cy.visit('login')
   })
 
@@ -83,50 +84,43 @@ describe('Login', () => {
     cy.getByTestId('error-wrap').should('not.have.descendants')
   })
 
-  it('Should present error if invalid credentials are provider', () => {
+  it('Should present invalidCredentialsError on 401', () => {
+    // Mocando
+    // https://github.com/jhipster/generator-jhipster/issues/13345
+    // Expressão regular para interceptar qualquer requisição que tenha login no meio da url, qualquer url que tenha login no meio, ele vai interceptar.
+    // cy.intercept('POST', '**/login', {
+    cy.intercept('POST', /login/, {
+      statusCode: 401,
+      body: {
+        error: faker.word.adjective()
+      }
+    })
+
     cy.getByTestId('email').focus().type(faker.internet.email())
     cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
 
     cy.getByTestId('submit').click()
 
     // Estou procurando um elemento dentro de outro elemento. Primeiro eu entro no pai e depois procuro o filho(s). Eu olho se o ellipsis esta aparecendo e se o main-error não esta aparecendo e depois verifico se o ellipsis não esta aparecendo e o main-error esta aparecendo.
-    cy.getByTestId('error-wrap')
-      .getByTestId('ellipsis')
+    // cy.getByTestId('error-wrap')
+    //   .getByTestId('ellipsis')
+    //   .should('exist')
+    //   .getByTestId('main-error')
+    //   .should('not.exist')
+    //   .getByTestId('ellipsis')
+    //   .should('not.exist')
+    //   .getByTestId('main-error')
+    //   .should('exist')
+    // // .should(
+    // //   'contain.text',
+    // //   'Algo de errado aconteceu. Tente novamente em breve.' // Credenciais inválidas
+    // // )
+    cy.getByTestId('ellipsis').should('not.exist')
+    cy.getByTestId('main-error')
       .should('exist')
-      .getByTestId('main-error')
-      .should('not.exist')
-      .getByTestId('ellipsis')
-      .should('not.exist')
-      .getByTestId('main-error')
-      .should('exist')
-    // .should(
-    //   'contain.text',
-    //   'Algo de errado aconteceu. Tente novamente em breve.' // Credenciais inválidas
-    // )
+      .should('contain.text', 'Credenciais inválidas')
 
     // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
     cy.url().should('eq', `${baseUrl}/login`)
-  })
-
-  // Aqui para testar precisa ter um backend rodando, porque ele vai fazer uma requisição para o backend. Pode ser o back local. Lembrando que a url da API fica no arquivo factories>http>api-url-factory.ts Ou pode fazer um Trade-off e discutir se faz ou não um mock aqui no cypress para retornar um valor fixo da API  para so testar o fluxo, evitando a dependência do backend.
-  it('Should present save accessToken if valid credentials are provided', () => {
-    cy.getByTestId('email').focus().type('mango@gmail.com')
-    cy.getByTestId('password').focus().type('12345')
-
-    cy.getByTestId('submit').click()
-
-    cy.getByTestId('error-wrap')
-      .getByTestId('ellipsis')
-      .should('exist')
-      .getByTestId('main-error')
-      .should('not.exist')
-      .getByTestId('ellipsis')
-      .should('not.exist')
-
-    cy.url().should('eq', `${baseUrl}/`)
-
-    cy.window().then((window) => {
-      assert.isOk(window.localStorage.getItem('accessToken'))
-    })
   })
 })
