@@ -147,4 +147,29 @@ describe('Login', () => {
     // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
     cy.url().should('eq', `${baseUrl}/login`)
   })
+
+  it('Should present UnexpectedError if invalid data if returned', () => {
+    // Moca a requisição para o login
+    cy.intercept('POST', /login/, {
+      statusCode: 200,
+      body: {
+        invalidProperty: faker.string.uuid()
+      }
+    })
+    cy.getByTestId('email').focus().type(faker.internet.email())
+    cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
+
+    cy.getByTestId('submit').click()
+
+    cy.getByTestId('ellipsis').should('not.exist')
+    cy.getByTestId('main-error')
+      .should('exist')
+      .should(
+        'contain.text',
+        'Algo de errado aconteceu. Tente novamente em breve.'
+      )
+
+    // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
+    cy.url().should('eq', `${baseUrl}/login`)
+  })
 })
