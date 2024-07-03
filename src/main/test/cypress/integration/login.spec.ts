@@ -157,9 +157,12 @@ describe('Login', () => {
       }
     })
     cy.getByTestId('email').focus().type(faker.internet.email())
-    cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
+    cy.getByTestId('password')
+      .focus()
+      .type(faker.string.alphanumeric(5))
+      .type('{enter}') // Esse comando simula o enter
 
-    cy.getByTestId('submit').click()
+    // cy.getByTestId('submit').click()
 
     cy.getByTestId('ellipsis').should('not.exist')
     cy.getByTestId('main-error')
@@ -212,6 +215,8 @@ describe('Login', () => {
     cy.getByTestId('submit').click()
     cy.getByTestId('submit').should('be.disabled')
     cy.getByTestId('submit').click({ force: true })
+    // cy.wait('@request')
+
     // @request.all um atalho dentro do request, ele faz uma contagem de quantas requisições foram feitas.
     // Aqui ele verifica se foi feita uma requisição.
     cy.get('@request.all').should('have.length', 1)
