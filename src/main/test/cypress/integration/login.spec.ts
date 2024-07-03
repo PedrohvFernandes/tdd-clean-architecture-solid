@@ -221,4 +221,19 @@ describe('Login', () => {
     // Aqui ele verifica se foi feita uma requisição.
     cy.get('@request.all').should('have.length', 1)
   })
+
+  it('Should not call submit if form is invalid', () => {
+    cy.intercept('POST', /login/, {
+      statusCode: 200,
+      body: {
+        accessToken: faker.string.uuid()
+      },
+      delay: 100
+    }).as('request')
+    cy.getByTestId('email').focus().type(faker.internet.email()).type('{enter}')
+
+    // cy.getByTestId('submit').click()
+
+    cy.get('@request.all').should('have.length', 0)
+  })
 })
