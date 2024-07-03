@@ -143,8 +143,18 @@ export const testStatusForField = (
   fieldName: string,
   validationErrorMessage?: string
 ): void => {
-  const fieldNameStatus = getByTestId(`${fieldName}-status`)
+  const wrap = getByTestId(`${fieldName}-wrap`)
+  const field = getByTestId(fieldName)
+  const label = getByTestId(`${fieldName}-label`)
 
-  expect(fieldNameStatus.title).toBe(validationErrorMessage ?? 'Tudo Certo!')
-  expect(fieldNameStatus.textContent).toBe(validationErrorMessage ? '🔴' : '🟢')
+  expect(wrap.getAttribute('data-status')).toBe(
+    validationErrorMessage ? 'invalid' : 'valid'
+  )
+  expect(field.title).toBe(
+    validationErrorMessage ? `${validationErrorMessage} 🔴` : 'Tudo Certo! 🟢'
+  )
+
+  expect(label.title).toBe(
+    validationErrorMessage ? `${validationErrorMessage} 🔴` : 'Tudo Certo! 🟢'
+  )
 }

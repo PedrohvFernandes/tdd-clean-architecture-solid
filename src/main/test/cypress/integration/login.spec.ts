@@ -22,17 +22,35 @@ describe('Login', () => {
     // )
 
     // Usando o getByTestId que criamos no support/index.js e configuramos o type, a declaração de modulo dele em index.d.ts. Evitamos de ter que escrever o data-testid toda vez.
-    cy.getByTestId('email').should('have.attr', 'readonly')
 
-    cy.getByTestId('email-status')
-      .should('have.attr', 'title', 'Campo obrigatório: email')
-      .should('contain.text', '🔴')
+    cy.getByTestId('email-wrap').should('have.attr', 'data-status', 'invalid')
 
-    cy.getByTestId('password').should('have.attr', 'readonly')
+    cy.getByTestId('email')
+      .should('have.attr', 'title', 'Campo obrigatório: email 🔴')
+      .should('have.attr', 'readonly')
 
-    cy.getByTestId('password-status')
-      .should('have.attr', 'title', 'Campo obrigatório: password')
-      .should('contain.text', '🔴')
+    cy.getByTestId('email-label').should(
+      'have.attr',
+      'title',
+      'Campo obrigatório: email 🔴'
+    )
+
+    cy.getByTestId('password-wrap').should(
+      'have.attr',
+      'data-status',
+      'invalid'
+    )
+
+    cy.getByTestId('password')
+      .should('have.attr', 'title', 'Campo obrigatório: password 🔴')
+      .should('have.attr', 'readonly')
+
+    cy.getByTestId('password-label').should(
+      'have.attr',
+      'title',
+      'Campo obrigatório: password 🔴'
+    )
+
     cy.getByTestId('submit').should('have.attr', 'disabled')
     cy.getByTestId('error-wrap').should('not.have.descendants')
   })
@@ -40,21 +58,38 @@ describe('Login', () => {
   it('Should present error state if form is invalid', () => {
     // Como nosso campo esta readonly, precisamos fazer um focus para sumir com a propriedade readonly e poder digitar algo nele.
     cy.getByTestId('email').focus().type(faker.word.adverb())
+    cy.getByTestId('email-wrap').should('have.attr', 'data-status', 'invalid')
 
-    cy.getByTestId('email-status')
-      .should('have.attr', 'title', 'O campo email é inválido')
-      .should('contain.text', '🔴')
-
-    cy.getByTestId('password').focus().type(faker.string.alphanumeric(3))
-    cy.getByTestId('password-status').should(
+    cy.getByTestId('email').should(
       'have.attr',
       'title',
-      'Tamanho mínimo: 5, campo invalido'
+      'O campo email é inválido 🔴'
     )
 
-    cy.getByTestId('password-status')
-      .should('have.attr', 'title', 'Tamanho mínimo: 5, campo invalido')
-      .should('contain.text', '🔴')
+    cy.getByTestId('email-label').should(
+      'have.attr',
+      'title',
+      'O campo email é inválido 🔴'
+    )
+
+    cy.getByTestId('password').focus().type(faker.string.alphanumeric(3))
+    cy.getByTestId('password-wrap').should(
+      'have.attr',
+      'data-status',
+      'invalid'
+    )
+
+    cy.getByTestId('password').should(
+      'have.attr',
+      'title',
+      'Tamanho mínimo: 5, campo invalido 🔴'
+    )
+
+    cy.getByTestId('password-label').should(
+      'have.attr',
+      'title',
+      'Tamanho mínimo: 5, campo invalido 🔴'
+    )
 
     cy.getByTestId('submit').should('have.attr', 'disabled')
 
@@ -63,22 +98,22 @@ describe('Login', () => {
 
   it('Should present valid state if form is valid', () => {
     cy.getByTestId('email').focus().type(faker.internet.email())
+    cy.getByTestId('email-wrap').should('have.attr', 'data-status', 'valid')
 
-    cy.getByTestId('email-status')
-      .should('have.attr', 'title', 'Tudo Certo!')
-      .should('contain.text', '🟢')
+    cy.getByTestId('email').should('have.attr', 'title', 'Tudo Certo! 🟢')
+    cy.getByTestId('email-label').should('have.attr', 'title', 'Tudo Certo! 🟢')
 
     cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
-    cy.getByTestId('password-status').should(
+    cy.getByTestId('password-wrap').should('have.attr', 'data-status', 'valid')
+
+    cy.getByTestId('password').should('have.attr', 'title', 'Tudo Certo! 🟢')
+    cy.getByTestId('password-label').should(
       'have.attr',
       'title',
-      'Tudo Certo!'
+      'Tudo Certo! 🟢'
     )
 
-    cy.getByTestId('password-status')
-      .should('have.attr', 'title', 'Tudo Certo!')
-      .should('contain.text', '🟢')
-
+    // O not.have.attr é uma função do cypress que verifica se o atributo não existe. No caso o disabled. Porque se o botão não esta desabilitado, ele não tem o atributo disabled e o mesmo vale para qualquer atributo que não exista, ou seja, que não esta preenchido ou usado
     cy.getByTestId('submit').should('not.have.attr', 'disabled')
 
     cy.getByTestId('error-wrap').should('not.have.descendants')

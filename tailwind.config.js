@@ -10,6 +10,16 @@ export default {
           DARK: '#560027',
           LIGHT: '#BC477B'
         },
+        valid: {
+          DEFAULT: '#4CAF50',
+          DARK: '#087f23',
+          LIGHT: '#8BC34A'
+        },
+        invalid: {
+          DEFAULT: '#EF5350',
+          DARK: '#B71C1C',
+          LIGHT: '#FFCDD2'
+        },
         disabled: {
           background: '#CCC',
           text: '#666'
