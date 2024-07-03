@@ -19,7 +19,6 @@ export function FormLogin({
 }: Readonly<IFormLoginProps>) {
   const { setIsLoading, isLoading, email, password } = useHookForm()
   const { emailError, passwordError, setErrorMessageMain } = useHookErrorState()
-
   const navigate = useNavigate()
 
   const handleFormSubmit = async (

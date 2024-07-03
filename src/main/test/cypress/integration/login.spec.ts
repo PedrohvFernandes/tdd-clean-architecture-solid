@@ -196,4 +196,24 @@ describe('Login', () => {
       assert.isOk(window.localStorage.getItem('accessToken'))
     })
   })
+
+  it('Should prevent multiple submits', () => {
+    cy.intercept('POST', /login/, {
+      statusCode: 200,
+      body: {
+        accessToken: faker.string.uuid()
+      },
+      delay: 100 // Delay de 100ms
+    }).as('request') // Alias(apelido) para a requisição
+    cy.getByTestId('email').focus().type(faker.internet.email())
+    cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
+    // Dbclick é um clique duplo, ele vai tentar fazer duas requisições ao mesmo tempo.
+    // cy.getByTestId('submit').dblclick()
+    cy.getByTestId('submit').click()
+    cy.getByTestId('submit').should('be.disabled')
+    cy.getByTestId('submit').click({ force: true })
+    // @request.all um atalho dentro do request, ele faz uma contagem de quantas requisições foram feitas.
+    // Aqui ele verifica se foi feita uma requisição.
+    cy.get('@request.all').should('have.length', 1)
+  })
 })
