@@ -1,5 +1,7 @@
 import * as FormHelper from '../support/form-helper'
 
+import { faker } from '@faker-js/faker'
+
 describe('SignUp', () => {
   beforeEach(() => {
     cy.visit('signup')
@@ -22,6 +24,32 @@ describe('SignUp', () => {
     )
 
     cy.getByTestId('submit').should('have.attr', 'disabled')
+    cy.getByTestId('error-wrap').should('not.have.descendants')
+  })
+
+  it('Should present error state if form is invalid', () => {
+    cy.getByTestId('name').focus().type(faker.string.alphanumeric(3))
+    FormHelper.testInputStatus('name', 'Tamanho mínimo: 5, campo invalido 🔴')
+
+    cy.getByTestId('email').focus().type(faker.word.adverb())
+    FormHelper.testInputStatus('email', 'O campo email é inválido 🔴')
+
+    cy.getByTestId('password').focus().type(faker.string.alphanumeric(3))
+    FormHelper.testInputStatus(
+      'password',
+      'Tamanho mínimo: 5, campo invalido 🔴'
+    )
+
+    cy.getByTestId('passwordConfirmation')
+      .focus()
+      .type(faker.string.alphanumeric(6))
+    FormHelper.testInputStatus(
+      'passwordConfirmation',
+      'O campo passwordConfirmation é inválido, ele deve ser igual ao campo password 🔴'
+    )
+
+    cy.getByTestId('submit').should('have.attr', 'disabled')
+
     cy.getByTestId('error-wrap').should('not.have.descendants')
   })
 })
