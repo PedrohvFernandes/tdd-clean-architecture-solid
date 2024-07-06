@@ -2,9 +2,20 @@
 
 // Esses são testes de integração E2E, porque estamos testando o fluxo completo da aplicação diretamente no front, nossa tela comunicando diretamente com a API. O que é diferente de testes unitários que testam uma unidade de código, como uma função, um componente, uma classe, etc.
 
+import { ConfigRoute } from '../../../../config'
+import * as FormHelper from '../support/form-helper'
+import * as Http from './login-mocks'
+
 import { faker } from '@faker-js/faker'
 
 const baseUrl = Cypress.config().baseUrl
+
+const simulateValidSubmit = (): void => {
+  cy.getByTestId('email').focus().type(faker.internet.email())
+  cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
+
+  cy.getByTestId('submit').click()
+}
 
 describe('Login', () => {
   // Como sempre iremos fazer isso antes de cada teste, podemos usar o beforeEach para fazer isso.
@@ -23,33 +34,11 @@ describe('Login', () => {
 
     // Usando o getByTestId que criamos no support/index.js e configuramos o type, a declaração de modulo dele em index.d.ts. Evitamos de ter que escrever o data-testid toda vez.
 
-    cy.getByTestId('email-wrap').should('have.attr', 'data-status', 'invalid')
+    cy.getByTestId('email').should('have.attr', 'readonly')
+    FormHelper.testInputStatus('email', 'Campo obrigatório: email 🔴')
 
-    cy.getByTestId('email')
-      .should('have.attr', 'title', 'Campo obrigatório: email 🔴')
-      .should('have.attr', 'readonly')
-
-    cy.getByTestId('email-label').should(
-      'have.attr',
-      'title',
-      'Campo obrigatório: email 🔴'
-    )
-
-    cy.getByTestId('password-wrap').should(
-      'have.attr',
-      'data-status',
-      'invalid'
-    )
-
-    cy.getByTestId('password')
-      .should('have.attr', 'title', 'Campo obrigatório: password 🔴')
-      .should('have.attr', 'readonly')
-
-    cy.getByTestId('password-label').should(
-      'have.attr',
-      'title',
-      'Campo obrigatório: password 🔴'
-    )
+    cy.getByTestId('password').should('have.attr', 'readonly')
+    FormHelper.testInputStatus('password', 'Campo obrigatório: password 🔴')
 
     cy.getByTestId('submit').should('have.attr', 'disabled')
     cy.getByTestId('error-wrap').should('not.have.descendants')
@@ -58,36 +47,11 @@ describe('Login', () => {
   it('Should present error state if form is invalid', () => {
     // Como nosso campo esta readonly, precisamos fazer um focus para sumir com a propriedade readonly e poder digitar algo nele.
     cy.getByTestId('email').focus().type(faker.word.adverb())
-    cy.getByTestId('email-wrap').should('have.attr', 'data-status', 'invalid')
-
-    cy.getByTestId('email').should(
-      'have.attr',
-      'title',
-      'O campo email é inválido 🔴'
-    )
-
-    cy.getByTestId('email-label').should(
-      'have.attr',
-      'title',
-      'O campo email é inválido 🔴'
-    )
+    FormHelper.testInputStatus('email', 'O campo email é inválido 🔴')
 
     cy.getByTestId('password').focus().type(faker.string.alphanumeric(3))
-    cy.getByTestId('password-wrap').should(
-      'have.attr',
-      'data-status',
-      'invalid'
-    )
-
-    cy.getByTestId('password').should(
-      'have.attr',
-      'title',
-      'Tamanho mínimo: 5, campo invalido 🔴'
-    )
-
-    cy.getByTestId('password-label').should(
-      'have.attr',
-      'title',
+    FormHelper.testInputStatus(
+      'password',
       'Tamanho mínimo: 5, campo invalido 🔴'
     )
 
@@ -98,20 +62,10 @@ describe('Login', () => {
 
   it('Should present valid state if form is valid', () => {
     cy.getByTestId('email').focus().type(faker.internet.email())
-    cy.getByTestId('email-wrap').should('have.attr', 'data-status', 'valid')
-
-    cy.getByTestId('email').should('have.attr', 'title', 'Tudo Certo! 🟢')
-    cy.getByTestId('email-label').should('have.attr', 'title', 'Tudo Certo! 🟢')
+    FormHelper.testInputStatus('email')
 
     cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
-    cy.getByTestId('password-wrap').should('have.attr', 'data-status', 'valid')
-
-    cy.getByTestId('password').should('have.attr', 'title', 'Tudo Certo! 🟢')
-    cy.getByTestId('password-label').should(
-      'have.attr',
-      'title',
-      'Tudo Certo! 🟢'
-    )
+    FormHelper.testInputStatus('password')
 
     // O not.have.attr é uma função do cypress que verifica se o atributo não existe. No caso o disabled. Porque se o botão não esta desabilitado, ele não tem o atributo disabled e o mesmo vale para qualquer atributo que não exista, ou seja, que não esta preenchido ou usado
     cy.getByTestId('submit').should('not.have.attr', 'disabled')
@@ -120,21 +74,9 @@ describe('Login', () => {
   })
 
   it('Should present invalidCredentialsError on 401', () => {
-    // Mocando
-    // https://github.com/jhipster/generator-jhipster/issues/13345
-    // Expressão regular para interceptar qualquer requisição que tenha login no meio da url, qualquer url que tenha login no meio, ele vai interceptar.
-    // cy.intercept('POST', '**/login', {
-    cy.intercept('POST', /login/, {
-      statusCode: 401,
-      body: {
-        error: faker.word.adjective()
-      }
-    })
+    Http.mockInvalidCredentialsError()
 
-    cy.getByTestId('email').focus().type(faker.internet.email())
-    cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
-
-    cy.getByTestId('submit').click()
+    simulateValidSubmit()
 
     // Estou procurando um elemento dentro de outro elemento. Primeiro eu entro no pai e depois procuro o filho(s). Eu olho se o ellipsis esta aparecendo e se o main-error não esta aparecendo e depois verifico se o ellipsis não esta aparecendo e o main-error esta aparecendo.
     // cy.getByTestId('error-wrap')
@@ -150,99 +92,61 @@ describe('Login', () => {
     // //   'contain.text',
     // //   'Algo de errado aconteceu. Tente novamente em breve.' // Credenciais inválidas
     // // )
-    cy.getByTestId('ellipsis').should('not.exist')
-    cy.getByTestId('main-error')
-      .should('exist')
-      .should('contain.text', 'Credenciais inválidas')
+    FormHelper.testMainError('Credenciais inválidas')
 
     // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
-    cy.url().should('eq', `${baseUrl}/login`)
+    FormHelper.testUrl(baseUrl, ConfigRoute.fourDev.login.path)
   })
-  it('Should present UnexpectedError on 400', () => {
-    cy.intercept('POST', /login/, {
-      statusCode: 400,
-      body: {
-        error: faker.word.adjective()
-      }
-    })
+  it('Should present UnexpectedError on default error cases', () => {
+    Http.mockUnexpectedError()
 
-    cy.getByTestId('email').focus().type(faker.internet.email())
-    cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
+    simulateValidSubmit()
 
-    cy.getByTestId('submit').click()
-
-    cy.getByTestId('ellipsis').should('not.exist')
-    cy.getByTestId('main-error')
-      .should('exist')
-      .should(
-        'contain.text',
-        'Algo de errado aconteceu. Tente novamente em breve.'
-      )
-
+    FormHelper.testMainError(
+      'Algo de errado aconteceu. Tente novamente em breve.'
+    )
     // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
-    cy.url().should('eq', `${baseUrl}/login`)
+    FormHelper.testUrl(baseUrl, ConfigRoute.fourDev.login.path)
   })
 
   it('Should present UnexpectedError if invalid data if returned', () => {
     // Moca a requisição para o login
-    cy.intercept('POST', /login/, {
-      statusCode: 200,
-      body: {
-        invalidProperty: faker.string.uuid()
-      }
-    })
-    cy.getByTestId('email').focus().type(faker.internet.email())
-    cy.getByTestId('password')
-      .focus()
-      .type(faker.string.alphanumeric(5))
-      .type('{enter}') // Esse comando simula o enter
+    Http.mockOkInvalidData()
+    simulateValidSubmit()
 
     // cy.getByTestId('submit').click()
 
-    cy.getByTestId('ellipsis').should('not.exist')
-    cy.getByTestId('main-error')
-      .should('exist')
-      .should(
-        'contain.text',
-        'Algo de errado aconteceu. Tente novamente em breve.'
-      )
+    FormHelper.testMainError(
+      'Algo de errado aconteceu. Tente novamente em breve.'
+    )
 
-    // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
-    cy.url().should('eq', `${baseUrl}/login`)
+    FormHelper.testUrl(baseUrl, ConfigRoute.fourDev.login.path)
   })
 
   // Aqui para testar precisa ter um backend rodando, porque ele vai fazer uma requisição para o backend. Pode ser o back local. Lembrando que a url da API fica no arquivo factories>http>api-url-factory.ts Ou pode fazer um Trade-off e discutir se faz ou não um mock aqui no cypress para retornar um valor fixo da API  para so testar o fluxo, evitando a dependência do backend, se a Api estiver fora do ar, o teste vai  passar.
   it('Should present save accessToken if valid credentials are provided', () => {
     // Moca a requisição para o login
-    cy.intercept('POST', /login/, {
-      statusCode: 200,
-      body: {
-        accessToken: faker.string.uuid()
-      }
-    })
-    cy.getByTestId('email').focus().type(faker.internet.email())
-    cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
+    Http.mockOk()
 
-    cy.getByTestId('submit').click()
+    simulateValidSubmit()
 
-    cy.getByTestId('ellipsis').should('not.exist')
-    cy.getByTestId('main-error').should('not.exist')
+    // cy.getByTestId('ellipsis').should('not.exist')
+    // cy.getByTestId('main-error').should('not.exist')
 
-    cy.url().should('eq', `${baseUrl}/`)
+    // Como no codigo do componente eu retiro deles da tela, ou seja, não renderizo, não tem como eu fazer dessa maneira, então eu faço de outra maneira.
+    // cy.getByTestId('error-wrap').should('not.have.descendants')
+    cy.getByTestId('error-wrap').should('not.exist')
 
-    cy.window().then((window) => {
-      assert.isOk(window.localStorage.getItem('accessToken'))
-    })
+    FormHelper.testUrl(baseUrl, ConfigRoute.fourDev.default.source.path)
+
+    FormHelper.testLocalStorageItem('accessToken')
   })
 
   it('Should prevent multiple submits', () => {
-    cy.intercept('POST', /login/, {
-      statusCode: 200,
-      body: {
-        accessToken: faker.string.uuid()
-      },
-      delay: 100 // Delay de 100ms
-    }).as('request') // Alias(apelido) para a requisição
+    const delayMs = 100
+
+    Http.mockOk(delayMs)
+
     cy.getByTestId('email').focus().type(faker.internet.email())
     cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
     // Dbclick é um clique duplo, ele vai tentar fazer duas requisições ao mesmo tempo.
@@ -254,21 +158,15 @@ describe('Login', () => {
 
     // @request.all um atalho dentro do request, ele faz uma contagem de quantas requisições foram feitas.
     // Aqui ele verifica se foi feita uma requisição.
-    cy.get('@request.all').should('have.length', 1)
+    FormHelper.testHttpCallsCount(1)
   })
 
   it('Should not call submit if form is invalid', () => {
-    cy.intercept('POST', /login/, {
-      statusCode: 200,
-      body: {
-        accessToken: faker.string.uuid()
-      },
-      delay: 100
-    }).as('request')
-    cy.getByTestId('email').focus().type(faker.internet.email()).type('{enter}')
+    Http.mockOk()
+    cy.getByTestId('email').focus().type(faker.internet.email()).type('{enter}') // Esse comando simula o enter
 
     // cy.getByTestId('submit').click()
 
-    cy.get('@request.all').should('have.length', 0)
+    FormHelper.testHttpCallsCount(0)
   })
 })

@@ -667,6 +667,8 @@
 
   #### 6. Finalizando os testes e fazendo outro refactor no input
 
+  #### 7. Refatorando os testes de integração
+
   ## Tecnologias:
   - Vite
   - React
