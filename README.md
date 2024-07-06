@@ -669,6 +669,8 @@
 
   #### 7. Refatorando os testes de integração
 
+  #### 8. Criando testes de integração para o SignUp
+
   ## Tecnologias:
   - Vite
   - React

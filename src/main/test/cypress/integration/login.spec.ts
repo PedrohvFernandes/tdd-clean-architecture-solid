@@ -4,7 +4,7 @@
 
 import { ConfigRoute } from '../../../../config'
 import * as FormHelper from '../support/form-helper'
-import * as Http from './login-mocks'
+import * as Http from '../support/login-mocks'
 
 import { faker } from '@faker-js/faker'
 
