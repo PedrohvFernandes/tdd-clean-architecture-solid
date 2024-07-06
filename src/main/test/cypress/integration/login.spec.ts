@@ -8,8 +8,6 @@ import * as Http from '../support/login-mocks'
 
 import { faker } from '@faker-js/faker'
 
-const baseUrl = Cypress.config().baseUrl
-
 const simulateValidSubmit = (): void => {
   cy.getByTestId('email').focus().type(faker.internet.email())
   cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
@@ -95,7 +93,7 @@ describe('Login', () => {
     FormHelper.testMainError('Credenciais inválidas')
 
     // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
-    FormHelper.testUrl(baseUrl, ConfigRoute.fourDev.login.path)
+    FormHelper.testUrl(ConfigRoute.fourDev.login.path)
   })
   it('Should present UnexpectedError on default error cases', () => {
     Http.mockUnexpectedError()
@@ -106,7 +104,7 @@ describe('Login', () => {
       'Algo de errado aconteceu. Tente novamente em breve.'
     )
     // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
-    FormHelper.testUrl(baseUrl, ConfigRoute.fourDev.login.path)
+    FormHelper.testUrl(ConfigRoute.fourDev.login.path)
   })
 
   it('Should present UnexpectedError if invalid data if returned', () => {
@@ -120,7 +118,7 @@ describe('Login', () => {
       'Algo de errado aconteceu. Tente novamente em breve.'
     )
 
-    FormHelper.testUrl(baseUrl, ConfigRoute.fourDev.login.path)
+    FormHelper.testUrl(ConfigRoute.fourDev.login.path)
   })
 
   // Aqui para testar precisa ter um backend rodando, porque ele vai fazer uma requisição para o backend. Pode ser o back local. Lembrando que a url da API fica no arquivo factories>http>api-url-factory.ts Ou pode fazer um Trade-off e discutir se faz ou não um mock aqui no cypress para retornar um valor fixo da API  para so testar o fluxo, evitando a dependência do backend, se a Api estiver fora do ar, o teste vai  passar.
@@ -137,7 +135,7 @@ describe('Login', () => {
     // cy.getByTestId('error-wrap').should('not.have.descendants')
     cy.getByTestId('error-wrap').should('not.exist')
 
-    FormHelper.testUrl(baseUrl, ConfigRoute.fourDev.default.source.path)
+    FormHelper.testUrl(ConfigRoute.fourDev.default.source.path)
 
     FormHelper.testLocalStorageItem('accessToken')
   })

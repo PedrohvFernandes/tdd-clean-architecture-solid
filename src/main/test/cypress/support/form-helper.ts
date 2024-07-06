@@ -1,3 +1,5 @@
+const baseUrl = Cypress.config().baseUrl
+
 export const testInputStatus = (field: string, error?: string): void => {
   cy.getByTestId(`${field}-wrap`).should(
     'have.attr',
@@ -24,7 +26,7 @@ export const testHttpCallsCount = (
   cy.get(`@${aliasRequest}.all`).should('have.length', count)
 }
 
-export const testUrl = (baseUrl: string, path: string): void => {
+export const testUrl = (path: string): void => {
   // O base url é a url base da aplicação que passamos no cypress.config.ts
   // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
   cy.url().should('eq', `${baseUrl}${path}`)
