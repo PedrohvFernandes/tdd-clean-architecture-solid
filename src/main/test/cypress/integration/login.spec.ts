@@ -8,9 +8,13 @@ import * as Http from '../support/login-mocks'
 
 import { faker } from '@faker-js/faker'
 
-const simulateValidSubmit = (): void => {
+const populateFields = (): void => {
   cy.getByTestId('email').focus().type(faker.internet.email())
   cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
+}
+
+const simulateValidSubmit = (): void => {
+  populateFields()
 
   cy.getByTestId('submit').click()
 }
@@ -145,8 +149,7 @@ describe('Login', () => {
 
     Http.mockOk(delayMs)
 
-    cy.getByTestId('email').focus().type(faker.internet.email())
-    cy.getByTestId('password').focus().type(faker.string.alphanumeric(5))
+    populateFields()
     // Dbclick é um clique duplo, ele vai tentar fazer duas requisições ao mesmo tempo.
     // cy.getByTestId('submit').dblclick()
     cy.getByTestId('submit').click()
