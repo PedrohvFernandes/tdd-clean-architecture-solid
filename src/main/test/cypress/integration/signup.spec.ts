@@ -120,4 +120,16 @@ describe('SignUp', () => {
 
     FormHelper.testUrl(ConfigRoute.fourDev.signup.path)
   })
+
+  it('Should present save accessToken if valid credentials are provided', () => {
+    Http.mockOk()
+
+    simulateValidSubmit()
+
+    cy.getByTestId('error-wrap').should('not.exist')
+
+    FormHelper.testUrl(ConfigRoute.fourDev.default.source.path)
+
+    FormHelper.testLocalStorageItem('accessToken')
+  })
 })

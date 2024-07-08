@@ -15,3 +15,12 @@ export const mockOkInvalidData = (): void =>
     { invalidProperty: faker.string.uuid() },
     'request'
   )
+
+export const mockOk = (delay: number = 0): void =>
+  Helper.mockOk(
+    /signup/,
+    'POST',
+    { accessToken: faker.string.uuid() },
+    'request',
+    delay
+  )
