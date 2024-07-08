@@ -4,7 +4,7 @@ import * as Http from '../support/signup-mocks'
 
 import { faker } from '@faker-js/faker'
 
-const simulateValidSubmit = (): void => {
+const populateFields = (): void => {
   cy.getByTestId('name').focus().type(faker.internet.displayName())
   cy.getByTestId('email').focus().type(faker.internet.email())
 
@@ -15,6 +15,10 @@ const simulateValidSubmit = (): void => {
 
   cy.getByTestId('passwordConfirmation').focus().type(password)
   FormHelper.testInputStatus('passwordConfirmation')
+}
+
+const simulateValidSubmit = (): void => {
+  populateFields()
 
   cy.getByTestId('submit').click()
 }
@@ -131,5 +135,18 @@ describe('SignUp', () => {
     FormHelper.testUrl(ConfigRoute.fourDev.default.source.path)
 
     FormHelper.testLocalStorageItem('accessToken')
+  })
+
+  it('Should prevent multiple submits', () => {
+    const delayMs = 100
+
+    Http.mockOk(delayMs)
+
+    populateFields()
+    cy.getByTestId('submit').click()
+    cy.getByTestId('submit').should('be.disabled')
+    cy.getByTestId('submit').click({ force: true })
+
+    FormHelper.testHttpCallsCount(1)
   })
 })
