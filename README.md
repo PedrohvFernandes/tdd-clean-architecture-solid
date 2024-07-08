@@ -671,6 +671,8 @@
 
   #### 8. Criando testes de integração para o SignUp
 
+  #### 9. Subindo versão pro Github
+
   ## Tecnologias:
   - Vite
   - React

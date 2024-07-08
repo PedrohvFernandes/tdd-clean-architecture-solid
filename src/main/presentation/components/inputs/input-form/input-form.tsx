@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, useRef } from 'react'
 
 // import { IconBall } from '../icon-ball'
-import { InputDefault } from './'
+import { InputDefault } from '../input-default'
 
 import { useHookErrorState, useHookForm } from '@/main/hooks'
 import { useHookErrorInputMessage } from '@/main/hooks/use-hook-error-input-message'
@@ -33,6 +33,7 @@ export function InputForm({ ...propsInput }: InputFormProps) {
         onChange={handleChangeField}
         title={`${getTitle(error)} ${getStatus(error)}`}
         placeholder=""
+        name={propsInput.name}
         ref={inputRef}
         className="[&:not(:placeholder-shown)+.label-input]:-translate-y-5 [&:not(:placeholder-shown)+.label-input]:scale-90"
       />
