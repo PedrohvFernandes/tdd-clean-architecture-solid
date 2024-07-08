@@ -109,4 +109,15 @@ describe('SignUp', () => {
     )
     FormHelper.testUrl(ConfigRoute.fourDev.signup.path)
   })
+
+  it('Should present UnexpectedError if invalid data if returned', () => {
+    Http.mockOkInvalidData()
+    simulateValidSubmit()
+
+    FormHelper.testMainError(
+      'Algo de errado aconteceu. Tente novamente em breve.'
+    )
+
+    FormHelper.testUrl(ConfigRoute.fourDev.signup.path)
+  })
 })
