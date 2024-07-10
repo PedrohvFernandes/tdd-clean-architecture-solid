@@ -1,4 +1,6 @@
 import {
+  HttpGetClient,
+  HttpGetParams,
   HttpPostClient,
   HttpPostParams,
   HttpResponse,
@@ -66,4 +68,11 @@ class HttpPostClientSpy<ResponseType> implements HttpPostClient<ResponseType> {
   }
 }
 
-export { HttpPostClientSpy, mockPostRequest }
+class HttpGetClientSpy implements HttpGetClient {
+  url?: string
+  async get({ url }: HttpGetParams): Promise<void> {
+    this.url = url
+  }
+}
+
+export { HttpPostClientSpy, mockPostRequest, HttpGetClientSpy }
