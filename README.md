@@ -677,6 +677,8 @@
 
   #### 1. Criando o caso de uso do LoadSurveyList
 
+  #### 2. Como resolver Cross Cutting Concerns
+
   ## Tecnologias:
   - Vite
   - React

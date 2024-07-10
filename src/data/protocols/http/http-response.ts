@@ -13,7 +13,10 @@ export enum HttpStatusCode {
 }
 
 // Como o body é algo generico usamos o generics <R> para definir o tipo do body da nossa response.
-export type HttpResponse<R> = {
+// export type HttpResponse<R> = {
+
+// Ja deixa como padrão o tipo de body como any, para não precisar passar o tipo de body toda vez que for usar o HttpResponse
+export type HttpResponse<R = any> = {
   // statusCode: HttpStatusCode.unauthorized
   statusCode: HttpStatusCode
   // A resposta do response pode retornar qualquer coisa

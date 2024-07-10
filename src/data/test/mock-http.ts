@@ -13,7 +13,8 @@ import { faker } from '@faker-js/faker'
 */
 
 // Mock para requisição para testar na parte de infra
-const mockPostRequest = (): HttpPostParams<any> => ({
+// const mockPostRequest = (): HttpPostParams<any> => ({
+const mockPostRequest = (): HttpPostParams => ({
   url: faker.internet.url(),
   body: faker.helpers.objectEntry({
     key: faker.string.uuid()
@@ -31,16 +32,33 @@ const mockPostRequest = (): HttpPostParams<any> => ({
   Basicamente essa é a implementação do post fake
 */
 // Deixamos o HttPostClientSpy generico, para que possamos passar qualquer tipo de body e receber o body de resposta esperado. Ex: No caso do RemoteAuthentication, ele vai passar um body do tipo AuthenticationParams e uma resposta do tipo AccountModel e o mesmo para o test. Com isso o body da resposta e requisição fica generico
-class HttpPostClientSpy<T, R> implements HttpPostClient<T, R> {
+
+// class HttpPostClientSpy<T, R> implements HttpPostClient<R> {
+//   url?: string
+// Tipamos o body como T, pois não sabemos o tipo de body que vai ser passado, então deixamos generico
+// body?: T
+//   response: HttpResponse<R> = {
+//     statusCode: HttpStatusCode.OK
+//   }
+
+//   async post(params: HttpPostParams<T>): Promise<HttpResponse<R>> {
+//     this.url = params.url
+//     this.body = params.body
+//     return this.response
+//   }
+// }
+
+// class HttpPostClientSpy<BodyType, ResponseType> implements HttpPostClient<BodyType, ResponseType> {
+class HttpPostClientSpy<ResponseType> implements HttpPostClient<ResponseType> {
   url?: string
-  // Tipamos o body como T, pois não sabemos o tipo de body que vai ser passado, então deixamos generico
-  body?: T
+
+  body?: any
   // Deixamos um valor default(mocado) so para teste, mas para cada teste pode ser diferente(ou seja, para cada teste podemos mocar um statusCode diferente), passamos um valor diferente para cada teste para simular uma resposta diferente caso o teste queira testar essa parte. Se não passar nada, enviamos um statusCode 200 OK, e o data layer vai tratar isso. O mesmo para o infra quando enviar a resposta do httPostClient para o data layer da API verdadeira que ele vai consumir
-  response: HttpResponse<R> = {
+  response: HttpResponse<ResponseType> = {
     statusCode: HttpStatusCode.OK
   }
 
-  async post(params: HttpPostParams<T>): Promise<HttpResponse<R>> {
+  async post(params: HttpPostParams): Promise<HttpResponse<ResponseType>> {
     this.url = params.url
     this.body = params.body
     // Retornamos a resposta fake, que foi setada aqui e possivelmente no test, caso ele test alguma resposta error ou sucesso

@@ -6,10 +6,15 @@ import {
 import axios, { AxiosError, AxiosResponse } from 'axios'
 
 // Adaptador do Axios para a interface HttpPostClient. // Dessa forma fazemos com que o axios dependa da minha interface HttpPostClient e o resto da aplicação nao dependa do axios
-export class AxiosHttpClientAdapter implements HttpPostClient<any, any> {
+// export class AxiosHttpClientAdapter implements HttpPostClient<any, any> {
+// export class AxiosHttpClientAdapter implements HttpPostClient<any> {
+
+// Como agora o HttpPostClient possui um so generico e o mesmo ja tem como padrão o any, não precisamos passar o <any>, pois o any ja é o padrão
+export class AxiosHttpClientAdapter implements HttpPostClient {
   // O método post realiza uma requisição HTTP POST e retorna uma resposta // Aqui como pode retornar qualquer coisa do Axios, usamos o any como generico
-  async post(params: HttpPostParams<any>): Promise<HttpResponse<any>> {
-    let httpResponse: AxiosResponse<any>
+  // async post(params: HttpPostParams<any>): Promise<HttpResponse<any>> {
+  async post(params: HttpPostParams): Promise<HttpResponse> {
+    let httpResponse: AxiosResponse
     try {
       // Realiza a requisição POST usando o axios // Resposta positiva do axios
       httpResponse = await axios.post(params.url, params.body)

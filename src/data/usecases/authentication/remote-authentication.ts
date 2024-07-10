@@ -10,10 +10,11 @@ export class RemoteAuthentication implements Authentication {
     private readonly url: string,
     // HttpPostClient --> Uma abstração, uma interface junto com o data layer, seria um dos metodos que o authentication ira fazer
     // Informamos o tipo de dados que o HttpPostClient ira receber, no caso AuthenticationParams para o body da requisição e AccountModel para o body da resposta da requisição
-    private readonly httpPostClient: HttpPostClient<
-      AuthenticationParams,
-      AccountModel
-    >
+    // private readonly httpPostClient: HttpPostClient<
+    //   AuthenticationParams,
+    //   AccountModel
+    // >
+    private readonly httpPostClient: HttpPostClient<AccountModel>
   ) {}
 
   // Params --> Email e senha do usuário que deseja se autenticar
