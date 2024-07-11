@@ -68,10 +68,15 @@ class HttpPostClientSpy<ResponseType> implements HttpPostClient<ResponseType> {
   }
 }
 
-class HttpGetClientSpy implements HttpGetClient {
+class HttpGetClientSpy<R> implements HttpGetClient<R> {
   url?: string
-  async get({ url }: HttpGetParams): Promise<void> {
+  response: HttpResponse<R> = {
+    statusCode: HttpStatusCode.OK
+  }
+
+  async get({ url }: HttpGetParams): Promise<HttpResponse<R>> {
     this.url = url
+    return this.response
   }
 }
 
