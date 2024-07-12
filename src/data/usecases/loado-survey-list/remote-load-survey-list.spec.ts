@@ -80,4 +80,17 @@ describe('RemoteLoadSurveyList', () => {
     // To equal compara os valores dos objetos
     expect(surveyList).toEqual(httpResult)
   })
+
+  test('Should return an empty lists if HttpGetClient returns 204', async () => {
+    const { sut, httpGetClientSpy } = makeSut()
+
+    httpGetClientSpy.response = {
+      statusCode: HttpStatusCode.NO_CONTENT
+    }
+
+    const surveyList = await sut.loadAll()
+
+    // To equal compara os valores dos objetos
+    expect(surveyList).toEqual([])
+  })
 })
