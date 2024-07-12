@@ -3,11 +3,11 @@ import axios from 'axios'
 
 // Mockando a função post do axios para que ela simule o envio de dados para pegar o resultado
 export const mockedAxiosResult = (): any => ({
+  statusCode: faker.number.int,
   // Um body qualquer, tanto faz o conteudo aqui
   body: faker.helpers.objectEntry({
     key: faker.string.uuid()
-  }),
-  statusCode: faker.number.int
+  })
 })
 
 export const mockAxios = (): jest.Mocked<typeof axios> => {
