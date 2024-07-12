@@ -23,6 +23,10 @@ const mockPostRequest = (): HttpPostParams => ({
   })
 })
 
+const mockGetRequest = (): HttpGetParams => ({
+  url: faker.internet.url()
+})
+
 // Spy é um duble de teste, é um tipo de mock, que serve para duas coisas:
 // Spy é um objeto que vai espionar o método, e não vai fazer nada, só vai verificar se o método foi chamado com o valor correto
 /*
@@ -80,4 +84,4 @@ class HttpGetClientSpy<R> implements HttpGetClient<R> {
   }
 }
 
-export { HttpPostClientSpy, mockPostRequest, HttpGetClientSpy }
+export { HttpPostClientSpy, mockPostRequest, HttpGetClientSpy, mockGetRequest }
