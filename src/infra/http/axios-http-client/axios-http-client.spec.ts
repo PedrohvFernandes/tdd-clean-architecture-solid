@@ -37,17 +37,20 @@ describe('AxiosHttpClientAdapter', () => {
       expect(mockedAxios.post).toHaveBeenCalledWith(request.url, request.body)
     })
 
-    test('Should return correct response on axios.post', () => {
+    test('Should return correct response on axios.post', async () => {
       const { sut, mockedAxios } = makeSut()
 
       // const httpResponse = await sut.post(mockPostRequest())
       // Usamos o post do axios do AxiosHttpClientAdapter passando um mock de requisição
-      const httpPromiseResponse = sut.post(mockPostRequest())
+      const httpResponse = await sut.post(mockPostRequest())
 
       // const mockedResolvedValue = await mockedAxios.post.mock.results[0].value
       // Comparamos o result do post do axios mock-axios(mockedAxios) com o result do post  do AxiosHttpClientAdapter
-      const mockedResolvedValuePromise = mockedAxios.post.mock.results[0].value
-      expect(httpPromiseResponse).toEqual(mockedResolvedValuePromise)
+      const axiosResponse = await mockedAxios.post.mock.results[0].value
+      expect(httpResponse).toEqual({
+        statusCode: axiosResponse.status,
+        body: axiosResponse.data
+      })
     })
 
     test('Should return correct error on axios.post', () => {
@@ -71,10 +74,10 @@ describe('AxiosHttpClientAdapter', () => {
       expect(mockedAxios.get).toHaveBeenCalledWith(request.url)
     })
 
-    test('Should return correct response on axios.post', async () => {
+    test('Should return correct response on axios.get', async () => {
       const { sut, mockedAxios } = makeSut()
 
-      const httpResponse = await sut.get(mockPostRequest())
+      const httpResponse = await sut.get(mockGetRequest())
 
       const axiosResponse = await mockedAxios.get.mock.results[0].value
       expect(httpResponse).toEqual({
