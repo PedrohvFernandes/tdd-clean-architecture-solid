@@ -14,16 +14,16 @@ export class AxiosHttpClientAdapter implements HttpPostClient {
   // O método post realiza uma requisição HTTP POST e retorna uma resposta // Aqui como pode retornar qualquer coisa do Axios, usamos o any como generico
   // async post(params: HttpPostParams<any>): Promise<HttpResponse<any>> {
   async post(params: HttpPostParams): Promise<HttpResponse> {
-    let httpResponse: AxiosResponse
+    let axiosResponse: AxiosResponse
     try {
       // Realiza a requisição POST usando o axios // Resposta positiva do axios
-      httpResponse = await axios.post(params.url, params.body)
+      axiosResponse = await axios.post(params.url, params.body)
     } catch (error) {
       // na camada de data, onde usamos o post do axios, estamos validando somente quando o statusCode é OK, UNAUTHORIZED ou FORBIDDEN(add-account), e erros não validados como default fica UnexpectedError
       const err = error as AxiosError
 
-      // Inicializa httpResponse com valores padrão para status e data
-      httpResponse = {
+      // Inicializa axiosResponse com valores padrão para status e data
+      axiosResponse = {
         status: 500, // Código de status para erro interno do servidor
         data: 'Unexpected error', // Mensagem de erro padrão
         statusText: '',
@@ -32,17 +32,17 @@ export class AxiosHttpClientAdapter implements HttpPostClient {
         request: {}
       } as AxiosResponse<any>
 
-      // Verifica se a resposta do erro está definida, se sim atribui a httpResponse, se não mantém os valores padrão de erro interno do servidor desconhecido
+      // Verifica se a resposta do erro está definida, se sim atribui a axiosResponse, se não mantém os valores padrão de erro interno do servidor desconhecido
       if (err.response) {
         // Resposta negativa do axios
-        httpResponse = err.response
+        axiosResponse = err.response
       }
     }
     // Retornamos o statusCode e o body da resposta do axios dependendo se a requisição foi bem sucedida(resolvida) ou não
     // Retorna o código de status e o corpo da resposta do axios
     return {
-      statusCode: httpResponse.status,
-      body: httpResponse.data
+      statusCode: axiosResponse.status,
+      body: axiosResponse.data
     }
   }
 }
