@@ -49,7 +49,26 @@ export class AxiosHttpClientAdapter implements HttpPostClient, HttpGetClient {
   }
 
   async get(params: HttpGetParams): Promise<HttpResponse> {
-    const axiosResponse = await axios.get(params.url)
+    let axiosResponse: AxiosResponse
+    try {
+      axiosResponse = await axios.get(params.url)
+    } catch (error) {
+      const err = error as AxiosError
+
+      axiosResponse = {
+        status: 500, // Código de status para erro interno do servidor
+        data: 'Unexpected error', // Mensagem de erro padrão
+        statusText: '',
+        headers: {},
+        config: {},
+        request: {}
+      } as AxiosResponse<any>
+
+      if (err.response) {
+        axiosResponse = err.response
+      }
+    }
+    console.log(axiosResponse.status, axiosResponse.data)
     return {
       statusCode: axiosResponse.status,
       body: axiosResponse.data
