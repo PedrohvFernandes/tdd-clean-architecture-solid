@@ -14,9 +14,11 @@ export const mockAxios = (): jest.Mocked<typeof axios> => {
   const mockedAxios = axios as jest.Mocked<typeof axios>
 
   // Usando o mockResolvedValue para simular o envio de dados para pegar o resultado como resultado resolvido, passando um falso retorno, com um body e um statusCode so para testar
-  mockedAxios.post.mockResolvedValue(mockedAxiosResult())
 
-  mockedAxios.get.mockResolvedValue(mockedAxiosResult())
+  // Mock clear para limpar o mock do axios de qualquer chamada anterior nos testes
+  mockedAxios.post.mockClear().mockResolvedValue(mockedAxiosResult())
+
+  mockedAxios.get.mockClear().mockResolvedValue(mockedAxiosResult())
 
   return mockedAxios
 }
