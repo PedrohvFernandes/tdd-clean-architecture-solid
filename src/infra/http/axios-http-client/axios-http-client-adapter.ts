@@ -42,10 +42,7 @@ export class AxiosHttpClientAdapter implements HttpPostClient, HttpGetClient {
     }
     // Retornamos o statusCode e o body da resposta do axios dependendo se a requisição foi bem sucedida(resolvida) ou não
     // Retorna o código de status e o corpo da resposta do axios
-    return {
-      statusCode: axiosResponse.status,
-      body: axiosResponse.data
-    }
+    return this.adapt(axiosResponse)
   }
 
   async get(params: HttpGetParams): Promise<HttpResponse> {
@@ -68,7 +65,11 @@ export class AxiosHttpClientAdapter implements HttpPostClient, HttpGetClient {
         axiosResponse = err.response
       }
     }
-    console.log(axiosResponse.status, axiosResponse.data)
+
+    return this.adapt(axiosResponse)
+  }
+
+  private adapt(axiosResponse: AxiosResponse): HttpResponse {
     return {
       statusCode: axiosResponse.status,
       body: axiosResponse.data
