@@ -1,4 +1,5 @@
 import {
+  HttpGetClient,
   HttpGetParams,
   HttpPostClient,
   HttpPostParams,
@@ -11,7 +12,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 // export class AxiosHttpClientAdapter implements HttpPostClient<any> {
 
 // Como agora o HttpPostClient possui um so generico e o mesmo ja tem como padrão o any, não precisamos passar o <any>, pois o any ja é o padrão
-export class AxiosHttpClientAdapter implements HttpPostClient {
+export class AxiosHttpClientAdapter implements HttpPostClient, HttpGetClient {
   // O método post realiza uma requisição HTTP POST e retorna uma resposta // Aqui como pode retornar qualquer coisa do Axios, usamos o any como generico
   // async post(params: HttpPostParams<any>): Promise<HttpResponse<any>> {
   async post(params: HttpPostParams): Promise<HttpResponse> {
@@ -47,7 +48,11 @@ export class AxiosHttpClientAdapter implements HttpPostClient {
     }
   }
 
-  async get(params: HttpGetParams): Promise<void> {
-    await axios.get(params.url)
+  async get(params: HttpGetParams): Promise<HttpResponse> {
+    const axiosResponse = await axios.get(params.url)
+    return {
+      statusCode: axiosResponse.status,
+      body: axiosResponse.data
+    }
   }
 }
