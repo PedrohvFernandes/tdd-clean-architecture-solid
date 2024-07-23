@@ -18,6 +18,17 @@ export default {
       path: '/signup',
       routeFragment: '/signup',
       next: {}
+    },
+    logged: {
+      path: '/logged',
+      routeFragment: '/logged',
+      next: {
+        surveyList: {
+          path: '/logged/survey-list',
+          routeFragment: '/logged/survey-list',
+          next: {}
+        }
+      }
     }
   }
 }

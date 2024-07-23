@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-default-rgb: 136, 14, 79; /* #880E4F*/
+    --primary-light-rgb: 188, 71, 123; /* #BC477B*/
+    --primary-dark-rgb: 86, 0, 39; /* #560027*/
+
+    --white: #fff;
+  }
+}
