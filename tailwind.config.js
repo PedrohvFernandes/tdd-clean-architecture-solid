@@ -55,7 +55,8 @@ export default {
       },
       boxShadow: {
         shape:
-          '0px 8px 8px rgba(0, 0, 0, 0.1), 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 2px 2px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(0, 0, 0, 0.1), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.03), inset 0px 1px 0px rgba(255, 255, 255, 0.03)'
+          '0px 8px 8px rgba(var(--black-rgb), 0.1), 0px 4px 4px rgba(var(--black-rgb), 0.1), 0px 2px 2px rgba(var(--black-rgb), 0.1), 0px 0px 0px 1px rgba(var(--black-rgb), 0.1), inset 0px 0px 0px 1px rgba(var(--white-rgb), 0.03), inset 0px 1px 0px rgba(var(--white-rgb), 0.03)',
+        'shadow-black': '0px 1px 3px -1px var(--black)'
       },
       backgroundImage: {
         // Definição: Isso define uma imagem de fundo que é um gradiente linear.

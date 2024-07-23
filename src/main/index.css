@@ -8,6 +8,10 @@
     --primary-light-rgb: 188, 71, 123; /* #BC477B*/
     --primary-dark-rgb: 86, 0, 39; /* #560027*/
 
+    --black: #000;
+    --black-rgb: 0, 0, 0; /* #000000*/
+
     --white: #fff;
+    --white-rgb: 255, 255, 255; /* #FFFFFF*/
   }
 }
