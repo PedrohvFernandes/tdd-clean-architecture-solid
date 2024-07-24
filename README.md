@@ -685,6 +685,8 @@
 
   #### 5. Criando o layout do SurveyList
 
+  #### 6. Tornando o layout responsivo
+
   ## Tecnologias:
   - Vite
   - React
