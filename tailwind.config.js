@@ -46,12 +46,18 @@ export default {
           '100%': {
             transform: 'scale(0)'
           }
+        },
+        shimmer: {
+          '100%': {
+            transform: 'translateX(100%)'
+          }
         }
       },
       animation: {
         ldsEllipsis1: 'ldsEllipsis1 0.6s infinite',
         ldsEllipsis2: 'ldsEllipsis2 0.6s infinite',
-        ldsEllipsis3: 'ldsEllipsis3 0.6s infinite'
+        ldsEllipsis3: 'ldsEllipsis3 0.6s infinite',
+        shimmer: 'shimmer 1.2s infinite'
       },
       boxShadow: {
         shape:
@@ -64,11 +70,17 @@ export default {
         // O primeiro gradiente vai da esquerda para a direita (to right) e usa rgba(var(--primary-light-rgb), 0.1) para definir a cor com opacidade de 0.1.
         // O segundo gradiente também vai da esquerda para a direita e usa a variável var(--white) para definir a cor branca sem opacidade.
         'gradiente-to-right-primary-light':
-          'linear-gradient(to right, rgba(var(--primary-light-rgb), 0.1), rgba(var(--primary-light-rgb), 0.1)), linear-gradient(to right, var(--white), var(--white))'
+          'linear-gradient(to right, rgba(var(--primary-light-rgb), 0.1), rgba(var(--primary-light-rgb), 0.1)), linear-gradient(to right, var(--white), var(--white))',
+        'gradiente-shimmer':
+          'linear-gradient(to right, transparent, rgba(var(--white-rgb), 0.2), transparent)'
       },
       // Definição: Isso define o tamanho das imagens de fundo ou gradiente.
       backgroundSize: {
-        'size-58px': '58px'
+        'size-58px': '58px',
+        'size-w-64px-h-112px': '64px 112px'
+      },
+      backgroundPosition: {
+        'position-ml-24px-h-52px': '24px 52px'
       },
       screens: {
         'smartphone-sm': '480px',

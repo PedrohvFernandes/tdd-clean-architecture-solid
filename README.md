@@ -686,6 +686,8 @@
   #### 5. Criando o layout do SurveyList
 
   #### 6. Tornando o layout responsivo
+  
+  #### 7. Criando efeito de shimmer
 
   ## Tecnologias:
   - Vite
