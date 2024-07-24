@@ -7,7 +7,9 @@ function LoginHeader() {
   return (
     <DefaultHeader className="py-6 px-10">
       <Logo />
-      <h1 className="text-white">4Dev - Enquetes para Programadores</h1>
+      <h1 className="text-white text-center">
+        4Dev - Enquetes para Programadores
+      </h1>
     </DefaultHeader>
   )
 }

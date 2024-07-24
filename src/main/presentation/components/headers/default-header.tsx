@@ -9,7 +9,7 @@ function DefaultHeader({ ...props }: IDefaultHeaderProps) {
     <header
       {...props}
       className={twMerge(
-        'bg-primary flex flex-col items-center border-t-[40px] border-primary-DARK',
+        'bg-primary flex flex-col items-center border-t-[20px]  smartphone-md:border-t-[40px] border-primary-DARK',
         props.className
       )}
     />

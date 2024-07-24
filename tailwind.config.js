@@ -69,6 +69,13 @@ export default {
       // Definição: Isso define o tamanho das imagens de fundo ou gradiente.
       backgroundSize: {
         'size-58px': '58px'
+      },
+      screens: {
+        'smartphone-sm': '480px',
+        // => @media (min-width: 480px) { ... }
+
+        'smartphone-md': '680px'
+        // => @media (min-width: 680px) { ... }
       }
     },
     fontFamily: {
