@@ -28,8 +28,8 @@ describe('CompareFieldsValidation', () => {
       makeSutCompareFieldsValidation(fieldToCompare)
 
     const error = sutCompareFieldsValidation.validate({
-      [randomFieldName]: faker.word.adjective(),
-      [fieldToCompare]: faker.word.adjective()
+      [randomFieldName]: faker.word.adjective(3),
+      [fieldToCompare]: faker.word.adjective(4)
     })
     expect(error).toEqual(
       new InvalidFieldToCompareError(randomFieldName, fieldToCompare)
