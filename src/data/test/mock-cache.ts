@@ -14,10 +14,8 @@ export class SetStorageMock implements SetStorage {
   value: any
   key: string = ''
 
-  set(key: string, value: any): Promise<void> {
+  set(key: string, value: any): void {
     this.key = key
     this.value = value
-    // Nesse caso eu retorno uma promise vazia, pois não temos nada para retornar
-    return Promise.resolve()
   }
 }
