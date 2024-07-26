@@ -1,32 +1,32 @@
-import { LocalSaveAccessToken } from './local-save-access-token'
+import { LocalUpdateCurrentAccount } from './local-update-current-account'
 
 import { SetStorageMock } from '@/data/test'
 import { UnexpectedError } from '@/domain/errors'
-import { faker } from '@faker-js/faker'
+import { mockAccountModel } from '@/domain/test'
 
 type SutTypes = {
-  sut: LocalSaveAccessToken
+  sut: LocalUpdateCurrentAccount
   setStorageMock: SetStorageMock
 }
 
 const makeSut = (): SutTypes => {
   const setStorageMock = new SetStorageMock()
-  const sut = new LocalSaveAccessToken(setStorageMock)
+  const sut = new LocalUpdateCurrentAccount(setStorageMock)
   return {
     sut,
     setStorageMock
   }
 }
 
-describe('LocalSaveAccessToken', () => {
+describe('LocalUpdateCurrentAccount', () => {
   test('Should call SetStorage with correct value', async () => {
     const { sut, setStorageMock } = makeSut()
 
-    const accessToken = faker.string.uuid()
-    await sut.save(accessToken)
+    const account = mockAccountModel()
+    await sut.save(account)
 
-    expect(setStorageMock.key).toBe('accessToken')
-    expect(setStorageMock.value).toBe(accessToken)
+    expect(setStorageMock.key).toBe('account')
+    expect(setStorageMock.value).toBe(JSON.stringify(account))
   })
 
   // É um teste meio desencerarão, pois o teste anterior já cobre tudo o que precisamos. No caso esse teste aqui é uma exceção, hoje o localstorage que é o que iremos usar para salvar o token do usuário não retorna nada, mas caso um dia usarmos algo, uma lib que retorne algo, esse teste seria util.
@@ -36,7 +36,7 @@ describe('LocalSaveAccessToken', () => {
 
     jest.spyOn(setStorageMock, 'set').mockRejectedValueOnce(new Error())
 
-    const promise = sut.save(faker.string.uuid())
+    const promise = sut.save(mockAccountModel())
 
     await expect(promise).rejects.toThrow(new Error())
   })

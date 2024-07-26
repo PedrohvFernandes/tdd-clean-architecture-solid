@@ -133,7 +133,8 @@ describe('RemoteAuthentication', () => {
     httpPostClientSpy.response = {
       statusCode: HttpStatusCode.OK,
       body: {
-        accessToken: httpResult.accessToken
+        accessToken: httpResult.accessToken,
+        name: httpResult.name
       }
     }
 

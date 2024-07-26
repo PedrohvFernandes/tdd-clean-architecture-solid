@@ -134,7 +134,7 @@ describe('SignUp', () => {
 
     FormHelper.testUrl(ConfigRoute.fourDev.default.source.path)
 
-    FormHelper.testLocalStorageItem('accessToken')
+    FormHelper.testLocalStorageItem('account')
   })
 
   it('Should prevent multiple submits', () => {

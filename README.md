@@ -689,6 +689,10 @@
   
   #### 7. Criando efeito de shimmer
 
+  ### 12. Autenticação nas Rotas
+
+  #### 1. Adicionando mais dados ao localstorage
+
   ## Tecnologias:
   - Vite
   - React

@@ -4,17 +4,17 @@ import { useNavigate } from 'react-router-dom'
 import { FormDefault } from './'
 
 import { ConfigRoute } from '@/config/index'
-import { Authentication, SaveAccessToken } from '@/domain/usecases'
+import { Authentication, UpdateCurrentAccount } from '@/domain/usecases'
 import { useHookErrorState, useHookForm } from '@/main/hooks'
 
 interface IFormLoginProps extends React.HTMLAttributes<HTMLFormElement> {
   authentication: Authentication
-  saveAccessToken: SaveAccessToken
+  updateCurrentAccount: UpdateCurrentAccount
 }
 
 export function FormLogin({
   authentication,
-  saveAccessToken,
+  updateCurrentAccount,
   ...props
 }: Readonly<IFormLoginProps>) {
   const { setIsLoading, isLoading, email, password } = useHookForm()
@@ -38,7 +38,9 @@ export function FormLogin({
       // localStorage.setItem('accessToken', account.accessToken)
 
       // Depois de implementar o saveAccessToken do domain no data, e no infra implementar a interface do data para escolher a lib que vai usar a implementação do data e injetar no componente via login.spec e MakeLogin, podemos usar ele aqui para salvar o token de acesso
-      await saveAccessToken.save(account.accessToken)
+      // await saveAccessToken.save(account.accessToken)
+
+      await updateCurrentAccount.save(account)
       navigate(ConfigRoute.fourDev.default.source.path)
     } catch (error) {
       // const e = error as Error

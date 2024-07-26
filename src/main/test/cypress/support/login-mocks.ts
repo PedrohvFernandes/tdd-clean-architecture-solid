@@ -12,7 +12,11 @@ export const mockOk = (delay: number = 0): void =>
   Helper.mockOk(
     /login/,
     'POST',
-    { accessToken: faker.string.uuid() },
+    {
+      accessToken: faker.string.uuid(),
+
+      name: faker.internet.displayName()
+    },
     'request',
     delay
   )

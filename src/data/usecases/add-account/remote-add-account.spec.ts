@@ -104,7 +104,8 @@ describe('RemoteAddAccount', () => {
     httpPostClientSpy.response = {
       statusCode: HttpStatusCode.OK,
       body: {
-        accessToken: httpResult.accessToken
+        accessToken: httpResult.accessToken,
+        name: httpResult.name
       }
     }
 

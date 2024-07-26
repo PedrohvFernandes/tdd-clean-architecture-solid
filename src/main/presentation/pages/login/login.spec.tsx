@@ -18,7 +18,7 @@ import {
 } from '@/domain/errors'
 import {
   Helper,
-  SaveAccessTokenMock,
+  UpdateCurrentAccountMock,
   AuthenticationSpy,
   ValidationSpy
 } from '@/presentation/test'
@@ -44,7 +44,7 @@ type SutLoginTypesReturn = {
     id: Matcher,
     options?: MatcherOptions | undefined
   ) => HTMLElement
-  saveAccessTokenMock: SaveAccessTokenMock
+  updateCurrentAccountMock: UpdateCurrentAccountMock
 }
 
 type SutLoginParams = {
@@ -76,7 +76,7 @@ const makeSutLogin = (
 
   const authenticationSpy = new AuthenticationSpy()
 
-  const saveAccessTokenMock = new SaveAccessTokenMock()
+  const updateCurrentAccountMock = new UpdateCurrentAccountMock()
 
   // Antes quando não íamos para outra tela, era so renderizar o componente
   // const sutLogin = render(
@@ -131,7 +131,7 @@ const makeSutLogin = (
       <Login
         validation={validationSpy}
         authentication={authenticationSpy}
-        saveAccessToken={saveAccessTokenMock}
+        updateCurrentAccount={updateCurrentAccountMock}
       />
     </Router>
   )
@@ -143,7 +143,7 @@ const makeSutLogin = (
     validationSpy,
     authenticationSpy,
     getByTestId,
-    saveAccessTokenMock
+    updateCurrentAccountMock
   }
 }
 
@@ -417,15 +417,14 @@ describe('Login Component', () => {
     Helper.testElementChildCount(getByTestId, 'error-wrap', 1)
   })
   test('Should call SaveAccessToken on success', async () => {
-    const { sutLogin, authenticationSpy, saveAccessTokenMock } = makeSutLogin({
-      validationError: false
-    })
+    const { sutLogin, authenticationSpy, updateCurrentAccountMock } =
+      makeSutLogin({
+        validationError: false
+      })
 
     await simulateValidSubmit(sutLogin)
 
-    expect(saveAccessTokenMock.accessToken).toBe(
-      authenticationSpy.account.accessToken
-    )
+    expect(updateCurrentAccountMock.account).toEqual(authenticationSpy.account)
 
     // Verifica se estamos no /, porque o navigate(form-login) vai para / apos dar tudo certo no auth
     expect(history.location.pathname).toBe(
@@ -435,7 +434,7 @@ describe('Login Component', () => {
   })
 
   test('Should present error if SaveAccessToken fails', async () => {
-    const { sutLogin, getByTestId, saveAccessTokenMock } = makeSutLogin({
+    const { sutLogin, getByTestId, updateCurrentAccountMock } = makeSutLogin({
       validationError: false
     })
 
@@ -443,7 +442,8 @@ describe('Login Component', () => {
 
     // Mockando o retorno do saveAccessToken para ser um erro
     jest
-      .spyOn(saveAccessTokenMock, 'save')
+      // .spyOn(saveAccessTokenMock, 'save')
+      .spyOn(updateCurrentAccountMock, 'save')
       // .mockReturnValue(Promise.reject(error))
       .mockRejectedValueOnce(error)
     // jest.spyOn(saveAccessTokenMock, 'save').mockImplementationOnce(async () => {
