@@ -114,7 +114,7 @@ describe('SignUp', () => {
     FormHelper.testUrl(ConfigRoute.fourDev.signup.path)
   })
 
-  it('Should present UnexpectedError if invalid data if returned', () => {
+  it('Should present UnexpectedError if invalid data is returned', () => {
     Http.mockOkInvalidData()
     simulateValidSubmit()
 
@@ -125,7 +125,7 @@ describe('SignUp', () => {
     FormHelper.testUrl(ConfigRoute.fourDev.signup.path)
   })
 
-  it('Should present save accessToken if valid credentials are provided', () => {
+  it('Should present account on localStorage if valid credentials are provided', () => {
     Http.mockOk()
 
     simulateValidSubmit()

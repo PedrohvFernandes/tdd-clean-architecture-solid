@@ -9,16 +9,15 @@ import {
   // createMemoryRouter
 } from 'react-router-dom'
 
+import { ApiContext } from '../../contexts/api/api-context'
 import { Login } from './login'
 
 import { ConfigRoute } from '@/config/index'
-import {
-  InvalidCredentialsError,
-  InvalidSaveAccessToken
-} from '@/domain/errors'
+import { InvalidCredentialsError } from '@/domain/errors'
+import { AccountModel } from '@/domain/models'
 import {
   Helper,
-  UpdateCurrentAccountMock,
+  // UpdateCurrentAccountMock,
   AuthenticationSpy,
   ValidationSpy
 } from '@/presentation/test'
@@ -44,7 +43,7 @@ type SutLoginTypesReturn = {
     id: Matcher,
     options?: MatcherOptions | undefined
   ) => HTMLElement
-  updateCurrentAccountMock: UpdateCurrentAccountMock
+  setCurrentAccountMock: (account: AccountModel) => void
 }
 
 type SutLoginParams = {
@@ -76,7 +75,7 @@ const makeSutLogin = (
 
   const authenticationSpy = new AuthenticationSpy()
 
-  const updateCurrentAccountMock = new UpdateCurrentAccountMock()
+  const setCurrentAccountMock = jest.fn()
 
   // Antes quando não íamos para outra tela, era so renderizar o componente
   // const sutLogin = render(
@@ -127,13 +126,15 @@ const makeSutLogin = (
 
   // Então resolvi fazer assim. usando o history da lib history https://stackoverflow.com/questions/73364590/react-router-and-creatememoryhistory-in-test-property-location-does-not-exist
   const sutLogin = render(
-    <Router location={history.location} navigator={history}>
-      <Login
-        validation={validationSpy}
-        authentication={authenticationSpy}
-        updateCurrentAccount={updateCurrentAccountMock}
-      />
-    </Router>
+    <ApiContext.Provider
+      value={{
+        setCurrentAccount: setCurrentAccountMock
+      }}
+    >
+      <Router location={history.location} navigator={history}>
+        <Login validation={validationSpy} authentication={authenticationSpy} />
+      </Router>
+    </ApiContext.Provider>
   )
 
   const { getByTestId } = sutLogin
@@ -143,7 +144,7 @@ const makeSutLogin = (
     validationSpy,
     authenticationSpy,
     getByTestId,
-    updateCurrentAccountMock
+    setCurrentAccountMock
   }
 }
 
@@ -416,46 +417,25 @@ describe('Login Component', () => {
     // expect(errorWrap.childElementCount).toBe(1)
     Helper.testElementChildCount(getByTestId, 'error-wrap', 1)
   })
-  test('Should call SaveAccessToken on success', async () => {
-    const { sutLogin, authenticationSpy, updateCurrentAccountMock } =
-      makeSutLogin({
+  test('Should call CurrentCalledWith on success', async () => {
+    const { sutLogin, authenticationSpy, setCurrentAccountMock } = makeSutLogin(
+      {
         validationError: false
-      })
+      }
+    )
 
     await simulateValidSubmit(sutLogin)
 
-    expect(updateCurrentAccountMock.account).toEqual(authenticationSpy.account)
+    // A gente espera que o setCurrentAccountMock seja chamado com o account que vem do authenticationSpy.account
+    expect(setCurrentAccountMock).toHaveBeenCalledWith(
+      authenticationSpy.account
+    )
 
     // Verifica se estamos no /, porque o navigate(form-login) vai para / apos dar tudo certo no auth
     expect(history.location.pathname).toBe(
       ConfigRoute.fourDev.default.source.path
     )
     expect(countQuantityRoute({}).quantityRoutes).toBe(1)
-  })
-
-  test('Should present error if SaveAccessToken fails', async () => {
-    const { sutLogin, getByTestId, updateCurrentAccountMock } = makeSutLogin({
-      validationError: false
-    })
-
-    const error = new InvalidSaveAccessToken()
-
-    // Mockando o retorno do saveAccessToken para ser um erro
-    jest
-      // .spyOn(saveAccessTokenMock, 'save')
-      .spyOn(updateCurrentAccountMock, 'save')
-      // .mockReturnValue(Promise.reject(error))
-      .mockRejectedValueOnce(error)
-    // jest.spyOn(saveAccessTokenMock, 'save').mockImplementationOnce(async () => {
-    //   throw await Promise.reject(error)
-    // })
-
-    await simulateValidSubmit(sutLogin)
-
-    await waitFor(() => getByTestId('main-error'))
-
-    Helper.testElementText(getByTestId, 'main-error', error.message)
-    Helper.testElementChildCount(getByTestId, 'error-wrap', 1)
   })
 
   test('Should go to signup page', async () => {

@@ -25,6 +25,10 @@ export const mockOkInvalidData = (): void =>
   Helper.mockOk(
     /login/,
     'POST',
-    { invalidProperty: faker.string.uuid() },
+    {
+      invalidProperty: faker.string.uuid(),
+
+      invalidProperty2: faker.internet.displayName()
+    },
     'request'
   )

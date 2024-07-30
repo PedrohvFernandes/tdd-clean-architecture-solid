@@ -111,7 +111,7 @@ describe('Login', () => {
     FormHelper.testUrl(ConfigRoute.fourDev.login.path)
   })
 
-  it('Should present UnexpectedError if invalid data if returned', () => {
+  it('Should present UnexpectedError if invalid data is returned', () => {
     // Moca a requisição para o login
     Http.mockOkInvalidData()
     simulateValidSubmit()
@@ -126,7 +126,7 @@ describe('Login', () => {
   })
 
   // Aqui para testar precisa ter um backend rodando, porque ele vai fazer uma requisição para o backend. Pode ser o back local. Lembrando que a url da API fica no arquivo factories>http>api-url-factory.ts Ou pode fazer um Trade-off e discutir se faz ou não um mock aqui no cypress para retornar um valor fixo da API  para so testar o fluxo, evitando a dependência do backend, se a Api estiver fora do ar, o teste vai  passar.
-  it('Should present save accessToken if valid credentials are provided', () => {
+  it('Should present account on localStorage if valid credentials are provided', () => {
     // Moca a requisição para o login
     Http.mockOk()
 

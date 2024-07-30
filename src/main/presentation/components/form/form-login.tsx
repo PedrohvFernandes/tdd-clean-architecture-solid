@@ -4,19 +4,20 @@ import { useNavigate } from 'react-router-dom'
 import { FormDefault } from './'
 
 import { ConfigRoute } from '@/config/index'
-import { Authentication, UpdateCurrentAccount } from '@/domain/usecases'
+import { Authentication } from '@/domain/usecases'
 import { useHookErrorState, useHookForm } from '@/main/hooks'
+import { useHookApi } from '@/main/hooks/use-hook-api-context'
 
 interface IFormLoginProps extends React.HTMLAttributes<HTMLFormElement> {
   authentication: Authentication
-  updateCurrentAccount: UpdateCurrentAccount
 }
 
 export function FormLogin({
   authentication,
-  updateCurrentAccount,
   ...props
 }: Readonly<IFormLoginProps>) {
+  const { setCurrentAccount } = useHookApi()
+
   const { setIsLoading, isLoading, email, password } = useHookForm()
   const { emailError, passwordError, setErrorMessageMain } = useHookErrorState()
   const navigate = useNavigate()
@@ -40,7 +41,10 @@ export function FormLogin({
       // Depois de implementar o saveAccessToken do domain no data, e no infra implementar a interface do data para escolher a lib que vai usar a implementação do data e injetar no componente via login.spec e MakeLogin, podemos usar ele aqui para salvar o token de acesso
       // await saveAccessToken.save(account.accessToken)
 
-      await updateCurrentAccount.save(account)
+      // await updateCurrentAccount.save(account)
+
+      // No fim deletamos o useCase de salvar somente o token(saveAccessToken), depois passamos para salvar o account: token e nome(updateCurrentAccount). Porque esse useCase updaterCurrentAccount e saveAccessToken era so um quebra galho para salvar a conta do user. Colocamos agora em um contexto, envolta do Route em App.tsx para que toda a aplicação tenha o token e o name, ao invés de ter que passar como dependência para todos os componentes que precisam do token e do name, mas que no fim faz a mesma coisa, salva o token e o name do user. Era passado como dependência pro login vindo do factories>page e do login.spec vindo de um mock Spy e do login pra esse forms.
+      setCurrentAccount(account)
       navigate(ConfigRoute.fourDev.default.source.path)
     } catch (error) {
       // const e = error as Error

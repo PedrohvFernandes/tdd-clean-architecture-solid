@@ -1,18 +1,12 @@
 import { Router } from 'react-router-dom'
 
+import { ApiContext } from '../../contexts/api/api-context'
 import { SignUp } from './signup'
 
 import { ConfigRoute } from '@/config/index'
-import {
-  InvalidCredentialsError,
-  InvalidSaveAccessToken
-} from '@/domain/errors'
-import {
-  Helper,
-  ValidationSpy,
-  AddAccountSpy,
-  UpdateCurrentAccountMock
-} from '@/presentation/test'
+import { InvalidCredentialsError } from '@/domain/errors'
+import { AccountModel } from '@/domain/models'
+import { Helper, ValidationSpy, AddAccountSpy } from '@/presentation/test'
 import { countQuantityRoute } from '@/utils/create-memory-history'
 import { faker } from '@faker-js/faker'
 import {
@@ -34,7 +28,7 @@ type SutSignUpTypesReturn = {
     options?: MatcherOptions | undefined
   ) => HTMLElement
   addAccountSpy: AddAccountSpy
-  updateCurrentAccountMock: UpdateCurrentAccountMock
+  setCurrentAccountMock: (account: AccountModel) => void
 }
 
 type SutSignUpParams = {
@@ -63,16 +57,18 @@ const makeSutSignUp = (
 
   const addAccountSpy = new AddAccountSpy()
 
-  const updateCurrentAccountMock = new UpdateCurrentAccountMock()
+  const setCurrentAccountMock = jest.fn()
 
   const sutSignUp = render(
-    <Router location={history.location} navigator={history}>
-      <SignUp
-        validation={validationSpy}
-        addAccount={addAccountSpy}
-        updateCurrentAccount={updateCurrentAccountMock}
-      />
-    </Router>
+    <ApiContext.Provider
+      value={{
+        setCurrentAccount: setCurrentAccountMock
+      }}
+    >
+      <Router location={history.location} navigator={history}>
+        <SignUp validation={validationSpy} addAccount={addAccountSpy} />
+      </Router>
+    </ApiContext.Provider>
   )
 
   const { getByTestId } = sutSignUp
@@ -82,7 +78,7 @@ const makeSutSignUp = (
     getByTestId,
     validationSpy,
     addAccountSpy,
-    updateCurrentAccountMock
+    setCurrentAccountMock
   }
 }
 
@@ -274,37 +270,19 @@ describe('SignUp Component', () => {
     Helper.testElementChildCount(getByTestId, 'error-wrap', 1)
   })
 
-  test('Should call SaveAccessToken on success', async () => {
-    const { sutSignUp, addAccountSpy, updateCurrentAccountMock } =
-      makeSutSignUp({
-        validationError: false
-      })
+  test('Should call CurrentCalledWith  on success', async () => {
+    const { sutSignUp, addAccountSpy, setCurrentAccountMock } = makeSutSignUp({
+      validationError: false
+    })
 
     await simulateValidSubmit(sutSignUp)
 
-    expect(updateCurrentAccountMock.account).toEqual(addAccountSpy.account)
+    expect(setCurrentAccountMock).toHaveBeenCalledWith(addAccountSpy.account)
 
     expect(history.location.pathname).toBe(
       ConfigRoute.fourDev.default.source.path
     )
     expect(countQuantityRoute({}).quantityRoutes).toBe(1)
-  })
-
-  test('Should present error if SaveAccessToken fails', async () => {
-    const { sutSignUp, getByTestId, updateCurrentAccountMock } = makeSutSignUp({
-      validationError: false
-    })
-
-    const error = new InvalidSaveAccessToken()
-
-    jest.spyOn(updateCurrentAccountMock, 'save').mockRejectedValueOnce(error)
-
-    await simulateValidSubmit(sutSignUp)
-
-    await waitFor(() => getByTestId('main-error'))
-
-    Helper.testElementText(getByTestId, 'main-error', error.message)
-    Helper.testElementChildCount(getByTestId, 'error-wrap', 1)
   })
 
   test('Should go to login page', async () => {

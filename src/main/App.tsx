@@ -1,7 +1,13 @@
 import { RouterProvider } from 'react-router-dom'
 
+import { ApiContextProvider } from './presentation/contexts/api/api-context'
+
 import { Router } from './routes'
 
 export function App() {
-  return <RouterProvider router={Router} />
+  return (
+    <ApiContextProvider>
+      <RouterProvider router={Router} />
+    </ApiContextProvider>
+  )
 }

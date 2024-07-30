@@ -42,7 +42,8 @@ export const mockOk = (
 ): void => {
   cy.intercept(method, url, {
     statusCode: 200,
-    body,
+    body, // corpo do retorno
     delay
   }).as(aliasRequest) // Alias(apelido) para a requisição
+  console.log(body)
 }

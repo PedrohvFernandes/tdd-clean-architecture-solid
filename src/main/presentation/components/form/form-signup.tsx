@@ -4,19 +4,17 @@ import { useNavigate } from 'react-router-dom'
 import { FormDefault } from './'
 
 import { ConfigRoute } from '@/config/index'
-import { AddAccount, UpdateCurrentAccount } from '@/domain/usecases'
+import { AddAccount } from '@/domain/usecases'
 import { useHookErrorState, useHookForm } from '@/main/hooks'
+import { useHookApi } from '@/main/hooks/use-hook-api-context'
 
 interface IFormSignUpProps extends React.HTMLAttributes<HTMLFormElement> {
   addAccount: AddAccount
-  updateCurrentAccount: UpdateCurrentAccount
 }
 
-export function FormSignUp({
-  addAccount,
-  updateCurrentAccount,
-  ...rest
-}: IFormSignUpProps) {
+export function FormSignUp({ addAccount, ...rest }: IFormSignUpProps) {
+  const { setCurrentAccount } = useHookApi()
+
   const {
     setIsLoading,
     isLoading,
@@ -47,7 +45,7 @@ export function FormSignUp({
         password,
         passwordConfirmation
       })
-      await updateCurrentAccount.save(account)
+      setCurrentAccount(account)
       navigate(ConfigRoute.fourDev.default.source.path)
     } catch (error) {
       setErrorMessageMain(

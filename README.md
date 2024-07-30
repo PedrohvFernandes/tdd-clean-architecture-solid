@@ -695,6 +695,8 @@
 
   #### 2. Migrando o Router para o Main Layer
 
+  #### 3. Criando um contexto para a aplicação
+
   ## Tecnologias:
   - Vite
   - React

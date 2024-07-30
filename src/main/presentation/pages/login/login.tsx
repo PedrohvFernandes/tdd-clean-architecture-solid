@@ -8,29 +8,20 @@ import { InputFormLogin } from '@/components/inputs'
 import { ConfigRoute } from '@/config/index'
 import { ErrorStateContextProvider } from '@/contexts/form/error-state-context'
 import { FormContextProvider } from '@/contexts/form/form-context'
-import { Authentication, UpdateCurrentAccount } from '@/domain/usecases'
+import { Authentication } from '@/domain/usecases'
 import { Validation } from '@/protocols/validation'
 
 type IPropsLogin = {
   validation: Validation
   authentication: Authentication
-  updateCurrentAccount: UpdateCurrentAccount
 }
 
-export function Login({
-  validation,
-  authentication,
-  updateCurrentAccount
-}: Readonly<IPropsLogin>) {
+export function Login({ validation, authentication }: Readonly<IPropsLogin>) {
   return (
     <FormContextProvider>
       <ErrorStateContextProvider>
-        {/* Assim como no input passamos o validation, aqui passamos o authentication que atualmente esta vindo dos testes como um AuthenticationSpy. em Login.spec > <Login validation={validationSpy} authentication={authenticationSpy} /> > <FormLogin/> e do MakeLogin */}
-        <FormLogin
-          authentication={authentication}
-          // saveAccessToken={saveAccessToken}
-          updateCurrentAccount={updateCurrentAccount}
-        >
+        {/* Assim como no input passamos o validation, aqui passamos o authentication que atualmente esta vindo dos testes como um AuthenticationSpy. em Login.spec > <Login validation={validationSpy} authentication={authenticationSpy} /> > <FormLogin/> e vem também do MakeLogin */}
+        <FormLogin authentication={authentication}>
           <h2 className="text-primary-DARK text-xl uppercase font-bold tracking-wider">
             Login
           </h2>

@@ -8,27 +8,19 @@ import { InputFormSignUp } from '@/components/inputs'
 import { ConfigRoute } from '@/config/index'
 import { ErrorStateContextProvider } from '@/contexts/form/error-state-context'
 import { FormContextProvider } from '@/contexts/form/form-context'
-import { AddAccount, UpdateCurrentAccount } from '@/domain/usecases'
+import { AddAccount } from '@/domain/usecases'
 import { Validation } from '@/protocols/validation'
 
 type IPropsLogin = {
   validation: Validation
   addAccount: AddAccount
-  updateCurrentAccount: UpdateCurrentAccount
 }
 
-export function SignUp({
-  validation,
-  addAccount,
-  updateCurrentAccount
-}: IPropsLogin) {
+export function SignUp({ validation, addAccount }: IPropsLogin) {
   return (
     <FormContextProvider>
       <ErrorStateContextProvider>
-        <FormSignUp
-          addAccount={addAccount}
-          updateCurrentAccount={updateCurrentAccount}
-        >
+        <FormSignUp addAccount={addAccount}>
           <h2 className="text-primary-DARK text-xl uppercase font-bold tracking-wider">
             Criar conta
           </h2>
