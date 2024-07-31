@@ -5,6 +5,7 @@ import { setCurrentAccountAdapter } from '@/main/adapters/current-account-adapte
 
 export interface IApiContextType {
   setCurrentAccount: (account: AccountModel) => void
+  getCurrentAccount?: () => AccountModel
 }
 
 export const ApiContext = createContext<IApiContextType>({} as IApiContextType)

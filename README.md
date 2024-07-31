@@ -699,6 +699,8 @@
 
   #### 4. Adicionando testes ao CurrentAccountAdapter
 
+  #### 5. Aplicando o Design Pattern Proxy(privet rotes)
+
   ## Tecnologias:
   - Vite
   - React
