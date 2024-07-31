@@ -697,6 +697,8 @@
 
   #### 3. Criando um contexto para a aplicação
 
+  #### 4. Adicionando testes ao CurrentAccountAdapter
+
   ## Tecnologias:
   - Vite
   - React

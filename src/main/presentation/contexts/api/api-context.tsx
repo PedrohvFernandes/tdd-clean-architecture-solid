@@ -1,8 +1,7 @@
 import { ReactNode, createContext } from 'react'
 
-import { UnexpectedError } from '@/domain/errors'
 import { AccountModel } from '@/domain/models'
-import { makeLocalStorageAdapter } from '@/main/factories/cache/local-storage-adapter-factory'
+import { setCurrentAccountAdapter } from '@/main/adapters/current-account-adapter'
 
 export interface IApiContextType {
   setCurrentAccount: (account: AccountModel) => void
@@ -15,14 +14,6 @@ interface IApiProviderProps {
 }
 
 export const ApiContextProvider = ({ children }: IApiProviderProps) => {
-  const setCurrentAccountAdapter = (account: AccountModel): void => {
-    if (!account || !account.accessToken) {
-      throw new UnexpectedError()
-    }
-
-    makeLocalStorageAdapter().set('account', account)
-  }
-
   return (
     <ApiContext.Provider
       value={{
