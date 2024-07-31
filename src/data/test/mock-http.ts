@@ -18,9 +18,9 @@ import { faker } from '@faker-js/faker'
 // const mockPostRequest = (): HttpPostParams<any> => ({
 const mockPostRequest = (): HttpPostParams => ({
   url: faker.internet.url(),
-  body: faker.helpers.objectEntry({
-    key: faker.string.uuid()
-  })
+  body: {
+    randomProperty: faker.string.uuid()
+  }
 })
 
 const mockGetRequest = (): HttpGetParams => ({
