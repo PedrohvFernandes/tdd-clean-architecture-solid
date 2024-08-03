@@ -15,6 +15,7 @@ import { Login } from './login'
 import { ConfigRoute } from '@/config/index'
 import { InvalidCredentialsError } from '@/domain/errors'
 import { AccountModel } from '@/domain/models'
+import { mockAccountModel } from '@/domain/test'
 import {
   Helper,
   // UpdateCurrentAccountMock,
@@ -128,7 +129,8 @@ const makeSutLogin = (
   const sutLogin = render(
     <ApiContext.Provider
       value={{
-        setCurrentAccount: setCurrentAccountMock
+        setCurrentAccount: setCurrentAccountMock,
+        getCurrentAccount: () => mockAccountModel() // Por padrão ele sempre vai ter um account, mas não iremos precisar dele aqui
       }}
     >
       <Router location={history.location} navigator={history}>

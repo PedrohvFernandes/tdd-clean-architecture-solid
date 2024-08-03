@@ -6,6 +6,7 @@ import { SignUp } from './signup'
 import { ConfigRoute } from '@/config/index'
 import { InvalidCredentialsError } from '@/domain/errors'
 import { AccountModel } from '@/domain/models'
+import { mockAccountModel } from '@/domain/test'
 import { Helper, ValidationSpy, AddAccountSpy } from '@/presentation/test'
 import { countQuantityRoute } from '@/utils/create-memory-history'
 import { faker } from '@faker-js/faker'
@@ -62,6 +63,7 @@ const makeSutSignUp = (
   const sutSignUp = render(
     <ApiContext.Provider
       value={{
+        getCurrentAccount: () => mockAccountModel(), // Por padrão ele sempre vai ter um account, mas não iremos precisar dele aqui
         setCurrentAccount: setCurrentAccountMock
       }}
     >
