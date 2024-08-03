@@ -1,4 +1,7 @@
-import { setCurrentAccountAdapter } from './current-account-adapter'
+import {
+  getCurrentAccountAdapter,
+  setCurrentAccountAdapter
+} from './current-account-adapter'
 
 import { UnexpectedError } from '@/domain/errors'
 import { mockAccountModel } from '@/domain/test'
@@ -8,7 +11,7 @@ import { LocalStorageAdapter } from '@/infra/cache/local-storage-adapter'
 jest.mock('@/infra/cache/local-storage-adapter')
 
 describe('CurrentAccountAdapter', () => {
-  test('Sould call LocalStorageAdapter with correct values', () => {
+  test('Should call LocalStorageAdapter.set with correct values', () => {
     const account = mockAccountModel()
 
     // Estamos espionando o método set do LocalStorageAdapter. No caso a instancia do LocalStorageAdapter que é criada no setCurrentAccountAdapter. Lembrando que a ordem importa, preciso colocar esse spy antes de chamar o método setCurrentAccountAdapter
@@ -27,5 +30,18 @@ describe('CurrentAccountAdapter', () => {
     expect(() => {
       setCurrentAccountAdapter(undefined as any)
     }).toThrow(new UnexpectedError())
+  })
+
+  test('Should call LocalStorageAdapter.get with correct value', () => {
+    const account = mockAccountModel()
+
+    const getSpy = jest
+      .spyOn(LocalStorageAdapter.prototype, 'get')
+      .mockReturnValueOnce(account)
+
+    const result = getCurrentAccountAdapter()
+
+    expect(getSpy).toHaveBeenCalledWith('account')
+    expect(result).toEqual(account)
   })
 })

@@ -47,9 +47,7 @@ describe('LocalStorageAdapter', () => {
       name: faker.internet.userName()
     } as AccountModel
 
-    sut.set(key, value)
-
-    // Dentro do localStorage temos o getItem que é uma função que recebe uma chave e retorna o valor que está salvo naquela chave, então estamos mockando essa função para que ela retorne o valor que passamos, assim podemos testar se o valor que passamos é o mesmo que ele retorna
+    // Dentro do localStorage temos o getItem que é uma função que recebe uma chave e retorna o valor que está salvo naquela chave, então estamos mockando essa função para que ela retorne o valor que passamos, assim podemos testar se o valor que passamos é o mesmo que ele retorna. Esse mock retorna o valor que passamos pro metodo getItem do localStorage
     const getItemSpy = jest
       .spyOn(localStorage, 'getItem')
       .mockReturnValueOnce(JSON.stringify(value))
