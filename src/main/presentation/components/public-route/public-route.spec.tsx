@@ -1,11 +1,11 @@
 import { Outlet, Route, Router, Routes } from 'react-router-dom'
 
 import { ApiContext } from '../../contexts/api/api-context'
-import { SurveyList } from '../../pages/survey-list/survey-list'
-import { PrivateRoute } from './private-route'
+import { PublicRoute } from './public-route'
 
 import { ConfigRoute } from '@/config/index'
 import { mockAccountModel } from '@/domain/test'
+import { MakeLogin } from '@/main/factories/pages/login/login-factory'
 import { countQuantityRoute } from '@/utils/create-memory-history'
 import { render } from '@testing-library/react'
 import { createMemoryHistory, MemoryHistory } from 'history'
@@ -16,7 +16,7 @@ type SutTypes = {
 
 const makeSut = (account = mockAccountModel()): SutTypes => {
   const history = createMemoryHistory({
-    initialEntries: [ConfigRoute.fourDev.surveyList.path] // Ponto de partida /survey-list
+    initialEntries: [ConfigRoute.fourDev.login.path] // Ponto de partida /login
   })
 
   // Adicionar um listener para atualizar a lista de rotas visitadas sempre que a localização do histórico mudar
@@ -35,18 +35,17 @@ const makeSut = (account = mockAccountModel()): SutTypes => {
     >
       <Router location={history.location} navigator={history}>
         <Routes>
-          {/* Aqui é tipo o arquivo routes.tsx nesse caso esse route aqui é o pai e os routes abaixo dele filho. Para cada rota privada fazemos isso. No do professor passamos direto o PrivateRoute e nele o caminho. No fim da no mesmo. O que acontece aqui é que a rota usada aqui,. agora é previda, ao fazer isso validamos se o usuario tem ou não o token, se tiver ele libera o Route de baixo, porque dentro do PrivateRoute ocorre essa verificação e dentro dele o children para receber um componente de default com header, footer... e com o componente <Outlet/> que pega o componente da rota que ele está. Aqui no teste so passamos o <Outlet/> que ja é necessario. Caso se o nosso private route ja tivesse um <Outlet/> bastava somente passar a tag junto com a de fechamento aqui -->  <PrivateRoute />  */}
           <Route
-            path={ConfigRoute.fourDev.default.source.path}
+            path={ConfigRoute.fourDev.login.path}
             element={
-              <PrivateRoute>
+              <PublicRoute>
                 <Outlet />
-              </PrivateRoute>
+              </PublicRoute>
             }
           >
             <Route
-              path={ConfigRoute.fourDev.surveyList.path}
-              element={<SurveyList />}
+              path={ConfigRoute.fourDev.login.path}
+              element={<MakeLogin />}
             />
           </Route>
         </Routes>

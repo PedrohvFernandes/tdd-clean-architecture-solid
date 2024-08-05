@@ -7,18 +7,19 @@ import {
 import { ConfigRoute } from '@/config/index'
 import { useHookApi } from '@/main/hooks/use-hook-api-context'
 
-interface IPrivateRouteProps {
+interface IPublicRouteProps {
   children: ReactNode
 }
-
-export const PrivateRoute = ({ children }: IPrivateRouteProps) => {
+export const PublicRoute = ({ children }: IPublicRouteProps) => {
   const { getCurrentAccount } = useHookApi()
 
   if (!getCurrentAccount() || !getCurrentAccount().accessToken) {
-    return <Navigate to={ConfigRoute.fourDev.login.path} />
+    return children
   }
 
-  return children
+  if (getCurrentAccount().accessToken) {
+    return <Navigate to={ConfigRoute.fourDev.surveyList.path} />
+  }
 }
 
 // /* eslint-disable prettier/prettier */

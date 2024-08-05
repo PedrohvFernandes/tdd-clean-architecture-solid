@@ -33,8 +33,15 @@ module.exports = {
         astTransformers: {
           before: [
             {
-              path: 'node_modules/ts-jest-mock-import-meta', // or, alternatively, 'ts-jest-mock-import-meta' directly, without node_modules.
-              options: { metaObjectReplacement: { url: 'https://www.url.com' } }
+              path: 'node_modules/ts-jest-mock-import-meta',
+              options: {
+                metaObjectReplacement: {
+                  env: {
+                    // Replicate as .env.local
+                    VITE_API: 'http://localhost:3001'
+                  }
+                }
+              }
             }
           ]
         }
