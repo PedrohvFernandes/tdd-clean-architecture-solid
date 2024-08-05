@@ -1,4 +1,6 @@
 module.exports = {
+  // Dessa forma agora os nossos tem acesso ao jest setup, podendo acessar os metodos de extensão do jest, como por exemplo: toBeDisabled, toHaveTextContent, toHaveAttribute, toHaveAttribute, toHaveProperty...  de algum elemento usando o ResultRender(que pegava o resultando o metodo render nos testes que chamavamos de SUT), o getByTestId, screen... mas ao usar o screen ele sabe qual tela estamos testando screen.getByTestId, em vez de sut.getByTestId que vinha do metodo render. Não deixamos de usar o render, mesmo usando o screen, porque ele é necessario para que o screen saiba qual tela estamos testando, só não pegamos mais o resultado do render e passamos como sut para os testes do arquivo de test, pegamos o screen diretamente.
+  setupFilesAfterEnv: ['<rootDir>/src/config/jest-setup.ts'],
   // Diretório raiz dos arquivos de teste, logo o rootDir é a pasta src, se não colocar, o rootDir é a pasta raiz do projeto
   // rootDir: './src',
   // roots: ['<rootDir>'],

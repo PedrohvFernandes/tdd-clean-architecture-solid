@@ -13,14 +13,15 @@ export const populateField = (
 
 // Helper 6
 export const testElementExist = (fieldName: string): void => {
-  const el = screen.getByTestId(fieldName)
-  expect(el).toBeTruthy()
+  // o QUERY é para não dar erro caso não encontre o elemento, para não quebrar o teste, ele só vai retornar null. o Query é justamente para olhar se o elemento existe ou não no DOM
+  const el = screen.queryByTestId(fieldName)
+  expect(el).toBeInTheDocument()
 }
 
 // Helper 7
 export const testElementText = (fieldName: string, text: string): void => {
   const el = screen.getByTestId(fieldName)
-  expect(el.textContent).toBe(text)
+  expect(el).toHaveTextContent(text)
 }
 
 // Helper 5
@@ -30,15 +31,15 @@ export const testElementChildCount = (
 ): void => {
   // por exemplo: Em form status data-testid="error-wrap"
   const el = screen.getByTestId(fieldName)
-  expect(el.childElementCount).toBe(count)
+  expect(el.children).toHaveLength(count)
 }
 
 export const testButtonIsDisabled = (
   fieldName: string,
   isDisabled: boolean
 ): void => {
-  const button = screen.getByTestId(fieldName) as HTMLButtonElement
-  expect(button.disabled).toBe(isDisabled)
+  const button = screen.getByTestId(fieldName)
+  isDisabled ? expect(button).toBeDisabled() : expect(button).toBeEnabled()
 }
 
 export const testStatusForField = (
@@ -49,14 +50,17 @@ export const testStatusForField = (
   const field = screen.getByTestId(fieldName)
   const label = screen.getByTestId(`${fieldName}-label`)
 
-  expect(wrap.getAttribute('data-status')).toBe(
+  expect(wrap).toHaveAttribute(
+    'data-status',
     validationErrorMessage ? 'invalid' : 'valid'
   )
-  expect(field.title).toBe(
+  expect(field).toHaveProperty(
+    'title',
     validationErrorMessage ? `${validationErrorMessage} 🔴` : 'Tudo Certo! 🟢'
   )
 
-  expect(label.title).toBe(
+  expect(label).toHaveProperty(
+    'title',
     validationErrorMessage ? `${validationErrorMessage} 🔴` : 'Tudo Certo! 🟢'
   )
 }
