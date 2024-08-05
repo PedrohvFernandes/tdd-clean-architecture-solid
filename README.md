@@ -701,6 +701,8 @@
 
   #### 5. Aplicando o Design Pattern Proxy(privet routes)
 
+  #### 6. Adotando melhores práticas no Testing Library
+
   ## Tecnologias:
   - Vite
   - React
