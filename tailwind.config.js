@@ -57,7 +57,7 @@ export default {
         ldsEllipsis1: 'ldsEllipsis1 0.6s infinite',
         ldsEllipsis2: 'ldsEllipsis2 0.6s infinite',
         ldsEllipsis3: 'ldsEllipsis3 0.6s infinite',
-        shimmer: 'shimmer 1.2s infinite'
+        shimmer: 'shimmer 1s infinite'
       },
       boxShadow: {
         shape:
