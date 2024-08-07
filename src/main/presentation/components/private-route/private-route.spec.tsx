@@ -2,6 +2,7 @@ import { Outlet, Route, Router, Routes } from 'react-router-dom'
 
 import { ApiContext } from '../../contexts/api/api-context'
 import { SurveyList } from '../../pages/survey-list/survey-list'
+import { LoadSurveyListSpy } from '../../pages/survey-list/survey-list.spec'
 import { PrivateRoute } from './private-route'
 
 import { ConfigRoute } from '@/config/index'
@@ -46,7 +47,7 @@ const makeSut = (account = mockAccountModel()): SutTypes => {
           >
             <Route
               path={ConfigRoute.fourDev.surveyList.path}
-              element={<SurveyList />}
+              element={<SurveyList loadSurveyList={new LoadSurveyListSpy()} />}
             />
           </Route>
         </Routes>
