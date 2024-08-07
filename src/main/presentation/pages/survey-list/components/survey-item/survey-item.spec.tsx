@@ -5,14 +5,19 @@ import { SurveyItem } from './survey-item'
 import { mockSurveyModel } from '@/domain/test'
 import { render, screen } from '@testing-library/react'
 
+const makeSut = (survey = mockSurveyModel()): void => {
+  render(<SurveyItem survey={survey} />)
+}
+
 describe('SurveyItem Component', () => {
   test('Should present correct values', async () => {
-    const survey = mockSurveyModel()
-    survey.didAnswer = true // Forçando a resposta para true, se respondido logo o icone será o de thumbs up
+    const survey = Object.assign(mockSurveyModel(), {
+      didAnswer: true, // Forçando a resposta para true, se respondido logo o icone será o de thumbs up
 
-    survey.date = new Date('2021-09-05T00:00:00') // Forçando a data para 05/09/2021
+      date: new Date('2021-09-05T00:00:00') // Forçando a data para 05/09/2021
+    })
+    makeSut(survey)
 
-    render(<SurveyItem survey={survey} />)
     const icon = screen.getByTestId('icon')
     expect(icon).toHaveProperty('src', IconName.THUMBS_UP)
     expect(screen.getByTestId('question')).toHaveTextContent(survey.question)

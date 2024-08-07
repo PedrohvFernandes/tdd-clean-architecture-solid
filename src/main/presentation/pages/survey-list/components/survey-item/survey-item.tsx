@@ -9,6 +9,8 @@ type SurveyItemProps = {
 }
 
 export const SurveyItem = ({ survey }: SurveyItemProps) => {
+  console.log(survey)
+
   const date = {
     day: survey.date.getDate().toString().padStart(2, '0'),
     month: survey.date
