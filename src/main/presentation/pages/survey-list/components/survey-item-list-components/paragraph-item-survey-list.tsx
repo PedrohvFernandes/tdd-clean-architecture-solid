@@ -12,6 +12,7 @@ export const ParagraphItemSurveyList = ({
     <p
       {...props}
       className={twMerge('text-lg m-6 flex-grow', props.className)}
+      data-testid="question"
     />
   )
 }

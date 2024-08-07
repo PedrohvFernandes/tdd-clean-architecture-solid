@@ -22,7 +22,7 @@ export const Icon = ({ iconName, ...props }: IIconProps) => {
         iconName === IconName.THUMBS_DOWN ? 'bg-invalid' : 'bg-valid'
       )}
     >
-      <img className="" src={iconName} />
+      <img src={iconName} data-testid="icon" />
     </div>
   )
 }

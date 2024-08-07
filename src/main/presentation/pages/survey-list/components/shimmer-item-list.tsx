@@ -1,5 +1,5 @@
-import { FooterItemSurveyList } from './item-survey-list/footer-item-survey-list'
-import { ParagraphItemSurveyList } from './item-survey-list/paragraph-item-survey-list'
+import { FooterItemSurveyList } from './survey-item-list-components/footer-item-survey-list'
+import { ParagraphItemSurveyList } from './survey-item-list-components/paragraph-item-survey-list'
 
 export const ShimmerItemList = () => {
   return (
