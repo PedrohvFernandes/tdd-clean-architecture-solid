@@ -1,5 +1,4 @@
-import { ItemSurveyList } from './components/item-survey-list/item-survey-list'
-import { ShimmerItemList } from './components/shimmer-item-list'
+import { ItemSurveyList, ShimmerItemList } from './components'
 
 export function SurveyList() {
   return (

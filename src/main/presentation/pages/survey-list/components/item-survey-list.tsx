@@ -1,7 +1,7 @@
 import { Icon, IconName } from '@/main/presentation/components/icon'
 
-import { FooterItemSurveyList } from './footer-item-survey-list'
-import { ParagraphItemSurveyList } from './paragraph-item-survey-list'
+import { FooterItemSurveyList } from './item-survey-list/footer-item-survey-list'
+import { ParagraphItemSurveyList } from './item-survey-list/paragraph-item-survey-list'
 
 export const ItemSurveyList = () => {
   return (

@@ -703,6 +703,10 @@
 
   #### 6. Adotando melhores práticas no Testing Library
 
+  ### 13. LoadSurveyList - Presentation e Composição
+
+  #### 1. Testando a integração com o LoadSurveyList
+
   ## Tecnologias:
   - Vite
   - React

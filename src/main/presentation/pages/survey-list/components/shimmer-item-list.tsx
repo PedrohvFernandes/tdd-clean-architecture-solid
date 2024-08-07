@@ -12,3 +12,13 @@ export const ShimmerItemList = () => {
     </li>
   )
 }
+
+export const SurveyItemEmpty = () => {
+  return (
+    <>
+      {Array.from({ length: 6 }).map((_, index) => (
+        <ShimmerItemList key={index} />
+      ))}
+    </>
+  )
+}
