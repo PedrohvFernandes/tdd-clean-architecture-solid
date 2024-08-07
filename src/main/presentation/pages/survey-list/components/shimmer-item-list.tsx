@@ -16,7 +16,7 @@ export const ShimmerItemList = () => {
 export const SurveyItemEmpty = () => {
   return (
     <>
-      {Array.from({ length: 6 }).map((_, index) => (
+      {Array.from({ length: 4 }).map((_, index) => (
         <ShimmerItemList key={index} />
       ))}
     </>

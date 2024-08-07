@@ -1,4 +1,4 @@
-import { ItemSurveyList, ShimmerItemList } from './components'
+import { SurveyItemEmpty } from './components'
 
 export function SurveyList() {
   return (
@@ -6,9 +6,11 @@ export function SurveyList() {
       <h2 className="text-primary-DARK text-xl font-bold uppercase">
         Enquetes
       </h2>
-      <ul className="flex flex-wrap justify-between gap-6">
-        <ItemSurveyList />
-        <ShimmerItemList />
+      <ul
+        className="flex flex-wrap justify-between gap-6"
+        data-testid="survey-list"
+      >
+        <SurveyItemEmpty />
       </ul>
     </div>
   )
