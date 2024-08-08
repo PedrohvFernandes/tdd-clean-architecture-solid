@@ -9,8 +9,6 @@ type SurveyItemProps = {
 }
 
 export const SurveyItem = ({ survey }: SurveyItemProps) => {
-  console.log(survey)
-
   const date = {
     day: survey.date.getDate().toString().padStart(2, '0'), // o padStart garante que sempre teremos 2 digitos, e caso não tenha ele preenche com 0. Ex: dia 2 -> 02, dia 12 -> 12
     month: survey.date

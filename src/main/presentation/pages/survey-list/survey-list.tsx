@@ -1,7 +1,9 @@
-import { useEffect } from 'react'
+/* eslint-disable multiline-ternary */
+import { useEffect, useState } from 'react'
 
-import { SurveyItemEmpty } from './components'
+import { SurveyItem, SurveyItemEmpty } from './components'
 
+import { SurveyModel } from '@/domain/models'
 import { LoadSurveyList } from '@/domain/usecases/load-survey-list'
 
 type Props = {
@@ -9,11 +11,14 @@ type Props = {
 }
 
 export function SurveyList({ loadSurveyList }: Props) {
+  const [state, setState] = useState({
+    surveys: [] as SurveyModel[]
+  })
+
   useEffect(() => {
-    ;(async function () {
-      loadSurveyList.loadAll()
-    })()
+    loadSurveyList.loadAll().then((surveys) => setState({ surveys }))
   }, [loadSurveyList])
+
   return (
     <div className="flex flex-col self-center w-full max-w-[800px] flex-grow py-6 px-10 gap-10 bg-disabled-background">
       <h2 className="text-primary-DARK text-xl font-bold uppercase">
@@ -23,7 +28,13 @@ export function SurveyList({ loadSurveyList }: Props) {
         className="flex flex-wrap justify-between gap-6"
         data-testid="survey-list"
       >
-        <SurveyItemEmpty />
+        {state.surveys.length ? (
+          state.surveys.map((survey) => (
+            <SurveyItem key={survey.id} survey={survey} />
+          ))
+        ) : (
+          <SurveyItemEmpty />
+        )}
       </ul>
     </div>
   )
