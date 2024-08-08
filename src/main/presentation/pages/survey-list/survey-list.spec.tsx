@@ -1,5 +1,6 @@
 import { SurveyList } from './survey-list'
 
+import { UnexpectedError } from '@/domain/errors'
 import { SurveyModel } from '@/domain/models'
 import { mockSurveyListModel } from '@/domain/test'
 import { LoadSurveyList } from '@/domain/usecases/load-survey-list'
@@ -18,8 +19,7 @@ type SutTypes = {
   loadSurveyListSpy: LoadSurveyListSpy
 }
 
-const makeSut = (): SutTypes => {
-  const loadSurveyListSpy = new LoadSurveyListSpy()
+const makeSut = (loadSurveyListSpy = new LoadSurveyListSpy()): SutTypes => {
   render(<SurveyList loadSurveyList={loadSurveyListSpy} />)
 
   return {
@@ -33,6 +33,7 @@ describe('SurveyList Component', () => {
     const surveyList = screen.getByTestId('survey-list')
     // li>footer:empty retorna todos os elementos footer que estão vazios dentro de um li
     expect(surveyList.querySelectorAll('li>footer:empty')).toHaveLength(4)
+    expect(screen.queryByTestId('error')).not.toBeInTheDocument()
     // Aqui o teste só finaliza quando o surveyList for renderizado vazio, porque não esperamos a promise do useEffect
     await waitFor(() => surveyList)
   })
@@ -50,6 +51,27 @@ describe('SurveyList Component', () => {
     // Espera até que o surveyList tenha sido renderizado, esperando que ele tenha 10 li, depois de concluir a promise do useEffect, por isso o await no waitFor antes do expect, pois aguardamos a promise do useEffect
     await waitFor(() => surveyList)
 
-    expect(surveyList.querySelectorAll('li')).toHaveLength(10)
+    expect(surveyList.querySelectorAll('li')).toHaveLength(4)
+    expect(screen.queryByTestId('error')).not.toBeInTheDocument()
+  })
+
+  test('Should render error on failure', async () => {
+    const loadSurveyListSpy = new LoadSurveyListSpy()
+
+    const errorMessage = new UnexpectedError()
+
+    // Mockando o loadAll para retornar um erro
+    jest.spyOn(loadSurveyListSpy, 'loadAll').mockRejectedValueOnce(errorMessage)
+    makeSut(loadSurveyListSpy)
+    // Esperamos o heading ser renderizado
+    await waitFor(() => screen.getByRole('heading'))
+
+    const surveyList = screen.queryByTestId('survey-list')
+
+    expect(surveyList).not.toBeInTheDocument()
+
+    const error = screen.getByTestId('error')
+
+    expect(error).toHaveTextContent(errorMessage.message)
   })
 })

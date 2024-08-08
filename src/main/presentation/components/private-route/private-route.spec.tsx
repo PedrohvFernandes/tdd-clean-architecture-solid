@@ -8,7 +8,7 @@ import { PrivateRoute } from './private-route'
 import { ConfigRoute } from '@/config/index'
 import { mockAccountModel } from '@/domain/test'
 import { countQuantityRoute } from '@/utils/create-memory-history'
-import { render } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { createMemoryHistory, MemoryHistory } from 'history'
 
 type SutTypes = {
@@ -67,8 +67,9 @@ describe('PrivateRoute', () => {
     expect(history.location.pathname).toBe(ConfigRoute.fourDev.login.path)
   })
 
-  test('Should render current component if token is not empty', () => {
+  test('Should render current component if token is not empty', async () => {
     const { history } = makeSut()
     expect(history.location.pathname).toBe(ConfigRoute.fourDev.surveyList.path)
+    await waitFor(() => screen.getByRole('heading'))
   })
 })

@@ -21,6 +21,9 @@ export const mockSurveyModel = (): SurveyModel => ({
   didAnswer: faker.datatype.boolean()
 })
 
-const list = Array(10).fill(mockSurveyModel()) as SurveyModel[]
-
-export const mockSurveyListModel = (): SurveyModel[] => [...list]
+export const mockSurveyListModel = (): SurveyModel[] => [
+  mockSurveyModel(),
+  mockSurveyModel(),
+  mockSurveyModel(),
+  mockSurveyModel()
+]
