@@ -709,7 +709,7 @@
 
   #### 2. Testando o SurveyItem
 
-  #### 3. Testando casos de sucesso e erro
+  #### 3. Testando casos de sucesso e error
 
   ## Tecnologias:
   - Vite

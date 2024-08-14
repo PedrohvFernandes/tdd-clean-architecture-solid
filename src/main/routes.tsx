@@ -13,6 +13,7 @@ import { MakeLogin } from './factories/pages/login/login-factory'
 import { MakeSignUp } from './factories/pages/signup/signup-factory'
 import { DefaultLayoutLogged } from './presentation/layouts'
 import { SurveyList } from './presentation/pages/survey-list/survey-list'
+import { LoadSurveyListSpy } from './presentation/pages/survey-list/survey-list.spec'
 
 import { DefaultLayout } from '@/layouts/default-layout'
 
@@ -76,7 +77,8 @@ export const Router = createBrowserRouter([
     children: [
       {
         path: ConfigRoute.fourDev.surveyList.path,
-        element: <SurveyList />
+
+        element: <SurveyList loadSurveyList={new LoadSurveyListSpy()} />
       }
     ]
   },
