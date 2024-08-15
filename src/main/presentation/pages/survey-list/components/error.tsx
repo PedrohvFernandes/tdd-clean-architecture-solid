@@ -14,7 +14,7 @@ export function Error() {
       role="alert"
     >
       <strong className="font-bold">Erro!</strong>
-      <span className="block sm:inline" data-testid="error">
+      <span className="block sm:inline text-center" data-testid="error">
         {state.error}
       </span>
       <ButtonDefault name="reload" onClick={handleReload}>
