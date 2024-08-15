@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   HttpGetClient,
   HttpGetParams,
@@ -59,7 +60,8 @@ const mockGetRequest = (): HttpGetParams => ({
 // }
 
 // class HttpPostClientSpy<BodyType, ResponseType> implements HttpPostClient<BodyType, ResponseType> {
-class HttpPostClientSpy<ResponseType> implements HttpPostClient<ResponseType> {
+class HttpPostClientSpy<ResponseType = any>
+implements HttpPostClient<ResponseType> {
   url?: string
 
   body?: any
@@ -76,14 +78,16 @@ class HttpPostClientSpy<ResponseType> implements HttpPostClient<ResponseType> {
   }
 }
 
-class HttpGetClientSpy<R> implements HttpGetClient<R> {
+class HttpGetClientSpy<R = any> implements HttpGetClient<R> {
   url?: string
+  headers?: any
   response: HttpResponse<R> = {
     statusCode: HttpStatusCode.OK
   }
 
-  async get({ url }: HttpGetParams): Promise<HttpResponse<R>> {
+  async get({ url, headers }: HttpGetParams): Promise<HttpResponse<R>> {
     this.url = url
+    this.headers = headers
     return this.response
   }
 }
