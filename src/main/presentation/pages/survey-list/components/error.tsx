@@ -1,3 +1,5 @@
+import { ButtonDefault } from '@/main/presentation/components/buttons'
+
 import { useHookContextSurveyList } from './contexts/survey-list/use-hook-context-survey-list'
 
 export function Error() {
@@ -15,9 +17,9 @@ export function Error() {
       <span className="block sm:inline" data-testid="error">
         {state.error}
       </span>
-      <button name="reload" onClick={handleReload} data-testid="reload">
+      <ButtonDefault name="reload" onClick={handleReload}>
         Tentar novamente
-      </button>
+      </ButtonDefault>
     </div>
   )
 }
