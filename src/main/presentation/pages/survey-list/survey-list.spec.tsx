@@ -4,7 +4,7 @@ import { UnexpectedError } from '@/domain/errors'
 import { SurveyModel } from '@/domain/models'
 import { mockSurveyListModel } from '@/domain/test'
 import { LoadSurveyList } from '@/domain/usecases/load-survey-list'
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 export class LoadSurveyListSpy implements LoadSurveyList {
   surveys = mockSurveyListModel()
@@ -73,5 +73,23 @@ describe('SurveyList Component', () => {
     const error = screen.getByTestId('error')
 
     expect(error).toHaveTextContent(errorMessage.message)
+  })
+
+  test('Should call LoadSurveyList on reload', async () => {
+    const loadSurveyListSpy = new LoadSurveyListSpy()
+
+    jest
+      .spyOn(loadSurveyListSpy, 'loadAll')
+      .mockRejectedValueOnce(new UnexpectedError())
+    makeSut(loadSurveyListSpy)
+
+    await waitFor(() => screen.getByRole('heading'))
+
+    await waitFor(() => expect(screen.getByTestId('error')).toBeInTheDocument())
+    fireEvent.click(screen.getByTestId('reload'))
+
+    expect(loadSurveyListSpy.callsCount).toBe(1)
+
+    await waitFor(() => screen.getByRole('heading'))
   })
 })
