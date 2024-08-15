@@ -24,7 +24,11 @@ const mockPostRequest = (): HttpPostParams => ({
 })
 
 const mockGetRequest = (): HttpGetParams => ({
-  url: faker.internet.url()
+  url: faker.internet.url(),
+  headers: {
+    randomProperty: faker.string.uuid(),
+    anotherRandomProperty: faker.string.uuid()
+  }
 })
 
 // Spy é um duble de teste, é um tipo de mock, que serve para duas coisas:
