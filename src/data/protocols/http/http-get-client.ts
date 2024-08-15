@@ -2,6 +2,7 @@ import { HttpResponse } from './http-response'
 
 export interface HttpGetParams {
   url: string
+  headers?: any
 }
 
 // Quando criamos o get client ou post client a gente informa qual tipo de retorno vamos querer

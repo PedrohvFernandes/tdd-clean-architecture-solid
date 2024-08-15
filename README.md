@@ -715,6 +715,8 @@
 
   #### 5. Criando layout para o caso de erro
 
+  #### 6. Usando o Design Pattern Decorator
+
   ## Tecnologias:
   - Vite
   - React
