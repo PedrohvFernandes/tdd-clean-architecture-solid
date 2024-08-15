@@ -1,17 +1,19 @@
-import { createContext } from 'react'
+import React, { createContext } from 'react'
 
 import { SurveyModel } from '@/domain/models'
 
 export interface IState {
   surveys: SurveyModel[]
   error: string
+  reload: boolean
 }
 
 export interface ISurveyContextType {
   state: IState
   setError: (error: string) => void
   setSurveys: (surveys: SurveyModel[]) => void
-  // setState: React.Dispatch<React.SetStateAction<IState>>
+  setReload: () => void
+  setState: React.Dispatch<React.SetStateAction<IState>>
 }
 
 export const SurveyContext = createContext<ISurveyContextType>(

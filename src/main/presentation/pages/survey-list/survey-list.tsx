@@ -1,6 +1,6 @@
 /* eslint-disable multiline-ternary */
 
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Error, UlSurveyListItem } from './components'
 import { SurveyContext } from './components/contexts/survey-list/survey-context'
@@ -15,32 +15,40 @@ type Props = {
 export function SurveyList({ loadSurveyList }: Readonly<Props>) {
   const [state, setState] = useState({
     surveys: [] as SurveyModel[],
-    error: ''
+    error: '',
+    reload: false
   })
 
-  const setError = useCallback((error: string) => {
+  const setError = (error: string) => {
     setState((old) => ({ ...old, error }))
-  }, [])
+  }
 
-  const setSurveys = useCallback((surveys: SurveyModel[]) => {
+  const setSurveys = (surveys: SurveyModel[]) => {
     setState((old) => ({ ...old, surveys }))
-  }, [])
+  }
+
+  const setReload = () => {
+    setState((old) => ({ ...old, reload: !old.reload }))
+  }
 
   useEffect(() => {
     loadSurveyList
       .loadAll()
       .then((surveys) => setSurveys(surveys))
       .catch((error) => setError(error.message))
-  }, [loadSurveyList, state, setError, setSurveys])
+  }, [state.reload])
 
   return (
-    <div className="flex flex-col self-center w-full max-w-[800px] flex-grow py-6 px-10 gap-10 bg-disabled-background">
-      <h2 className="text-primary-DARK text-xl font-bold uppercase">
-        Enquetes
-      </h2>
-      <SurveyContext.Provider value={{ state, setError, setSurveys }}>
+    <SurveyContext.Provider
+      value={{ state, setError, setSurveys, setReload, setState }}
+    >
+      <div className="flex flex-col self-center w-full max-w-[800px] flex-grow py-6 px-10 gap-10 bg-disabled-background">
+        <h2 className="text-primary-DARK text-xl font-bold uppercase">
+          Enquetes
+        </h2>
+
         {state.error ? <Error /> : <UlSurveyListItem />}
-      </SurveyContext.Provider>
-    </div>
+      </div>
+    </SurveyContext.Provider>
   )
 }
