@@ -10,7 +10,7 @@ export function Error() {
   }
   return (
     <div
-      className="text-red-500 bg-red-100 border border-red-400 px-4 py-3 rounded relative"
+      className="text-red-500 bg-red-100 border border-red-400 px-4 py-3 rounded relative flex flex-col gap-2"
       role="alert"
     >
       <strong className="font-bold">Erro!</strong>
