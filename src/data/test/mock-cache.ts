@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker'
 
 export class GetStorageSpy implements GetStorage {
   key: string | undefined
-  value = {
+  value: any = {
     // accessToken: faker.string.uuid(),
     // name: faker
     randomProperty: faker.word.adjective(),
