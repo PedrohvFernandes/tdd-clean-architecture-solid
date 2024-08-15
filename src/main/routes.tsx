@@ -33,7 +33,7 @@ interface IMainLayoutProps {
   Layout: LayoutType
 }
 
-// Layout para gerenciar os diferentes headers
+// Layout para gerenciar os diferentes headers. Proxy
 const MainLayout = ({ isPrivate, Layout }: IMainLayoutProps) => {
   const LayoutComponent = layoutMap[Layout]
   if (isPrivate) {
