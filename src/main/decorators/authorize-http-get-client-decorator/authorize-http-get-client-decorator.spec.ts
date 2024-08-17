@@ -48,6 +48,7 @@ describe('AuthorizeHttpGetClientDecorator', () => {
     expect(httpGetClientSpy.headers).toEqual(httpRequest.headers)
   })
 
+  // Aqui estamos testando se o token de acesso está sendo enviado corretamente, sem ter o header na requisição. Ele é adicionado no momento que passamos a request para o get, e ele adiciona o token de acesso no header quem vem do GetStorage
   test('Should add headers to HttpGetClient', async () => {
     const { sut, getStorageSpy, httpGetClientSpy } = makeSut()
 
@@ -60,6 +61,31 @@ describe('AuthorizeHttpGetClientDecorator', () => {
     await sut.get(httpRequest)
     expect(httpGetClientSpy.url).toBe(httpRequest.url)
     expect(httpGetClientSpy.headers).toEqual({
+      'x-access-token': getStorageSpy.value.accessToken
+    })
+  })
+
+  // Aqui testamos se no headers ira adicionar o token + com o que já tinha no headers
+  test('Should merge headers to HttpGetClient', async () => {
+    const { sut, getStorageSpy, httpGetClientSpy } = makeSut()
+
+    const random = {
+      randomProperty: faker.string.uuid(),
+      anotherRandomProperty: faker.string.uuid()
+    }
+
+    getStorageSpy.value = mockAccountModel()
+
+    const httpRequest: HttpGetParams = {
+      url: faker.internet.url(),
+      headers: random
+    }
+
+    await sut.get(httpRequest)
+    expect(httpGetClientSpy.url).toBe(httpRequest.url)
+    expect(httpGetClientSpy.headers).toEqual({
+      randomProperty: random.randomProperty,
+      anotherRandomProperty: random.anotherRandomProperty,
       'x-access-token': getStorageSpy.value.accessToken
     })
   })
