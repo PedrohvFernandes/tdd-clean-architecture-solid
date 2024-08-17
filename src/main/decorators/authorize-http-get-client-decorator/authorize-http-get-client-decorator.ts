@@ -32,7 +32,7 @@ export class AuthorizeHttpGetClientDecorator implements HttpGetClient {
       })
     }
     // Com ou sem token de acesso, a requisição é feita normalmente. Com isso iremos validar se o token de acesso está sendo enviado corretamente.
-    await this.httpGetClient.get(params)
-    return null as unknown as HttpResponse
+    const httpResponse = await this.httpGetClient.get(params)
+    return httpResponse
   }
 }
