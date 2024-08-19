@@ -719,6 +719,8 @@
 
   #### 7. Refatorando os UseCases para usar TypeAlias internos
 
+  #### 8. Aplicando o Decorator na composição
+
   ## Tecnologias:
   - Vite
   - React
