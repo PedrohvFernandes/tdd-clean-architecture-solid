@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { Error, UlSurveyListItem } from './components'
 import { SurveyContext } from './components/contexts/survey-list/survey-context'
 
-import { SurveyModel } from '@/domain/models'
 import { LoadSurveyList } from '@/domain/usecases/load-survey-list'
 
 type Props = {
@@ -14,7 +13,7 @@ type Props = {
 
 export function SurveyList({ loadSurveyList }: Readonly<Props>) {
   const [state, setState] = useState({
-    surveys: [] as SurveyModel[],
+    surveys: [] as LoadSurveyList.Model[],
     error: '',
     reload: false
   })
@@ -23,7 +22,7 @@ export function SurveyList({ loadSurveyList }: Readonly<Props>) {
     setState((old) => ({ ...old, error }))
   }
 
-  const setSurveys = (surveys: SurveyModel[]) => {
+  const setSurveys = (surveys: LoadSurveyList.Model[]) => {
     setState((old) => ({ ...old, surveys }))
   }
 

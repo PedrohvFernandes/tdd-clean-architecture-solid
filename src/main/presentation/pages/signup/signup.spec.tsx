@@ -5,9 +5,9 @@ import { SignUp } from './signup'
 
 import { ConfigRoute } from '@/config/index'
 import { InvalidCredentialsError } from '@/domain/errors'
-import { AccountModel } from '@/domain/models'
-import { mockAccountModel } from '@/domain/test'
-import { Helper, ValidationSpy, AddAccountSpy } from '@/presentation/test'
+import { AddAccountSpy, mockAccountModel } from '@/domain/test'
+import { AddAccount } from '@/domain/usecases'
+import { Helper, ValidationSpy } from '@/presentation/test'
 import { countQuantityRoute } from '@/utils/create-memory-history'
 import { faker } from '@faker-js/faker'
 import { fireEvent, render, waitFor, screen } from '@testing-library/react'
@@ -16,7 +16,7 @@ import { createMemoryHistory } from 'history'
 type SutSignUpTypesReturn = {
   validationSpy: ValidationSpy
   addAccountSpy: AddAccountSpy
-  setCurrentAccountMock: (account: AccountModel) => void
+  setCurrentAccountMock: (account: AddAccount.Model) => void
 }
 
 type SutSignUpParams = {

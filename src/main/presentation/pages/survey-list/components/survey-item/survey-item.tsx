@@ -2,10 +2,10 @@ import { FooterItemSurveyList } from '../survey-item-list-components/footer-item
 import { ParagraphItemSurveyList } from '../survey-item-list-components/paragraph-item-survey-list'
 import { Icon, IconName } from '@/main/presentation/components/icon'
 
-import { SurveyModel } from '@/domain/models'
+import { LoadSurveyList } from '@/domain/usecases/load-survey-list'
 
 type SurveyItemProps = {
-  survey: SurveyModel
+  survey: LoadSurveyList.Model
 }
 
 export const SurveyItem = ({ survey }: SurveyItemProps) => {

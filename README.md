@@ -717,6 +717,8 @@
 
   #### 6. Usando o Design Pattern Decorator
 
+  #### 7. Refatorando os UseCases para usar TypeAlias internos
+
   ## Tecnologias:
   - Vite
   - React

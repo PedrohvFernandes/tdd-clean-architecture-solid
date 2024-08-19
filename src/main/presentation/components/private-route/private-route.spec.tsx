@@ -1,12 +1,11 @@
 import { Outlet, Route, Router, Routes } from 'react-router-dom'
 
 import { ApiContext } from '../../contexts/api/api-context'
-import { SurveyList } from '../../pages/survey-list/survey-list'
-import { LoadSurveyListSpy } from '../../pages/survey-list/survey-list.spec'
 import { PrivateRoute } from './private-route'
 
 import { ConfigRoute } from '@/config/index'
 import { mockAccountModel } from '@/domain/test'
+import { MakeSurvey } from '@/main/factories/pages/survey-list/survey-list-factory'
 import { countQuantityRoute } from '@/utils/create-memory-history'
 import { render, screen, waitFor } from '@testing-library/react'
 import { createMemoryHistory, MemoryHistory } from 'history'
@@ -47,7 +46,7 @@ const makeSut = (account = mockAccountModel()): SutTypes => {
           >
             <Route
               path={ConfigRoute.fourDev.surveyList.path}
-              element={<SurveyList loadSurveyList={new LoadSurveyListSpy()} />}
+              element={<MakeSurvey />}
             />
           </Route>
         </Routes>

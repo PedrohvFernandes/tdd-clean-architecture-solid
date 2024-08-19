@@ -1,9 +1,9 @@
 import React, { createContext } from 'react'
 
-import { SurveyModel } from '@/domain/models'
+import { LoadSurveyList } from '@/domain/usecases/load-survey-list'
 
 export interface IState {
-  surveys: SurveyModel[]
+  surveys: LoadSurveyList.Model[]
   error: string
   reload: boolean
 }
@@ -11,7 +11,7 @@ export interface IState {
 export interface ISurveyContextType {
   state: IState
   setError: (error: string) => void
-  setSurveys: (surveys: SurveyModel[]) => void
+  setSurveys: (surveys: LoadSurveyList.Model[]) => void
   setReload: () => void
   setState: React.Dispatch<React.SetStateAction<IState>>
 }

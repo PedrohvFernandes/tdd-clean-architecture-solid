@@ -3,8 +3,7 @@ import { RemoteAuthentication } from './remote-authentication'
 import { HttpStatusCode } from '@/data/protocols/http'
 import { HttpPostClientSpy } from '@/data/test'
 import { UnexpectedError, InvalidCredentialsError } from '@/domain/errors'
-import { AccountModel } from '@/domain/models'
-import { mockAccountModel, mockAuthentication } from '@/domain/test'
+import { mockAuthenticationModel, mockAuthentication } from '@/domain/test'
 // import { AuthenticationParams } from '@/domain/usecases'
 import { faker } from '@faker-js/faker'
 
@@ -15,7 +14,7 @@ import { faker } from '@faker-js/faker'
 type SutTypes = {
   sut: RemoteAuthentication
   // httpPostClientSpy: HttpPostClientSpy<AuthenticationParams, AccountModel>
-  httpPostClientSpy: HttpPostClientSpy<AccountModel>
+  httpPostClientSpy: HttpPostClientSpy<RemoteAuthentication.Model>
 }
 
 // Criamos um factory(design pattern) para criar o SUT, para evitar de ficar mudando o construtor toda vez que precisar mudar algo, porque aos poucos vai ter mais dependências e evitar de modificar a implementação do SUT toda vez que precisar mudar algo, usamos esse design pattern para evitar isso. Ele gera o SUT tendo acesso a todas as dependências que ele precisa, e se precisar mudar algo, muda só no factory
@@ -29,7 +28,7 @@ const makeSut = (url: string = faker.internet.url()): SutTypes => {
   //   AuthenticationParams,
   //   AccountModel
   // >()
-  const httpPostClientSpy = new HttpPostClientSpy<AccountModel>()
+  const httpPostClientSpy = new HttpPostClientSpy<RemoteAuthentication.Model>()
 
   // System Under Test - SUT - Nomenclatura para facilmente saber qual objeto estamos testando nessa class e é ela quem vai implementar o método que estamos testando auth() do usecase authentication. A gente implementa ela para o teste, com mocks, passando o post e a url fake, e la nela ela usa o post do spy e a url fake
   const sut = new RemoteAuthentication(url, httpPostClientSpy)
@@ -125,10 +124,10 @@ describe('RemoteAuthentication', () => {
   })
 
   // O teste de sucesso é o mais importante, porque é o que vai retornar o objeto que a camada de UI vai usar para mostrar ao usuário se ele está autenticado ou não
-  test('Should return an AccountModel if HttpPostClient returns 200', async () => {
+  test('Should return an Authentication.Model if HttpPostClient returns 200', async () => {
     const { sut, httpPostClientSpy } = makeSut()
 
-    const httpResult = mockAccountModel()
+    const httpResult = mockAuthenticationModel()
 
     httpPostClientSpy.response = {
       statusCode: HttpStatusCode.OK,

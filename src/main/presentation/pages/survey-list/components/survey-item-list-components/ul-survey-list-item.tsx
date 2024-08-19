@@ -2,7 +2,7 @@ import { useHookContextSurveyList } from '../contexts/survey-list/use-hook-conte
 import { SurveyItemEmpty } from '../shimmer-item-list'
 import { SurveyItem } from '../survey-item/survey-item'
 
-import { SurveyModel } from '@/domain/models'
+import { LoadSurveyList } from '@/domain/usecases/load-survey-list'
 
 /* eslint-disable multiline-ternary */
 export function UlSurveyListItem() {
@@ -13,7 +13,7 @@ export function UlSurveyListItem() {
       data-testid="survey-list"
     >
       {state.surveys.length ? (
-        state.surveys.map((survey: SurveyModel) => (
+        state.surveys.map((survey: LoadSurveyList.Model) => (
           <SurveyItem key={survey.id} survey={survey} />
         ))
       ) : (

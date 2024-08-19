@@ -6,12 +6,11 @@ import { Login } from './login'
 
 import { ConfigRoute } from '@/config/index'
 import { InvalidCredentialsError } from '@/domain/errors'
-import { AccountModel } from '@/domain/models'
-import { mockAccountModel } from '@/domain/test'
+import { AuthenticationSpy, mockAccountModel } from '@/domain/test'
+import { Authentication } from '@/domain/usecases'
 import {
   Helper,
   // UpdateCurrentAccountMock,
-  AuthenticationSpy,
   ValidationSpy
 } from '@/presentation/test'
 import { countQuantityRoute } from '@/utils/create-memory-history'
@@ -23,7 +22,7 @@ import { createMemoryHistory } from 'history'
 type SutLoginTypesReturn = {
   validationSpy: ValidationSpy
   authenticationSpy: AuthenticationSpy
-  setCurrentAccountMock: (account: AccountModel) => void
+  setCurrentAccountMock: (account: Authentication.Model) => void
 }
 
 type SutLoginParams = {

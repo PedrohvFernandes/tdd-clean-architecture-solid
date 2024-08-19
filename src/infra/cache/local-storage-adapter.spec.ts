@@ -1,6 +1,5 @@
 import { LocalStorageAdapter } from './local-storage-adapter'
 
-import { AccountModel } from '@/domain/models'
 import { faker } from '@faker-js/faker'
 
 import 'jest-localstorage-mock'
@@ -26,10 +25,7 @@ describe('LocalStorageAdapter', () => {
       objectValue --> Ele retorna aleatoriamente um valor do objeto de alguma chave
     Com isso preferi fazer meu objeto randomico
     */
-    const value = {
-      accessToken: faker.string.uuid(),
-      name: faker.internet.userName()
-    } as AccountModel
+    const value = {}
     sut.set(key, value)
     expect(localStorage.setItem).toHaveBeenCalledWith(
       key,
@@ -43,9 +39,8 @@ describe('LocalStorageAdapter', () => {
     const key = faker.database.column()
 
     const value = {
-      accessToken: faker.string.uuid(),
-      name: faker.internet.userName()
-    } as AccountModel
+      [faker.database.column()]: faker.word.adverb()
+    }
 
     // Dentro do localStorage temos o getItem que é uma função que recebe uma chave e retorna o valor que está salvo naquela chave, então estamos mockando essa função para que ela retorne o valor que passamos, assim podemos testar se o valor que passamos é o mesmo que ele retorna. Esse mock retorna o valor que passamos pro metodo getItem do localStorage
     const getItemSpy = jest

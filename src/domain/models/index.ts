@@ -5,4 +5,3 @@
 // export type { AccountModel }
 
 export * from './account-models'
-export * from './survey-model'

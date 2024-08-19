@@ -8,10 +8,10 @@ import { AccountModel } from '@/domain/models'
 */
 
 // Type alias, colocando os params em um objeto, o body da requisição vai ser esse obj.
-export type AuthenticationParams = {
-  email: string
-  password: string
-}
+// export type AuthenticationParams = {
+//   email: string
+//   password: string
+// }
 
 // Basicamente a interface serve com um contrato, ela dita o que a classe que implementar ela precisa ter. Nesse caso:
 /*
@@ -21,5 +21,14 @@ export type AuthenticationParams = {
   Authentication --> Uma abstração, que alguem vai implementar e que implementar precisa ter um metodo auth que recebe esses params e que retorne o accountmodel de forma async
 */
 export interface Authentication {
-  auth(params: AuthenticationParams): Promise<AccountModel>
+  auth(params: Authentication.Params): Promise<Authentication.Model>
+}
+
+export namespace Authentication {
+  export type Params = {
+    email: string
+    password: string
+  }
+
+  export type Model = AccountModel
 }
