@@ -721,6 +721,8 @@
 
   #### 8. Aplicando o Decorator na composição
 
+  #### 9. Testando o logout
+
   ## Tecnologias:
   - Vite
   - React
