@@ -245,10 +245,8 @@ describe('Login Component', () => {
       authenticationSpy.account
     )
 
-    // Verifica se estamos no /, porque o navigate(form-login) vai para / apos dar tudo certo no auth
-    expect(history.location.pathname).toBe(
-      ConfigRoute.fourDev.default.source.path
-    )
+    // Verifica se estamos no /survey-list, porque o navigate(form-login) vai para /survey-list apos dar tudo certo no auth
+    expect(history.location.pathname).toBe(ConfigRoute.fourDev.surveyList.path)
     expect(countQuantityRoute({}).quantityRoutes).toBe(1)
   })
 

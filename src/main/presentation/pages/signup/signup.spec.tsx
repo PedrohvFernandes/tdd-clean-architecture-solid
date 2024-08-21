@@ -251,9 +251,7 @@ describe('SignUp Component', () => {
 
     expect(setCurrentAccountMock).toHaveBeenCalledWith(addAccountSpy.account)
 
-    expect(history.location.pathname).toBe(
-      ConfigRoute.fourDev.default.source.path
-    )
+    expect(history.location.pathname).toBe(ConfigRoute.fourDev.surveyList.path)
     expect(countQuantityRoute({}).quantityRoutes).toBe(1)
   })
 
