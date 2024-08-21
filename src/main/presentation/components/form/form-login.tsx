@@ -45,7 +45,7 @@ export function FormLogin({
 
       // No fim deletamos o useCase de salvar somente o token(saveAccessToken), depois passamos para salvar o account: token e nome(updateCurrentAccount). Porque esse useCase updaterCurrentAccount e saveAccessToken era so um quebra galho para salvar a conta do user. Colocamos agora em um contexto, envolta do Route em App.tsx para que toda a aplicação tenha o token e o name, ao invés de ter que passar como dependência para todos os componentes que precisam do token e do name, mas que no fim faz a mesma coisa, salva o token e o name do user. Era passado como dependência pro login vindo do factories>page e do login.spec vindo de um mock Spy e do login pra esse forms.
       setCurrentAccount(account)
-      navigate(ConfigRoute.fourDev.default.source.path)
+      navigate(ConfigRoute.fourDev.surveyList.path)
     } catch (error) {
       // const e = error as Error
       // setErrorMessageMain(e.message)

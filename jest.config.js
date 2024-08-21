@@ -48,11 +48,13 @@ module.exports = {
           ]
         }
       }
-    ]
+    ],
+    '^.+\\.svg$': '<rootDir>/svgTransform.js'
   },
   moduleNameMapper: {
     // Uma expressão regular, dentro do parentese eu coloco o que eu quero capturar, no caso qualquer carácter, e depois eu coloco o que eu quero substituir, e dentro do $1 eu coloco o que eu capturei dentro do parentese, ou seja, eu troco tudo que vier depois de @/ por <rootDir>/$1
     // '^@/(.*)$': '<rootDir>/$1',
+    '^@/assets/(.*)$': '<rootDir>/src/assets/$1',
     '^@/config/(.*)$': '<rootDir>/src/config/$1',
     '^@/infra/(.*)$': '<rootDir>/src/infra/$1',
     '^@/data/(.*)$': '<rootDir>/src/data/$1',

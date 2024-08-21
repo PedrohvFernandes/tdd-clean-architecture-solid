@@ -46,7 +46,7 @@ export function FormSignUp({ addAccount, ...rest }: IFormSignUpProps) {
         passwordConfirmation
       })
       setCurrentAccount(account)
-      navigate(ConfigRoute.fourDev.default.source.path)
+      navigate(ConfigRoute.fourDev.surveyList.path)
     } catch (error) {
       setErrorMessageMain(
         error instanceof Error ? error.message : 'Erro inesperado'
