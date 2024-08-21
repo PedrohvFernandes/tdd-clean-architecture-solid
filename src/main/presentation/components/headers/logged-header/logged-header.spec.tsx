@@ -3,6 +3,7 @@ import { Router } from 'react-router-dom'
 import { LoggedHeader } from './logged-header'
 
 import { ConfigRoute } from '@/config/index'
+import { mockAccountModel } from '@/domain/test'
 import { ApiContext } from '@/main/presentation/contexts/api/api-context'
 import { countQuantityRoute } from '@/utils/create-memory-history'
 import { fireEvent, render, screen } from '@testing-library/react'
@@ -13,7 +14,7 @@ type SutTypes = {
   setCurrentAccountMock: (account: any) => void
 }
 
-const makeSut = (): SutTypes => {
+const makeSut = (account = mockAccountModel()): SutTypes => {
   const history = createMemoryHistory({
     initialEntries: [ConfigRoute.fourDev.surveyList.path] // Ponto de partida /survey-list
   })
@@ -31,7 +32,7 @@ const makeSut = (): SutTypes => {
     <ApiContext.Provider
       value={{
         setCurrentAccount: setCurrentAccountMock,
-        getCurrentAccount: jest.fn()
+        getCurrentAccount: () => account
       }}
     >
       <Router location={history.location} navigator={history}>
@@ -52,5 +53,11 @@ describe('Header Component', () => {
     fireEvent.click(screen.getByTestId('logout'))
     expect(setCurrentAccountMock).toHaveBeenCalledWith(undefined)
     expect(history.location.pathname).toBe(ConfigRoute.fourDev.login.path)
+  })
+
+  test('Shouldrender username correctly', () => {
+    const account = mockAccountModel()
+    makeSut(account)
+    expect(screen.getByTestId('username')).toHaveTextContent(account.name)
   })
 })
