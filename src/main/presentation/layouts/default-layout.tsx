@@ -9,7 +9,7 @@ export function DefaultLayout() {
     <>
       {/* <div className="container"> */}
       {/* <div className="w-full max-w-[70rem] mx-auto min-h-screen pt-20"> */}
-      <div className="flex flex-col justify-between h-screen">
+      <div className="flex flex-col  min-h-screen gap-12">
         <LoginHeader />
         <Outlet />
         <Footer />
