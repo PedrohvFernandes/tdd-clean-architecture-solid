@@ -8,7 +8,7 @@ import { ConfigRoute } from '@/config/index'
 import { useHookApi } from '@/main/hooks/use-hook-api-context'
 
 function LoggedHeader() {
-  const { setCurrentAccount } = useHookApi()
+  const { setCurrentAccount, getCurrentAccount } = useHookApi()
   const navigate = useNavigate()
 
   const logout = (
@@ -25,7 +25,7 @@ function LoggedHeader() {
         <Logo className="size-20" />
 
         <div className="flex flex-col items-end text-white gap-2">
-          {/* <span>{getCurrentAccount().name}</span> */}
+          <span data-testid="username"> {getCurrentAccount().name}</span>
           <a
             data-testid="logout"
             className="hover:underline text-sm"
