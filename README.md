@@ -723,6 +723,8 @@
 
   #### 9. Testando o logout
 
+  #### 10. Testando o username do header
+
   ## Tecnologias:
   - Vite
   - React
