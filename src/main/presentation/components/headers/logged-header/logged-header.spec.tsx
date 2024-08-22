@@ -3,6 +3,7 @@ import { Router } from 'react-router-dom'
 import { LoggedHeader } from './logged-header'
 
 import { ConfigRoute } from '@/config/index'
+import { AccountModel } from '@/domain/models'
 import { mockAccountModel } from '@/domain/test'
 import { ApiContext } from '@/main/presentation/contexts/api/api-context'
 import { countQuantityRoute } from '@/utils/create-memory-history'
@@ -11,7 +12,7 @@ import { createMemoryHistory, MemoryHistory } from 'history'
 
 type SutTypes = {
   history: MemoryHistory
-  setCurrentAccountMock: (account: any) => void
+  setCurrentAccountMock: (account: AccountModel) => void
 }
 
 const makeSut = (account = mockAccountModel()): SutTypes => {

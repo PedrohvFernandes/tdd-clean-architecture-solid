@@ -1,18 +1,53 @@
+import { Router } from 'react-router-dom'
+
+import { ApiContext } from '../../contexts/api/api-context'
 import { SurveyList } from './survey-list'
 
-import { UnexpectedError } from '@/domain/errors'
-import { LoadSurveyListSpy } from '@/domain/test'
+import { ConfigRoute } from '@/config/index'
+import { AccessDeniedError, UnexpectedError } from '@/domain/errors'
+import { AccountModel } from '@/domain/models'
+import { LoadSurveyListSpy, mockAccountModel } from '@/domain/test'
+import { countQuantityRoute } from '@/utils/create-memory-history'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { createMemoryHistory, MemoryHistory } from 'history'
 
 type SutTypes = {
   loadSurveyListSpy: LoadSurveyListSpy
+  history: MemoryHistory
+  setCurrentAccountMock: (account: AccountModel) => void
 }
 
 const makeSut = (loadSurveyListSpy = new LoadSurveyListSpy()): SutTypes => {
-  render(<SurveyList loadSurveyList={loadSurveyListSpy} />)
+  const history = createMemoryHistory({
+    initialEntries: [ConfigRoute.fourDev.surveyList.path] // Ponto de partida /survey-list
+  })
+
+  // Adicionar um listener para atualizar a lista de rotas visitadas sempre que a localização do histórico mudar
+  history.listen((location) => {
+    countQuantityRoute({
+      location
+    })
+  })
+
+  const setCurrentAccountMock = jest.fn()
+
+  render(
+    <ApiContext.Provider
+      value={{
+        setCurrentAccount: setCurrentAccountMock,
+        getCurrentAccount: () => mockAccountModel()
+      }}
+    >
+      <Router location={history.location} navigator={history}>
+        <SurveyList loadSurveyList={loadSurveyListSpy} />
+      </Router>
+    </ApiContext.Provider>
+  )
 
   return {
-    loadSurveyListSpy
+    loadSurveyListSpy,
+    history,
+    setCurrentAccountMock
   }
 }
 
@@ -44,7 +79,7 @@ describe('SurveyList Component', () => {
     expect(screen.queryByTestId('error')).not.toBeInTheDocument()
   })
 
-  test('Should render error on failure', async () => {
+  test('Should render error on UnexpectedError', async () => {
     const loadSurveyListSpy = new LoadSurveyListSpy()
 
     const errorMessage = new UnexpectedError()
@@ -62,6 +97,19 @@ describe('SurveyList Component', () => {
     const error = screen.getByTestId('error')
 
     expect(error).toHaveTextContent(errorMessage.message)
+  })
+  test('Should logout on AccessDeniedError', async () => {
+    const loadSurveyListSpy = new LoadSurveyListSpy()
+
+    // Mockando o loadAll para retornar um erro
+    jest
+      .spyOn(loadSurveyListSpy, 'loadAll')
+      .mockRejectedValueOnce(new AccessDeniedError())
+    const { history, setCurrentAccountMock } = makeSut(loadSurveyListSpy)
+    // Esperamos o heading ser renderizado
+    await waitFor(() => screen.getByRole('heading'))
+    expect(setCurrentAccountMock).toHaveBeenCalledWith(undefined)
+    expect(history.location.pathname).toBe(ConfigRoute.fourDev.login.path)
   })
 
   test('Should call LoadSurveyList on reload', async () => {
