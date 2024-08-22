@@ -725,6 +725,8 @@
 
   #### 10. Testando o username do header
 
+  #### 11. Derrubando o usuário no erro 403
+
   ## Tecnologias:
   - Vite
   - React
