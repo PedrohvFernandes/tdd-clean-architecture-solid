@@ -45,6 +45,7 @@ export function SurveyList({ loadSurveyList }: Readonly<Props>) {
         if (error instanceof AccessDeniedError) {
           setCurrentAccount(undefined as any)
           navigate(ConfigRoute.fourDev.login.path)
+          return
         }
         setError(error.message)
       })

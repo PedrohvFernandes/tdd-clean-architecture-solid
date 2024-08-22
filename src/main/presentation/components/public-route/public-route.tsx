@@ -17,9 +17,7 @@ export const PublicRoute = ({ children }: IPublicRouteProps) => {
     return children
   }
 
-  if (getCurrentAccount().accessToken) {
-    return <Navigate to={ConfigRoute.fourDev.surveyList.path} />
-  }
+  return <Navigate to={ConfigRoute.fourDev.surveyList.path} />
 }
 
 // /* eslint-disable prettier/prettier */
