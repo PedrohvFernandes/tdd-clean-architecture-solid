@@ -1,23 +1,21 @@
 import React, { memo } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { Logo } from '../../logo'
 import { DefaultHeader } from '../default-header'
 
-import { ConfigRoute } from '@/config/index'
+import { useLogout } from '@/main/hooks'
 import { useHookApi } from '@/main/hooks/use-hook-api-context'
 
 function LoggedHeader() {
-  const { setCurrentAccount, getCurrentAccount } = useHookApi()
-  const navigate = useNavigate()
+  const { logout } = useLogout()
 
-  const logout = (
+  const { getCurrentAccount } = useHookApi()
+
+  const buttonClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ): void => {
     event.preventDefault()
-
-    setCurrentAccount(undefined as any)
-    navigate(ConfigRoute.fourDev.login.path)
+    logout()
   }
   return (
     <DefaultHeader>
@@ -30,7 +28,7 @@ function LoggedHeader() {
             data-testid="logout"
             className="hover:underline text-sm"
             href="#"
-            onClick={logout}
+            onClick={buttonClick}
           >
             Sair
           </a>
