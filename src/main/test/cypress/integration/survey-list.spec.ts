@@ -1,3 +1,4 @@
+import { ConfigRoute } from '../../../../config'
 import * as Helper from '../support/helpers'
 import * as Http from '../support/survey-list-mocks'
 
@@ -16,5 +17,10 @@ describe('Private Routes', () => {
       'contain.text',
       'Algo de errado aconteceu. Tente novamente em breve.'
     )
+  })
+
+  it('Should logout on AccessDeniedError', () => {
+    Http.mockAccessDeniedError()
+    Helper.testUrl(ConfigRoute.fourDev.login.path)
   })
 })
