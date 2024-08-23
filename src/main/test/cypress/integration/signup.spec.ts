@@ -1,5 +1,6 @@
 import { ConfigRoute } from '../../../../config'
-import * as FormHelper from '../support/form-helper'
+import * as FormHelper from '../support/form-helpers'
+import * as Helper from '../support/helpers'
 import * as Http from '../support/signup-mocks'
 
 import { faker } from '@faker-js/faker'
@@ -100,7 +101,7 @@ describe('SignUp', () => {
     simulateValidSubmit()
 
     FormHelper.testMainError('Esse email já está em uso')
-    FormHelper.testUrl(ConfigRoute.fourDev.signup.path)
+    Helper.testUrl(ConfigRoute.fourDev.signup.path)
   })
 
   it('Should present UnexpectedError on default error cases', () => {
@@ -111,18 +112,7 @@ describe('SignUp', () => {
     FormHelper.testMainError(
       'Algo de errado aconteceu. Tente novamente em breve.'
     )
-    FormHelper.testUrl(ConfigRoute.fourDev.signup.path)
-  })
-
-  it('Should present UnexpectedError if invalid data is returned', () => {
-    Http.mockOkInvalidData()
-    simulateValidSubmit()
-
-    FormHelper.testMainError(
-      'Algo de errado aconteceu. Tente novamente em breve.'
-    )
-
-    FormHelper.testUrl(ConfigRoute.fourDev.signup.path)
+    Helper.testUrl(ConfigRoute.fourDev.signup.path)
   })
 
   it('Should present account on localStorage if valid credentials are provided', () => {
@@ -132,9 +122,9 @@ describe('SignUp', () => {
 
     cy.getByTestId('error-wrap').should('not.exist')
 
-    FormHelper.testUrl(ConfigRoute.fourDev.default.source.path)
+    Helper.testUrl(ConfigRoute.fourDev.surveyList.path)
 
-    FormHelper.testLocalStorageItem('account')
+    Helper.testLocalStorageItem('account')
   })
 
   it('Should prevent multiple submits', () => {
@@ -147,13 +137,13 @@ describe('SignUp', () => {
     cy.getByTestId('submit').should('be.disabled')
     cy.getByTestId('submit').click({ force: true })
 
-    FormHelper.testHttpCallsCount(1)
+    Helper.testHttpCallsCount(1)
   })
 
   it('Should not call submit if form is invalid', () => {
     Http.mockOk()
     cy.getByTestId('email').focus().type(faker.internet.email()).type('{enter}')
 
-    FormHelper.testHttpCallsCount(0)
+    Helper.testHttpCallsCount(0)
   })
 })

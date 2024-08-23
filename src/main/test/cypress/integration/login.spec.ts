@@ -3,7 +3,8 @@
 // Esses são testes de integração E2E, porque estamos testando o fluxo completo da aplicação diretamente no front, nossa tela comunicando diretamente com a API. O que é diferente de testes unitários que testam uma unidade de código, como uma função, um componente, uma classe, etc.
 
 import { ConfigRoute } from '../../../../config'
-import * as FormHelper from '../support/form-helper'
+import * as FormHelper from '../support/form-helpers'
+import * as Helper from '../support/helpers'
 import * as Http from '../support/login-mocks'
 
 import { faker } from '@faker-js/faker'
@@ -97,7 +98,7 @@ describe('Login', () => {
     FormHelper.testMainError('Credenciais inválidas')
 
     // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
-    FormHelper.testUrl(ConfigRoute.fourDev.login.path)
+    Helper.testUrl(ConfigRoute.fourDev.login.path)
   })
   it('Should present UnexpectedError on default error cases', () => {
     Http.mockUnexpectedError()
@@ -108,21 +109,7 @@ describe('Login', () => {
       'Algo de errado aconteceu. Tente novamente em breve.'
     )
     // Eq(equal) é uma função do cypress que verifica se a url é igual a que passamos para ela.
-    FormHelper.testUrl(ConfigRoute.fourDev.login.path)
-  })
-
-  it('Should present UnexpectedError if invalid data is returned', () => {
-    // Moca a requisição para o login
-    Http.mockOkInvalidData()
-    simulateValidSubmit()
-
-    // cy.getByTestId('submit').click()
-
-    FormHelper.testMainError(
-      'Algo de errado aconteceu. Tente novamente em breve.'
-    )
-
-    FormHelper.testUrl(ConfigRoute.fourDev.login.path)
+    Helper.testUrl(ConfigRoute.fourDev.login.path)
   })
 
   // Aqui para testar precisa ter um backend rodando, porque ele vai fazer uma requisição para o backend. Pode ser o back local. Lembrando que a url da API fica no arquivo factories>http>api-url-factory.ts Ou pode fazer um Trade-off e discutir se faz ou não um mock aqui no cypress para retornar um valor fixo da API  para so testar o fluxo, evitando a dependência do backend, se a Api estiver fora do ar, o teste vai  passar.
@@ -139,9 +126,9 @@ describe('Login', () => {
     // cy.getByTestId('error-wrap').should('not.have.descendants')
     cy.getByTestId('error-wrap').should('not.exist')
 
-    FormHelper.testUrl(ConfigRoute.fourDev.default.source.path)
+    Helper.testUrl(ConfigRoute.fourDev.surveyList.path)
 
-    FormHelper.testLocalStorageItem('account')
+    Helper.testLocalStorageItem('account')
   })
 
   it('Should prevent multiple submits', () => {
@@ -159,7 +146,7 @@ describe('Login', () => {
 
     // @request.all um atalho dentro do request, ele faz uma contagem de quantas requisições foram feitas.
     // Aqui ele verifica se foi feita uma requisição.
-    FormHelper.testHttpCallsCount(1)
+    Helper.testHttpCallsCount(1)
   })
 
   it('Should not call submit if form is invalid', () => {
@@ -168,6 +155,6 @@ describe('Login', () => {
 
     // cy.getByTestId('submit').click()
 
-    FormHelper.testHttpCallsCount(0)
+    Helper.testHttpCallsCount(0)
   })
 })

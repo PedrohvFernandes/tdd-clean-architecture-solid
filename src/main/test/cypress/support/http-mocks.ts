@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { Method } from 'cypress/types/net-stubbing'
 
-export const mockInvalidCredentialsError = (url: RegExp): void => {
+export const mockUnauthorizedError = (url: RegExp): void => {
   // Mocando
   // https://github.com/jhipster/generator-jhipster/issues/13345
   // Expressão regular para interceptar qualquer requisição que tenha login no meio da url, qualquer url que tenha login no meio, ele vai interceptar.
@@ -15,8 +15,8 @@ export const mockInvalidCredentialsError = (url: RegExp): void => {
   })
 }
 
-export const mockEmailInUseError = (url: RegExp): void => {
-  cy.intercept('POST', url, {
+export const mockForbiddenError = (url: RegExp, method: Method): void => {
+  cy.intercept(method, url, {
     statusCode: 403,
     body: {
       error: faker.word.adjective()
@@ -24,7 +24,7 @@ export const mockEmailInUseError = (url: RegExp): void => {
   })
 }
 
-export const mockUnexpectedError = (url: RegExp, method: Method): void => {
+export const mockServerError = (url: RegExp, method: Method): void => {
   cy.intercept(method, url, {
     statusCode: faker.helpers.arrayElement([400, 404, 500]),
     body: {

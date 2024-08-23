@@ -732,6 +732,9 @@
     ```bash
       t = !sh -c 'git tag -a $1 -m $1' -
     ```
+  ### 14. Testes de Integração com Cypress
+
+  #### 1. Refatorando os testes atuais
 
   ## Tecnologias:
   - Vite
