@@ -728,6 +728,10 @@
   #### 11. Derrubando o usuário no erro 403
 
   #### 12. Criando Custom Hooks
+    Mais um comando para o Git config: `git config --edit --global":
+    ```bash
+      t = !sh -c 'git tag -a $1 -m $1' -
+    ```
 
   ## Tecnologias:
   - Vite
