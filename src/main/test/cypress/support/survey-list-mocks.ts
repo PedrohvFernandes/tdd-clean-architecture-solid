@@ -1,7 +1,7 @@
 import * as Http from './http-mocks'
 
 export const mockUnexpectedError = (): void =>
-  Http.mockServerError(/surveys/, 'POST')
+  Http.mockServerError(/surveys/, 'GET')
 
 export const mockAccessDeniedError = (): void =>
-  Http.mockForbiddenError(/surveys/, 'POST')
+  Http.mockForbiddenError(/surveys/, 'GET')
