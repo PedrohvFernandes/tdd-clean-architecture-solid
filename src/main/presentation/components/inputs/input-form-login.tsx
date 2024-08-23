@@ -2,8 +2,8 @@ import { InputHTMLAttributes, useEffect } from 'react'
 
 import { InputForm } from './input-form'
 
-import { useHookErrorState } from '@/hooks/use-hook-error-state-context'
 import { useHookForm } from '@/main/hooks'
+import { useHookErrorState } from '@/main/hooks/use-hook-error-state-context'
 import { Validation } from '@/protocols/validation'
 
 interface InputFormProps extends InputHTMLAttributes<HTMLInputElement> {
