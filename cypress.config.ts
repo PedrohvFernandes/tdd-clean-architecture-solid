@@ -14,7 +14,8 @@ export default defineConfig({
     },
     // Os arquivos de teste que serão executados
     specPattern: 'src/main/test/cypress/integration/**/*.spec.{js,jsx,ts,tsx}',
-    fixturesFolder: false,
+    // fixturesFolder: false,
+    fixturesFolder: 'src/main/test/cypress/fixtures',
     // supportFile: false,
     supportFile: 'src/main/test/cypress/support/index.js',
     video: false

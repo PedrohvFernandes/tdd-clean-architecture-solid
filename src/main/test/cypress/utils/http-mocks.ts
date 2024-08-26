@@ -37,14 +37,16 @@ export const mockServerError = (url: RegExp, method: Method): void => {
 export const mockOk = (
   url: RegExp,
   method: Method,
-  body: any,
+  fixture: string,
+  // body: any,
   aliasRequest: string = 'request',
   delay: number = 0
 ): void => {
   cy.intercept(method, url, {
     statusCode: 200,
-    body, // corpo do retorno
-    delay
+    // body, // corpo do retorno
+    delay,
+    // fixture é uma função do cypress que pega um arquivo json(dentro da pasta fixtures) e retorna ele como corpo da resposta da requisição. Por exemplo account.json
+    fixture
   }).as(aliasRequest) // Alias(apelido) para a requisição
-  console.log(body)
 }

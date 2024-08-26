@@ -3,11 +3,19 @@
 // Esses são testes de integração E2E, porque estamos testando o fluxo completo da aplicação diretamente no front, nossa tela comunicando diretamente com a API. O que é diferente de testes unitários que testam uma unidade de código, como uma função, um componente, uma classe, etc.
 
 import { ConfigRoute } from '../../../../config'
-import * as FormHelper from '../support/form-helpers'
-import * as Helper from '../support/helpers'
-import * as Http from '../support/login-mocks'
+import * as FormHelper from '../utils/form-helpers'
+import * as Helper from '../utils/helpers'
+import * as Http from '../utils/http-mocks'
 
 import { faker } from '@faker-js/faker'
+
+const path = /login/
+
+const mockInvalidCredentialsError = (): void => Http.mockUnauthorizedError(path)
+const mockUnexpectedError = (): void => Http.mockServerError(path, 'POST')
+const mockSuccess = (delay: number = 0): void =>
+  // Account é o nome do arquivo json que esta dentro da pasta fixtures
+  Http.mockOk(path, 'POST', 'account', 'request', delay)
 
 const populateFields = (): void => {
   cy.getByTestId('email').focus().type(faker.internet.email())
@@ -77,7 +85,7 @@ describe('Login', () => {
   })
 
   it('Should present invalidCredentialsError on 401', () => {
-    Http.mockInvalidCredentialsError()
+    mockInvalidCredentialsError()
 
     simulateValidSubmit()
 
@@ -101,7 +109,7 @@ describe('Login', () => {
     Helper.testUrl(ConfigRoute.fourDev.login.path)
   })
   it('Should present UnexpectedError on default error cases', () => {
-    Http.mockUnexpectedError()
+    mockUnexpectedError()
 
     simulateValidSubmit()
 
@@ -115,7 +123,7 @@ describe('Login', () => {
   // Aqui para testar precisa ter um backend rodando, porque ele vai fazer uma requisição para o backend. Pode ser o back local. Lembrando que a url da API fica no arquivo factories>http>api-url-factory.ts Ou pode fazer um Trade-off e discutir se faz ou não um mock aqui no cypress para retornar um valor fixo da API  para so testar o fluxo, evitando a dependência do backend, se a Api estiver fora do ar, o teste vai  passar.
   it('Should present account on localStorage if valid credentials are provided', () => {
     // Moca a requisição para o login
-    Http.mockOk()
+    mockSuccess()
 
     simulateValidSubmit()
 
@@ -134,7 +142,7 @@ describe('Login', () => {
   it('Should prevent multiple submits', () => {
     const delayMs = 100
 
-    Http.mockOk(delayMs)
+    mockSuccess(delayMs)
 
     populateFields()
     // Dbclick é um clique duplo, ele vai tentar fazer duas requisições ao mesmo tempo.
@@ -150,7 +158,7 @@ describe('Login', () => {
   })
 
   it('Should not call submit if form is invalid', () => {
-    Http.mockOk()
+    mockSuccess()
     cy.getByTestId('email').focus().type(faker.internet.email()).type('{enter}') // Esse comando simula o enter
 
     // cy.getByTestId('submit').click()

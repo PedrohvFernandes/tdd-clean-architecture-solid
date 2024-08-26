@@ -1,18 +1,23 @@
 import { ConfigRoute } from '../../../../config'
-import * as Helper from '../support/helpers'
-import * as Http from '../support/survey-list-mocks'
+import * as Helper from '../utils/helpers'
+import * as Http from '../utils/http-mocks'
 
-import { faker } from '@faker-js/faker'
+const path = /surveys/
+
+const mockUnexpectedError = (): void => Http.mockServerError(path, 'GET')
+
+const mockAccessDeniedError = (): void => Http.mockForbiddenError(path, 'GET')
+
 describe('Private Routes', () => {
   beforeEach(() => {
-    Helper.setLocalStorageItem('account', {
-      accessToken: faker.string.uuid(),
-      name: faker.internet.userName()
+    cy.fixture('account').then((account) => {
+      Helper.setLocalStorageItem('account', account)
     })
+
     cy.visit('')
   })
   it('Should present error on UnexpectedError', () => {
-    Http.mockUnexpectedError()
+    mockUnexpectedError()
     cy.getByTestId('error').should(
       'contain.text',
       'Algo de errado aconteceu. Tente novamente em breve.'
@@ -20,18 +25,18 @@ describe('Private Routes', () => {
   })
 
   it('Should logout on AccessDeniedError', () => {
-    Http.mockAccessDeniedError()
+    mockAccessDeniedError()
     Helper.testUrl(ConfigRoute.fourDev.login.path)
   })
 
   it('Should present correct username', () => {
-    Http.mockUnexpectedError()
+    mockUnexpectedError()
     const { name } = Helper.getLocalStorageItem('account')
     cy.getByTestId('username').should('contain.text', name)
   })
 
   it('Should logout on logout link click', () => {
-    Http.mockUnexpectedError()
+    mockUnexpectedError()
     cy.getByTestId('logout').click()
     Helper.testUrl(ConfigRoute.fourDev.login.path)
   })

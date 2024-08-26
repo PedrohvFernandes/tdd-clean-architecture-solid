@@ -738,6 +738,8 @@
 
   #### 2. Criando testes de integração para o SurveyList 12
 
+  #### 3. Criando teste do caso de sucesso e adicionando fixtures
+
   ## Tecnologias:
   - Vite
   - React
