@@ -23,4 +23,10 @@ describe('Private Routes', () => {
     Http.mockAccessDeniedError()
     Helper.testUrl(ConfigRoute.fourDev.login.path)
   })
+
+  it('Should present correct username', () => {
+    Http.mockUnexpectedError()
+    const { name } = Helper.getLocalStorageItem('account')
+    cy.getByTestId('username').should('contain.text', name)
+  })
 })
