@@ -740,6 +740,10 @@
 
   #### 3. Criando teste do caso de sucesso e adicionando fixtures
 
+  ### 15. Continuous Delivery + Deploy
+
+  #### 1. Refactor useEffect
+
   ## Tecnologias:
   - Vite
   - React
