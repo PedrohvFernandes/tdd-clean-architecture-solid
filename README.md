@@ -555,7 +555,7 @@
 
   ### 7. Continuous Integration
 
-  #### 1. Integrando o projeto com TravisCI e Coveralls
+  #### 1. Integrando o projeto com TravisCI(tipo um github actions da vida, você pode usar um ou outro para por exemplo fazer o deploy da aplicação e subir os arquivos por exemplo para a Heroku, ou usar um vercel que engloba tudo. So usamos o travisCi para fins didáticos para rodar os testes e o coveralls) e Coveralls
     - Nessa aula iremos realizar a integração do projeto com o TravisCI e Coveralls, para que possamos ter um ambiente de integração contínua(continuos integration - CI) e monitoramento de cobertura de testes.
     - Criamos uma segunda branch chamada *feat/ci* `git checkout -b feat/ci` ele ja cria e muda para ela
     - Antes de fazer o CI/CD usamos a ferramenta de check, para ver se os pacotes instalados estão atualizados. Instalamos globalmente ```npm i -g npm-check``` e rodamos o comando ```npm-check``` no terminal do projeto para verificar todos os pacotes do projeto. Podemos rodar o comando ```npm-check -u -s``` para atualizar todos os pacotes do projeto. O -S faz um skip em todos os pacotes que ele diz que não estamos utilizando, como por exemplo o tailwindcss, os types... que nunca importamos diretamente em nosso projeto, e o -U da a opção de atualizar todos os pacotes, para selecionar o pacote que deseja atualizar basta apertar a barra de espaço e depois enter.
@@ -742,7 +742,11 @@
 
   ### 15. Continuous Delivery + Deploy
 
-  #### 1. Refactor useEffect
+  #### 1. Refactor useEffect - Não fiz, ja tinha feito diferente do professor
+
+  #### 2. Configurando o Webpack para produção - Não fiz como o do professor
+
+  #### 3. Continuous Delivery - Travis CI + Heroku - Não fiz, irei usar a vercel para deploy + vite. So estou usando travisCi para rodar os testes e o coveralls
 
   ## Tecnologias:
   - Vite
