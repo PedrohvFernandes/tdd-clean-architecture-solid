@@ -4,6 +4,7 @@
   "version": "1.6.1",
   "scripts": {
     "dev": "vite",
+    "dev:open": "npm run dev -- --open",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
@@ -15,6 +16,8 @@
     "test:ci": "npm test -- --coverage",
     "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
     "test:cypress": "cypress open",
+    "test:cypress:run": "cypress run",
+    "test:cypress:ci": "start-server-and-test dev http://localhost:3000 test:cypress:run",
     "prepare": "husky",
     "check": "npm-check -u -s"
   },
@@ -56,6 +59,7 @@
     "jest-transform-stub": "^2.0.0",
     "lint-staged": "^15.2.2",
     "postcss": "^8.4.38",
+    "start-server-and-test": "^2.0.5",
     "tailwindcss": "^3.4.3",
     "ts-jest": "^29.1.2",
     "ts-jest-mock-import-meta": "^1.2.0",

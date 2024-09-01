@@ -13,6 +13,11 @@ node_js:
   # Não consegui usar a latest, node
   - 17.9
 
+# Esse addons é um macete quando você quer usar o cypress dentro do travisCi. libgconf-2-4 lib do Linux e precisa ter pra ele conseguir fazer o cypress funcionar dentro do Travis
+addons:
+  packages:
+    - libgconf-2-4
+
 cache: npm
 
 install:
@@ -24,3 +29,8 @@ script:
   - eslint 'src/**/*.{ts,tsx}'
   # A diferença do test:coveralls para o test:ci. É que depois que fizer o build no travis e subir, ele vai gerar o coverage localmente e vai subir esse status para o coveralls
   - npm run test:coveralls
+  - npm run test:cypress:ci
+
+# Caso tenha deploy pelo travis para por exemplo uma heroku da vida, isso desabilita os emails quando for fazer os deploys por ele
+ notifications:
+  email: false

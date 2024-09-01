@@ -150,7 +150,9 @@ describe('Login', () => {
     cy.getByTestId('submit').click()
     cy.getByTestId('submit').should('be.disabled')
     cy.getByTestId('submit').click({ force: true })
-    // cy.wait('@request')
+
+    // Fazemos isso porque no travisCi esta dando erro no testHttpCallsCount colocando 0 no lugar de 1. Então aguardamos a requisição ser feita para fazer o assert. Aqui no local não acontece
+    cy.wait('@request')
 
     // @request.all um atalho dentro do request, ele faz uma contagem de quantas requisições foram feitas.
     // Aqui ele verifica se foi feita uma requisição.

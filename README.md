@@ -756,6 +756,20 @@
       # Atualizar as dependências
       npm audit fix
     ```
+  
+  ### 5. Incluindo o Cypress no CI/CD
+    Instalamos o pacote
+    ```bash
+      # Para rodar o cypress usamos o npm run test:cypress ele abre a janela do cypress e depois clicamos em E2E Testing para testar. Agora ao instalar essa lib, usamos o test:cypress:run, ele roda os testes sem abrir a janela do cypress, rodando tudo no terminal, mas para isso funcionar tem que ter um server rodando, no arquivo de config do cypress falamos para escutar a porta 3000 que é a porta que o vite roda o projeto. Então para isso aqui funcionar no ambiente do travisCi, antes de rodar o test do run eu preciso garantir que tenha um server rodando e essa lib que instalamos ela meio que faz de forma, ele cria tipo um loop que fica aguardando até ter o servidor rodando na porta que definimos e so depois disso ele executa o comando. Essa lib é meio que um proxy para você conseguir rodar o script so depois que alguma coisa acontece
+      npm i -D start-server-and-test
+    ```
+    Comandos criados na aula
+    ```bash
+      # Roda o cypress sem abrir a janela do cypress
+      "test:cypress:run": "cypress run"
+      # Roda o cypress sem abrir a janela do cypress, mas antes de rodar ele roda o script start que é o script que inicia o projeto, e so depois que o projeto estiver rodando ele roda o cypress. Usamos o script dev que é o script que inicia o projeto, o vite por si proprio não abre a janela do navegador ao rodar o projeto. O http-get é para ele esperar o servidor estar rodando na porta 3000 para depois rodar o cypress. Então subiu o servidor, aguardamos o dev rodar e levantar o servidor e a porta 3000 dar um ok, ai ele roda o cypress. Esse comando vai ser rodado no ambiente de CI, ou seja, no travisCi, e tambem no ambiente de desenvolvimento, quando for dar push p[ara o github]
+      "test:cypress:ci": "start-server-and-test dev http-get://localhost:3000 test:cypress:run",
+    ```
 
   ## Tecnologias:
   - Vite
