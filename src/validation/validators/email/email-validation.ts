@@ -11,7 +11,6 @@ export class EmailValidation implements FieldValidation {
     // return emailRegex.test(fieldValue)
     //   ? null
     //   : new InvalidFieldError(this.fieldName)
-    console.log(input[this.fieldName])
     // Se não tiver valor no campo ou o email for valido, retorna null, senão retorna um erro
     const isValid =
       !input[this.fieldName] || emailRegex.test(input[this.fieldName])

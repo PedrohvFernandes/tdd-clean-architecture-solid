@@ -746,7 +746,16 @@
 
   #### 2. Configurando o Webpack para produção - Não fiz como o do professor
 
-  #### 3. Continuous Delivery - Travis CI + Heroku - Não fiz, irei usar a vercel para deploy + vite. So estou usando travisCi para rodar os testes e o coveralls
+  #### 3. Continuous Delivery - Travis CI + Heroku - Não fiz, irei usar a vercel para deploy + vite. So estou usando travisCi para rodar os testes e o coveralls. [Deploy na vercel](https://react-cleancode.vercel.app)
+  
+  #### 4. Adicionando Favicon
+    Comandos usados na aula
+    ```bash
+      # Verificar se tem vulnerabilidades
+      npm audit
+      # Atualizar as dependências
+      npm audit fix
+    ```
 
   ## Tecnologias:
   - Vite

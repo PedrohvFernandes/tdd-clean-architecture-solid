@@ -28,7 +28,8 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.0",
     "tailwind-merge": "^2.2.2",
-    "tdd-clean-architecture-solid": "file:"
+    "tdd-clean-architecture-solid": "file:",
+    "vite-plugin-favicons-inject": "^2.2.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
