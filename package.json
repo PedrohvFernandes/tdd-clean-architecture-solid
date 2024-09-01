@@ -1,7 +1,7 @@
 {
   "name": "tdd-clean-architecture-solid",
   "private": true,
-  "version": "1.6.1",
+  "version": "1.6.2",
   "scripts": {
     "dev": "vite",
     "dev:open": "npm run dev -- --open",
