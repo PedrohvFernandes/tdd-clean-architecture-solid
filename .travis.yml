@@ -30,7 +30,3 @@ script:
   # A diferença do test:coveralls para o test:ci. É que depois que fizer o build no travis e subir, ele vai gerar o coverage localmente e vai subir esse status para o coveralls
   - npm run test:coveralls
   - npm run test:cypress:ci
-
-# Caso tenha deploy pelo travis para por exemplo uma heroku da vida, isso desabilita os emails quando for fazer os deploys por ele
- notifications:
-  email: false
