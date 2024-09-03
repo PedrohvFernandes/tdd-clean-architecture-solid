@@ -18,8 +18,6 @@ addons:
   packages:
     - libgconf-2-4
 
-cache: npm
-
 install:
   - npm install
 
