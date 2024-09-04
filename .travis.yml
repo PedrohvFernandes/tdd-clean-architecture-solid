@@ -11,7 +11,7 @@ node_js:
   # A versão 17 da problema com o faker
   # - 17
   # Não consegui usar a latest, node
-  - 17.9
+  - 20
 
 # Esse addons é um macete quando você quer usar o cypress dentro do travisCi. libgconf-2-4 lib do Linux e precisa ter pra ele conseguir fazer o cypress funcionar dentro do Travis. Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
 addons:
