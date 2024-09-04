@@ -1,5 +1,6 @@
 [![Build Status](https://app.travis-ci.com/PedrohvFernandes/tdd-clean-architecture-solid.svg?token=RT9Scg3zQr1wJByy1sD9&branch=main)](https://app.travis-ci.com/PedrohvFernandes/tdd-clean-architecture-solid)
 [![Coverage Status](https://coveralls.io/repos/github/PedrohvFernandes/tdd-clean-architecture-solid/badge.svg?branch=)](https://coveralls.io/github/PedrohvFernandes/tdd-clean-architecture-solid?branch=main)
+[![Known Vulnerabilities](https://snyk.io/test/github/PedrohvFernandes/tdd-clean-architecture-solid/badge.svg)](https://snyk.io/test/github/PedrohvFernandes/tdd-clean-architecture-solid)
 
 # Curso ReactJS, Hooks, TDD, Clean Architecture, SOLID e Patterns - Rodrigo manguinho
 
@@ -767,9 +768,10 @@
     ```bash
       # Roda o cypress sem abrir a janela do cypress
       "test:cypress:run": "cypress run"
-      # Roda o cypress sem abrir a janela do cypress, mas antes de rodar ele roda o script start que é o script que inicia o projeto, e so depois que o projeto estiver rodando ele roda o cypress. Usamos o script dev que é o script que inicia o projeto, o vite por si proprio não abre a janela do navegador ao rodar o projeto. O http-get é para ele esperar o servidor estar rodando na porta 3000 para depois rodar o cypress. Então subiu o servidor, aguardamos o dev rodar e levantar o servidor e a porta 3000 dar um ok, ai ele roda o cypress. Esse comando vai ser rodado no ambiente de CI, ou seja, no travisCi, e tambem no ambiente de desenvolvimento, quando for dar push para o github. Quando for dar o push agora, lembre de fechar a porta 3000 localmente, porque se ela estiver aberta e ao dar push o comando abaixo vai abrir outra porta e o cypress não vai conseguir rodar, pois a porta 3000 ja esta ocupada
-      "test:cypress:ci": "start-server-and-test dev http-get://localhost:3000 test:cypress:run",
+      # Roda o cypress sem abrir a janela do cypress, mas antes de rodar ele roda o script start que é o script que inicia o projeto, e so depois que o projeto estiver rodando ele roda o cypress. Usamos o script dev que é o script que inicia o projeto, o vite por si proprio não abre a janela do navegador ao rodar o projeto. Então subiu o servidor, aguardamos o dev rodar e levantar o servidor e a porta 3000 dar um ok, ai ele roda o cypress. Esse comando vai ser rodado no ambiente de CI, ou seja, no travisCi, e tambem no ambiente de desenvolvimento, quando for dar push para o github. Quando for dar o push agora, lembre de fechar a porta 3000 localmente, porque se ela estiver aberta e ao dar push o comando abaixo vai abrir outra porta e o cypress não vai conseguir rodar, pois a porta 3000 ja esta ocupada
+      "test:cypress:ci": "start-server-and-test dev http://localhost:3000 test:cypress:run",
     ```
+  #### 6. Adicionando badge do Snyk(lib para monitorar as vulnerabilidades do nosso projeto)
 
   ## Tecnologias:
   - Vite
