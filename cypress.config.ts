@@ -18,8 +18,7 @@ export default defineConfig({
     fixturesFolder: 'src/main/test/cypress/fixtures',
     // supportFile: false,
     supportFile: 'src/main/test/cypress/support/index.js',
-    video: false,
-    screenshotsFolder: false
+    video: false
   },
   component: {
     devServer: {

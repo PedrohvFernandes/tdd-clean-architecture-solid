@@ -46,6 +46,6 @@
     }
   },
   "include": ["src"],
-  // "exclude": ["src/main/test"],
+  "exclude": ["src/main/test"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

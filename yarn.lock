@@ -316,7 +316,7 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@cypress/request@^3.0.0":
+"@cypress/request@^3.0.1":
   version "3.0.1"
   resolved "https://registry.npmjs.org/@cypress/request/-/request-3.0.1.tgz"
   integrity sha512-TWivJlJi8ZDx2wGOw1dbLuHJKUYX7bWySw377nlnGOW3hP9/MUKIsEdXT/YngWxVdgNCHRBmFlBipE+5/2ZZlQ==
@@ -2067,12 +2067,12 @@ cypress-vite@^1.5.0:
     chokidar "^3.5.3"
     debug "^4.3.4"
 
-cypress@^13.12.0:
-  version "13.12.0"
-  resolved "https://registry.npmjs.org/cypress/-/cypress-13.12.0.tgz"
-  integrity sha512-udzS2JilmI9ApO/UuqurEwOvThclin5ntz7K0BtnHBs+tg2Bl9QShLISXpSEMDv/u8b6mqdoAdyKeZiSqKWL8g==
+cypress@^13.14.1:
+  version "13.14.1"
+  resolved "https://registry.npmjs.org/cypress/-/cypress-13.14.1.tgz"
+  integrity sha512-Wo+byPmjps66hACEH5udhXINEiN3qS3jWNGRzJOjrRJF3D0+YrcP2LVB1T7oYaVQM/S+eanqEvBWYc8cf7Vcbg==
   dependencies:
-    "@cypress/request" "^3.0.0"
+    "@cypress/request" "^3.0.1"
     "@cypress/xvfb" "^1.2.4"
     "@types/sinonjs__fake-timers" "8.1.1"
     "@types/sizzle" "^2.3.2"
@@ -2111,7 +2111,7 @@ cypress@^13.12.0:
     request-progress "^3.0.0"
     semver "^7.5.3"
     supports-color "^8.1.1"
-    tmp "~0.2.1"
+    tmp "~0.2.3"
     untildify "^4.0.0"
     yauzl "^2.10.0"
 
@@ -6126,7 +6126,7 @@ through@^2.3.8, through@~2.3, through@~2.3.1, through@2:
   resolved "https://registry.npmjs.org/through/-/through-2.3.8.tgz"
   integrity sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==
 
-tmp@~0.2.1:
+tmp@~0.2.3:
   version "0.2.3"
   resolved "https://registry.npmjs.org/tmp/-/tmp-0.2.3.tgz"
   integrity sha512-nZD7m9iCPC5g0pYmcaxogYKggSfLsdxl8of3Q/oIbqCqLLIO9IAF0GWjX1z9NZRHPiXv8Wex4yDCaZsgEw0Y8w==
