@@ -13,10 +13,11 @@ node_js:
   # Não consegui usar a latest, node
   - 17.9
 
-# Esse addons é um macete quando você quer usar o cypress dentro do travisCi. libgconf-2-4 lib do Linux e precisa ter pra ele conseguir fazer o cypress funcionar dentro do Travis
-# addons:
-#   packages:
-#     - libgconf-2-4
+# Esse addons é um macete quando você quer usar o cypress dentro do travisCi. libgconf-2-4 lib do Linux e precisa ter pra ele conseguir fazer o cypress funcionar dentro do Travis. Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
+addons:
+  apt:
+    packages:
+      - libgconf-2-4
 
 cache:
   npm: true
