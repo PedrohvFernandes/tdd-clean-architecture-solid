@@ -1,4 +1,5 @@
-import react from '@vitejs/plugin-react-swc'
+// import react from '@vitejs/plugin-react-swc' Desabilitando o plugin react-swc por conta do travisCi Internal server error: Bindings not found.
+import react from '@vitejs/plugin-react' // Habilitando o plugin react
 import path from 'path'
 import { defineConfig } from 'vite'
 

@@ -46,7 +46,7 @@
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "@types/react-router-dom": "^5.3.3",
-    "@vitejs/plugin-react-swc": "^3.5.0",
+    "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.19",
     "coveralls": "^3.1.1",
     "cypress": "^13.12.0",
