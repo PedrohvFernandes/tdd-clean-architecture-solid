@@ -60,7 +60,7 @@ describe('Private Routes', () => {
     // O CY retora a li do jquery
     cy.get('li:nth-child(1)').then((li) => {
       // O find pega um elemento dentro do li. O find retorna um objeto do jquery, com isso pegamos o texto do elemento
-      assert.equal(li.find('[data-testid="day"]').text(), '01')
+      assert.equal(li.find('[data-testid="day"]').text(), '02')
       assert.equal(li.find('[data-testid="month"]').text(), 'fev')
       assert.equal(li.find('[data-testid="year"]').text(), '2021')
       assert.equal(li.find('[data-testid="question"]').text(), 'Question 1')
@@ -74,7 +74,7 @@ describe('Private Routes', () => {
 
     cy.get('li:nth-child(2)').then((li) => {
       // O find pega um elemento dentro do li. O find retorna um objeto do jquery, com isso pegamos o texto do elemento
-      assert.equal(li.find('[data-testid="day"]').text(), '02')
+      assert.equal(li.find('[data-testid="day"]').text(), '03')
       assert.equal(li.find('[data-testid="month"]').text(), 'out')
       assert.equal(li.find('[data-testid="year"]').text(), '2020')
       assert.equal(li.find('[data-testid="question"]').text(), 'Question 2')
