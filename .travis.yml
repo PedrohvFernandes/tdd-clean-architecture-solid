@@ -1,6 +1,7 @@
 dist: focal
 
 language: node_js
+
 # versões disponiveis: https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
 node_js: 
 # Podemos acompanhar todo processo de build pelos logs do travis de cada repo
@@ -13,13 +14,14 @@ node_js:
   # A versão 17 da problema com o faker
   # - 17
   # Não consegui usar a latest, node
+  # Para resolver o erro, coloquei outra maquinal: focal
   - 20
 
 # Esse addons é um macete quando você quer usar o cypress dentro do travisCi. libgconf-2-4 lib do Linux e precisa ter pra ele conseguir fazer o cypress funcionar dentro do Travis. Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
 addons:
   apt:
     packages:
-      - libgconf-2-4
+    - libgconf-2-4
 
 cache:
   npm: true
