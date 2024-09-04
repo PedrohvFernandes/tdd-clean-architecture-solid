@@ -1,3 +1,5 @@
+dist: focal
+
 language: node_js
 # versões disponiveis: https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
 node_js: 
